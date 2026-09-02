@@ -1,24 +1,33 @@
+import type { LucideIcon } from "lucide-react-native";
 import React from "react";
 import {
-    ActivityIndicator,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-    ViewStyle,
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle,
 } from "react-native";
 import Typography from "./Typography";
 
-type AppButtonProps = {
+type CustomButtonProps = {
   text: string;
-  onPress: () => void;
+  onPress?: () => void;
+
+  // Colors
   backgroundColor?: string;
   textColor?: string;
-  icon?: React.ElementType;
+  iconColor?: string;
+
+  // Icon
+  icon?: LucideIcon;
   iconPosition?: "left" | "right";
-  iconColor: string;
   iconSize?: number;
+
+  // States
   disabled?: boolean;
   loading?: boolean;
+
+  // Style
   style?: ViewStyle;
 };
 
@@ -27,15 +36,22 @@ const CustomButton = ({
   onPress,
   backgroundColor = "#1F5D58",
   textColor = "#FFFFFF",
+  iconColor,
   icon: Icon,
   iconPosition = "left",
-  iconColor,
   iconSize = 20,
   disabled = false,
   loading = false,
   style,
-}: AppButtonProps) => {
+}: CustomButtonProps) => {
   const isDisabled = disabled || loading;
+  const resolvedIconColor = iconColor ?? textColor;
+
+  const renderIcon = () => {
+    if (!Icon) return null;
+
+    return <Icon size={iconSize} color={resolvedIconColor} strokeWidth={2} />;
+  };
 
   return (
     <TouchableOpacity
@@ -52,28 +68,16 @@ const CustomButton = ({
       ]}
     >
       {loading ? (
-        <ActivityIndicator color={textColor} />
+        <ActivityIndicator size="small" color={textColor} />
       ) : (
-        <View style={styles.content}>
-          {iconPosition === "left" && Icon && (
-            <Icon
-              size={iconSize}
-              color={iconColor ?? textColor}
-              strokeWidth={2}
-            />
-          )}
+        <View style={styles.btnContent}>
+          {iconPosition === "left" && renderIcon()}
 
-          <Typography variant="body2" color="#ffffff">
+          <Typography variant="h4" color={textColor}>
             {text}
           </Typography>
 
-          {iconPosition === "right" && Icon && (
-            <Icon
-              size={iconSize}
-              color={iconColor ?? textColor}
-              strokeWidth={2}
-            />
-          )}
+          {iconPosition === "right" && renderIcon()}
         </View>
       )}
     </TouchableOpacity>
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  content: {
+  btnContent: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

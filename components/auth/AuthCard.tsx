@@ -1,6 +1,9 @@
+import { AppTheme } from "@/constants/theme";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
+import { useTheme } from "react-native-paper";
 import Typography from "../ui/Typography";
+import { authCardStyles } from "./style";
 
 type AuthCardProps = {
   icon: React.ReactNode;
@@ -9,6 +12,8 @@ type AuthCardProps = {
 };
 
 const AuthCard = ({ icon, title, paragraph }: AuthCardProps) => {
+  const theme = useTheme<AppTheme>();
+  const styles = authCardStyles(theme);
   return (
     <View style={styles.container}>
       <View style={styles.iconWrap}>{icon}</View>
@@ -21,37 +26,3 @@ const AuthCard = ({ icon, title, paragraph }: AuthCardProps) => {
 };
 
 export default AuthCard;
-
-const styles = StyleSheet.create({
-  container: {
-    width: "45%",
-    height: 150,
-    padding: 8,
-    borderRadius: 16,
-    backgroundColor: "#ffffff",
-    borderWidth: 1,
-    borderColor: "#E3D9C9",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    gap: 8,
-    margin: 10,
-
-    // shadow (Android)
-    elevation: 4,
-  },
-  iconWrap: {
-    width: 36,
-    height: 36,
-    borderRadius: 10,
-    backgroundColor: "#F5EFE3",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 4,
-  },
-  title: {},
-  paragraph: {
-    fontSize: 12,
-
-    lineHeight: 17,
-  },
-});
