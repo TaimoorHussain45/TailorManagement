@@ -2,11 +2,11 @@ import FingerPrintLogo from "@/components/auth/FingerPrintLogo";
 import CustomButton from "@/components/ui/CustomButton";
 import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
+import { validateBiometricAvailability } from "@/utils/biometric";
 import * as LocalAuthentication from "expo-local-authentication";
-import { router } from "expo-router";
 import { ArrowRight } from "lucide-react-native";
 import React, { useState } from "react";
-import { Alert, View } from "react-native";
+import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { loginStyle } from "./style";
@@ -17,20 +17,8 @@ const Login = () => {
   const [isUnlocking, setIsUnlocking] = useState(false);
 
   const handleUnlock = async () => {
-    const hasHardware = await LocalAuthentication.hasHardwareAsync();
-    if (!hasHardware) {
-      Alert.alert("Not supported", "This device has no fingerprint sensor.");
-      return;
-    }
-
-    const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-    if (!isEnrolled) {
-      Alert.alert(
-        "No fingerprint set up",
-        "Set up a fingerprint in your device settings first.",
-      );
-      return;
-    }
+    const isValid = await validateBiometricAvailability();
+    if (!isValid) return;
 
     setIsUnlocking(true);
     const result = await LocalAuthentication.authenticateAsync({
@@ -40,9 +28,9 @@ const Login = () => {
     });
     setIsUnlocking(false);
 
-    if (result.success) {
-      router.replace("/(tabs)"); // adjust to your actual post-login route
-    }
+    // if (result.success) {
+    //   router.replace("/(tabs)"); // adjust to your actual post-login route
+    // }
   };
 
   return (

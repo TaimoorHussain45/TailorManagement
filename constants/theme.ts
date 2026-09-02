@@ -1,143 +1,109 @@
 import type { MD3Theme } from "react-native-paper";
 import { MD3Colors } from "react-native-paper";
 
-export type ThemeColors = typeof MD3Colors & {
-  white: string;
-  black: string;
-  charcoal: string;
-  slate: string;
-  gunmetal: string;
-  background: string;
-  textPrimary: string;
-  textSecondary: string;
-  divider: string;
-  redAccent: string;
-  surface: string;
-  success: string;
-  warning: string;
-  info: string;
-  border: string;
-  mint: string;
-  focusBorder: string;
-  textTertiary: string;
-  gradientStart: string;
-  gradientEnd: string;
-  cardBorder: string;
-  glowBg: string;
-  glowBorder: string;
-  activeLabel: string;
-  headingText: string;
-  secondaryText: string;
-  captionText: string;
-  avatarSurface: string;
-  pillSurface: string;
-  progressTrack: string;
-  progressAccent: string;
-  ctaBorder: string;
-  ctaSurface: string;
-  ctaBg: string;
-  ctaText: string;
-  avatarBorder: string;
-  overflowAvatarBg: string;
-  moreAvatarBg: string;
-  shadowColor: string;
-  screenGradientTop: string;
-  screenGradientBottom: string;
-  fabGradient: [string, string];
-  fabPlus: string;
-  errorText: string;
-  logo: string;
-  titleText: string;
-  notificationSurface: string;
-  notificationBorder: string;
-  notificationIcon: string;
-  notificationDot: string;
-  avatarBackground: string;
-  purpleAccent: string;
-  purpleAvatar: string;
-  avatarRed: string;
-  avatarYellow: string;
-  avatarTeal: string;
-  successBg: string;
-  textMuted: string;
-  borderPrimary: string;
-  borderSecondary: string;
-  bgCard: string;
-  bgInvite: string;
-  iconBg: string;
-  gradient: [string, string];
-  tagBg: string;
-  roleBg: string;
-  onlineBorder: string;
-  labelInvite: string;
-  codeText: string;
-  progressFillStart: string;
-  progressFillEnd: string;
-  taskFilterActiveBg: string;
-  containerInvite: string;
-  green: string;
-  greendim: string;
-  greenCard: string;
-  deleteRed: string;
-  modalSurface: string;
-  modalCard: string;
-  modalMuted: string;
-  modalBorder: string;
-  modalInputBg: string;
-  modalBackdrop: string;
-  lightOverlay: string;
-  darkBlack: string;
-  offWhite: string;
-  error: string;
-  surfaceAlt: string;
-  errorBgDark: string;
-  borderStrong: string;
-  primary: string;
-  dangerSoft: string;
-  successSoft: string;
-  errorSoft: string;
-  card: string;
-  cardAlt: string;
-  borderColor: string;
-  sheetBackground: string;
-  gray500: string;
-  baseBackground: [string, string];
-
-  softBlack?: string;
-  graphiteGray?: string;
-  GunmetalGray?: string;
-  textColor?: string;
-  labelText?: string;
-  redish?: string;
-  cardBackground?: string;
-  mintGreen?: string;
-  borderFocus?: string;
-  title?: string;
-  location?: string;
-  caption?: string;
-  avatarBg?: string;
-  pillBg?: string;
-  cardProgressTrack?: string;
-  purplePrimary?: string;
-  secondaryAvatar1?: string;
-  secondaryAvatar2?: string;
-  secondaryAvatar3?: string;
-  screenGradientStart?: string;
-  screenGradientEnd?: string;
-  loadingErrorText?: string;
-  bellBackground?: string;
-  bellBorder?: string;
-  bellIcon?: string;
-  bellDot?: string;
-  avatarBackground?: string;
-  notificationSurface?: string;
-  notificationBorder?: string;
-  notificationIcon?: string;
-  notificationDot?: string;
-  overflowAvatarBg?: string;
-  moreAvatarBg?: string;
-  ctaBg?: string;
-};
+export type ThemeColors = typeof MD3Colors &
+  Record<string, string | [string, string]> & {
+    white: string;
+    black: string;
+    charcoal: string;
+    slate: string;
+    gunmetal: string;
+    background: string;
+    textPrimary: string;
+    textSecondary: string;
+    divider: string;
+    redAccent: string;
+    surface: string;
+    success: string;
+    warning: string;
+    info: string;
+    border: string;
+    mint: string;
+    focusBorder: string;
+    textTertiary: string;
+    gradientStart: string;
+    gradientEnd: string;
+    cardBorder: string;
+    glowBg: string;
+    glowBorder: string;
+    activeLabel: string;
+    headingText: string;
+    secondaryText: string;
+    captionText: string;
+    avatarSurface: string;
+    pillSurface: string;
+    progressTrack: string;
+    progressAccent: string;
+    ctaBorder: string;
+    ctaSurface: string;
+    ctaBg: string;
+    ctaText: string;
+    avatarBorder: string;
+    overflowAvatarBg: string;
+    moreAvatarBg: string;
+    shadowColor: string;
+    screenGradientTop: string;
+    screenGradientBottom: string;
+    fabGradient: [string, string];
+    fabPlus: string;
+    errorText: string;
+    logo: string;
+    titleText: string;
+    notificationSurface: string;
+    notificationBorder: string;
+    notificationIcon: string;
+    notificationDot: string;
+    avatarBackground: string;
+    purpleAccent: string;
+    purpleAvatar: string;
+    avatarRed: string;
+    avatarYellow: string;
+    avatarTeal: string;
+    successBg: string;
+    textMuted: string;
+    borderPrimary: string;
+    borderSecondary: string;
+    bgCard: string;
+    bgInvite: string;
+    iconBg: string;
+    gradient: [string, string];
+    tagBg: string;
+    roleBg: string;
+    onlineBorder: string;
+    labelInvite: string;
+    codeText: string;
+    progressFillStart: string;
+    progressFillEnd: string;
+    taskFilterActiveBg: string;
+    containerInvite: string;
+    green: string;
+    greendim: string;
+    greenCard: string;
+    deleteRed: string;
+    modalSurface: string;
+    modalCard: string;
+    modalMuted: string;
+    modalBorder: string;
+    modalInputBg: string;
+    modalBackdrop: string;
+    lightOverlay: string;
+    darkBlack: string;
+    offWhite: string;
+    error: string;
+    surfaceAlt: string;
+    errorBgDark: string;
+    borderStrong: string;
+    primary: string;
+    dangerSoft: string;
+    successSoft: string;
+    errorSoft: string;
+    card: string;
+    cardAlt: string;
+    borderColor: string;
+    sheetBackground: string;
+    gray500: string;
+    baseBackground: [string, string];
+  };
 
 export type AppTheme = MD3Theme & {
   colors: ThemeColors;
@@ -302,9 +268,12 @@ export const colors: AppColors = {
     white: "#000000",
     black: "#ffffff",
     background: "#171817",
+    divider: "#334155",
+    surface: "#13131A",
     textSecondary: "#94A3B8",
     labelText: "#94A3B8",
     sheetBackground: "#0D0D0D",
+    avatarSurface: "#1E2937",
     redAccent: "#F87171",
     redish: "#F87171",
     mint: "#FFFFFF1A",
@@ -378,6 +347,7 @@ export const colors: AppColors = {
     borderPrimary: "#222126",
     borderSecondary: "#262626",
     bgCard: "#1c1c26",
+    modalCard: "#1c1c26",
     bgInvite: "#13141a",
     iconBg: "#2d2a3d",
     gradient: ["#13141A", "#13141A"] as [string, string],
