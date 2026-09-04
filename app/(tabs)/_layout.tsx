@@ -10,6 +10,9 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        sceneStyle: {
+          backgroundColor: theme.colors.tabBarBackground,
+        },
         tabBarStyle: {
           display: "flex",
           backgroundColor: theme.colors.white,
@@ -25,19 +28,19 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
+        name="Customers"
+        options={{
+          title: "Customers",
+          tabBarIcon: ({ color, size }) => <Users size={size} color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="orders"
         options={{
           title: "Orders",
           tabBarIcon: ({ color, size }) => (
             <ClipboardList size={size} color={color} />
           ),
-        }}
-      />
-      <Tabs.Screen
-        name="Customers"
-        options={{
-          title: "Customers",
-          tabBarIcon: ({ color, size }) => <Users size={size} color={color} />,
         }}
       />
     </Tabs>

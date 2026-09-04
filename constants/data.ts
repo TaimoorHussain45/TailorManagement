@@ -12,3 +12,34 @@ export const authCardsData = [
     paragraph: "No passwords to remember.",
   },
 ];
+export const homeCardsData = [
+  {
+    icon: ShieldCheck,
+    title: "12",
+    paragraph: "active orders",
+    rightOrder: "orders",
+  },
+  {
+    icon: Lock,
+    title: "24",
+    paragraph: "customer saved",
+    rightOrder: "people",
+  },
+];
+export const dummyCustomers = [
+  {
+    customerName: "Ahmed Raza",
+    title: "Ahmed Raza",
+    text: "Regular Customer",
+  },
+  {
+    customerName: "Sara Khan",
+    title: "Sara Khan",
+    text: "VIP Customer",
+  },
+  {
+    customerName: "Bilal Ahmed",
+    title: "Bilal Ahmed",
+    text: "New Customer",
+  },
+];
