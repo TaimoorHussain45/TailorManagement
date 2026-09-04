@@ -1,14 +1,20 @@
+import { AppTheme } from "@/constants/theme";
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import { Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
+  const theme = useTheme<AppTheme>();
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.headerCard}>
-          <Text variant="headlineMedium" style={styles.title}>
+          <Text
+            variant="headlineMedium"
+            style={[styles.title, { color: theme.colors.textPrimary }]}
+          >
             Dashboard
           </Text>
         </View>
@@ -34,7 +40,6 @@ const styles = StyleSheet.create({
     borderColor: "#E5E7EB",
   },
   title: {
-    color: "#111827",
     fontWeight: "700",
   },
 });

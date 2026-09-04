@@ -1,3 +1,4 @@
+import { AppTheme } from "@/constants/theme";
 import type { LucideIcon } from "lucide-react-native";
 import React from "react";
 import {
@@ -7,6 +8,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+import { useTheme } from "react-native-paper";
 import Typography from "./Typography";
 
 type CustomButtonProps = {
@@ -34,7 +36,7 @@ type CustomButtonProps = {
 const CustomButton = ({
   text,
   onPress,
-  backgroundColor = "#1F5D58",
+  backgroundColor,
   textColor = "#FFFFFF",
   iconColor,
   icon: Icon,
@@ -44,6 +46,7 @@ const CustomButton = ({
   loading = false,
   style,
 }: CustomButtonProps) => {
+  const theme = useTheme<AppTheme>();
   const isDisabled = disabled || loading;
   const resolvedIconColor = iconColor ?? textColor;
 
@@ -61,7 +64,7 @@ const CustomButton = ({
       style={[
         styles.button,
         {
-          backgroundColor,
+          backgroundColor: theme.colors.TealGreen,
           opacity: isDisabled ? 0.5 : 1,
         },
         style,

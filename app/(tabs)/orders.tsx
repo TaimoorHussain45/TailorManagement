@@ -1,13 +1,19 @@
+import { AppTheme } from "@/constants/theme";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import { Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function index() {
+export default function Orders() {
+  const theme = useTheme<AppTheme>();
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text variant="headlineMedium" style={styles.title}>
+        <Text
+          variant="headlineMedium"
+          style={[styles.title, { color: theme.colors.textPrimary }]}
+        >
           Orders
         </Text>
       </View>
@@ -25,7 +31,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    color: "#111827",
     fontWeight: "700",
     marginBottom: 16,
   },

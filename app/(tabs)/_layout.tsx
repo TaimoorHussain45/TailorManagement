@@ -1,13 +1,19 @@
+import { AppTheme } from "@/constants/theme";
 import { Tabs } from "expo-router";
 import { ClipboardList, Home, Users } from "lucide-react-native";
 import React from "react";
+import { useTheme } from "react-native-paper";
 
 export default function TabLayout() {
+  const theme = useTheme<AppTheme>();
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { display: "none" },
+        tabBarStyle: {
+          display: "flex",
+          backgroundColor: theme.colors.white,
+        },
       }}
     >
       <Tabs.Screen
@@ -17,13 +23,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
         }}
       />
-      <Tabs.Screen
-        name="customers"
-        options={{
-          title: "Customers",
-          tabBarIcon: ({ color, size }) => <Users size={size} color={color} />,
-        }}
-      />
+
       <Tabs.Screen
         name="orders"
         options={{
@@ -31,6 +31,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <ClipboardList size={size} color={color} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="Customers"
+        options={{
+          title: "Customers",
+          tabBarIcon: ({ color, size }) => <Users size={size} color={color} />,
         }}
       />
     </Tabs>

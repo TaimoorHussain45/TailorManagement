@@ -1,9 +1,12 @@
+import AuthContent from "@/components/auth/AuthContent";
 import FingerPrintLogo from "@/components/auth/FingerPrintLogo";
+import NavLogo from "@/components/auth/NavLogo";
 import CustomButton from "@/components/ui/CustomButton";
 import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
 import { validateBiometricAvailability } from "@/utils/biometric";
 import * as LocalAuthentication from "expo-local-authentication";
+import { router } from "expo-router";
 import { ArrowRight } from "lucide-react-native";
 import React, { useState } from "react";
 import { View } from "react-native";
@@ -27,34 +30,31 @@ const Login = () => {
       disableDeviceFallback: true,
     });
     setIsUnlocking(false);
-
-    // if (result.success) {
-    //   router.replace("/(tabs)"); // adjust to your actual post-login route
-    // }
+    router.replace("/(tabs)");
+    if (!result.success) {
+      console.warn("Biometric authentication failed:", result.error);
+      return;
+    }
   };
 
   return (
     <SafeAreaView style={style.container}>
       <View style={style.logo}>
-        <FingerPrintLogo />
+        <NavLogo />
       </View>
-      <View style={style.content}>
-        <Typography
-          align="center"
-          color={theme.colors.textPrimary}
-          style={style.semiTitle}
-        >
-          READY WHEN YOU ARE
-        </Typography>
-        <Typography align="center" style={style.title}>
-          Your worktable is locked.
-        </Typography>
-        <Typography align="center" variant="body2" color="#6B6B6B">
-          Biometric unlock is ready. A small layer of privacy for the people who
-          trust you with their fit.
-        </Typography>
+      <View>
+        <AuthContent
+          icon={<FingerPrintLogo />}
+          eyebrow="READY WHEN YOU ARE"
+          title={"Your worktable\nis locked."}
+          description="Biometric unlock is ready. A small layer of privacy for the people who trust you with their fit."
+          eyebrowColor={theme.colors.textPrimary}
+          titleColor={theme.colors.textPrimary}
+          descriptionColor={theme.colors.textSecondary}
+          borderColor={theme.colors.borderColor}
+          iconInnerColor={theme.colors.white}
+        />
       </View>
-
       <View style={style.authButton}>
         <CustomButton
           text={isUnlocking ? "Unlocking..." : "Unlock"}
@@ -63,6 +63,18 @@ const Login = () => {
           iconPosition="right"
           onPress={handleUnlock}
           disabled={isUnlocking}
+        />
+      </View>
+      <View style={style.signInRow}>
+        <Typography variant="body2" color={theme.colors.textSecondary}>
+          Not registered?
+        </Typography>
+        <CustomButton
+          text="Register"
+          onPress={() => router.replace("/register")}
+          textColor={theme.colors.primary}
+          backgroundColor="transparent"
+          style={style.signInButton}
         />
       </View>
     </SafeAreaView>

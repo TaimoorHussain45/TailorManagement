@@ -1,20 +1,20 @@
 import { Metrics } from "@/constants/metrics";
-import { AppTheme, Fonts } from "@/constants/theme";
+import { AppTheme } from "@/constants/theme";
 import { StyleSheet } from "react-native";
 export const registerStyle = (theme: AppTheme) =>
   StyleSheet.create({
-    container: {
+    scrollView: {
       flex: 1,
-      padding: 20,
     },
-    logo: {
-      justifyContent: "center",
-      alignItems: "center",
+    container: {
+      flexGrow: 1,
+      marginHorizontal: Metrics.spacingMedium,
+      paddingBottom: Metrics.spacingMedium,
     },
+    logo: {},
     cardContainer: {
       flexDirection: "row",
       justifyContent: "space-around",
-      paddingVertical: 10,
     },
     authButton: {
       marginVertical: 20,
@@ -26,34 +26,30 @@ export const registerStyle = (theme: AppTheme) =>
 export const loginStyle = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
-      flex: 1,
-      padding: 20,
-      margin: 20,
+      flexDirection: "column",
+      justifyContent: "space-between",
+      gap: 20,
+      marginHorizontal: Metrics.spacingMedium,
     },
-    logo: {
+    logo: {},
+    authLogo: {
       justifyContent: "center",
       alignItems: "center",
     },
-    cardContainer: {
+
+    authButton: {},
+    signInRow: {
       flexDirection: "row",
-      justifyContent: "space-around",
-      paddingVertical: 10,
+      justifyContent: "flex-end",
+      alignItems: "center",
+      lineHeight: 32,
+      padding: 0,
+      margin: 0,
+      bottom: 15,
     },
-    title: {
-      fontSize: Metrics.fontSizeXXLarge,
-      fontFamily: Fonts.semiBold,
-    },
-    semiTitle: {
-      fontSize: Metrics.fontSizeSmall,
-      fontFamily: Fonts.bold,
-    },
-    authButton: {
-      position: "absolute",
-      right: 20,
-      bottom: 80,
-      width: "100%",
-    },
-    content: {
-      paddingVertical: 20,
+    signInButton: {
+      minHeight: 10,
+      paddingHorizontal: 4,
+      backgroundColor: "transparent",
     },
   });

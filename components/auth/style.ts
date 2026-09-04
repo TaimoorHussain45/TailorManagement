@@ -1,7 +1,17 @@
-import { AppTheme } from "@/constants/theme";
-import { StyleSheet } from "react-native";
+import { Metrics } from "@/constants/metrics";
+import { AppTheme, Fonts } from "@/constants/theme";
+import { StyleSheet, TextStyle, ViewStyle } from "react-native";
 
-export const finerPrintLogostyle = (theme: AppTheme) =>
+type AuthContentStyles = {
+  container: ViewStyle;
+  authLogo: ViewStyle;
+  content: ViewStyle;
+  semiTitle: TextStyle;
+  title: TextStyle;
+  description: TextStyle;
+};
+
+export const fingerPrintLogostyle = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       backgroundColor: theme.colors.charcoal,
@@ -10,7 +20,7 @@ export const finerPrintLogostyle = (theme: AppTheme) =>
       height: 200,
       justifyContent: "center",
       alignItems: "center",
-      borderColor: "#E3D9C9",
+      borderColor: theme.colors.borderColor,
       borderWidth: 2,
     },
     subContainer: {
@@ -21,10 +31,11 @@ export const finerPrintLogostyle = (theme: AppTheme) =>
       borderWidth: 2,
       borderRadius: 60,
       borderStyle: "dashed",
-      borderColor: "red",
+      borderColor: theme.colors.clayRose,
     },
     fingerPrintContainer: {
-      backgroundColor: "#1F5D58",
+      backgroundColor: theme.colors.TealGreen,
+      elevation: 7,
       borderRadius: 30,
       width: 80,
       height: 80,
@@ -39,22 +50,18 @@ export const authCardStyles = (theme: AppTheme) =>
       height: 150,
       padding: 8,
       borderRadius: 16,
-      backgroundColor: "#ffffff",
-      borderWidth: 1,
-      borderColor: "#E3D9C9",
+      backgroundColor: theme.colors.background,
+      borderWidth: 0.5,
+      borderColor: theme.colors.borderColor,
       justifyContent: "flex-start",
       alignItems: "flex-start",
       gap: 8,
       margin: 10,
-
-      // shadow (Android)
       elevation: 4,
     },
     iconWrap: {
       width: 36,
       height: 36,
-      borderRadius: 10,
-      backgroundColor: "#F5EFE3",
       justifyContent: "center",
       alignItems: "center",
       marginBottom: 4,
@@ -64,5 +71,75 @@ export const authCardStyles = (theme: AppTheme) =>
       fontSize: 12,
 
       lineHeight: 17,
+    },
+  });
+export const authContentStyle = (theme: AppTheme, borderColor?: string) =>
+  StyleSheet.create<AuthContentStyles>({
+    container: {
+      flexDirection: "column",
+      justifyContent: "space-between",
+      gap: 20,
+    },
+    authLogo: {
+      justifyContent: "center",
+      alignItems: "center",
+      borderWidth: 2,
+      width: 200,
+      height: 200,
+      alignSelf: "center",
+      borderRadius: 100,
+      borderColor: borderColor ?? theme.colors.borderColor,
+      backgroundColor: theme.colors.authLogo,
+    },
+    content: {
+      padding: Metrics.spacingMedium,
+    },
+    semiTitle: {
+      fontFamily: Fonts.semiBold,
+      fontSize: Metrics.fontSizeMedium,
+      paddingVertical: Metrics.spacingRegular,
+    },
+    title: {
+      fontFamily: Fonts.bold,
+      lineHeight: 30,
+      maxWidth: 260,
+      alignSelf: "center",
+      paddingVertical: Metrics.spacingSmall,
+    },
+    description: {
+      paddingVertical: Metrics.spacingMedium,
+    },
+  });
+export const navLogoStyle = (theme: AppTheme) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 12,
+    },
+    image: {
+      width: 40,
+      height: 80,
+      resizeMode: "center",
+    },
+    textWrap: {
+      flexDirection: "column",
+      justifyContent: "center",
+      marginTop: 0,
+      paddingTop: 0,
+    },
+    title: {
+      fontFamily: Fonts.bold,
+      fontSize: Metrics.fontSizeMedium,
+      lineHeight: 20,
+      marginBottom: 0,
+      paddingBottom: 0,
+    },
+    subtitle: {
+      fontFamily: Fonts.regular,
+      fontSize: Metrics.fontSizeRegular,
+      lineHeight: 16,
+      marginTop: 0,
+      paddingTop: 0,
     },
   });
