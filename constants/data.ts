@@ -43,3 +43,26 @@ export const dummyCustomers = [
     text: "New Customer",
   },
 ];
+export const dummyUsers = [
+  {
+    customerName: "Ahmed Raza",
+    title: "Ahmed Raza",
+    text: "Regular Customer",
+
+    phoneNumber: "+923009646067",
+  },
+  {
+    customerName: "Sara Khan",
+    title: "Sara Khan",
+    text: "VIP Customer",
+
+    phoneNumber: "+92300986087",
+  },
+  {
+    customerName: "Bilal Ahmed",
+    title: "Bilal Ahmed",
+    text: "New Customer",
+
+    phoneNumber: "+923005926067",
+  },
+];

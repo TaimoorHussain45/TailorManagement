@@ -20,11 +20,12 @@ export type ThemeColors = typeof MD3Colors &
     taskFilterActiveBg: string;
     containerInvite: string;
     green: string;
-    cardBackgroud: string;
+    cardBackground: string;
     borderColor: string;
     clayRose: string;
     TealGreen: string;
     red: string;
+    accentGold: string;
   };
 
 export type AppTheme = MD3Theme & {
@@ -41,6 +42,7 @@ const commonColors = {
   darkBlack: "#000000",
   clayRose: "#CA846F",
   red: "#b86449",
+  borderColor: "#c8bba7",
 };
 
 // In your theme constants file
@@ -56,7 +58,7 @@ export const colors: AppColors = {
     GunmetalGray: "#EEF2F7",
     white: "#FFFFFF",
     black: "#000000",
-    cardBackgroud: "#fcfaf6",
+    cardBackground: "#fcfaf6",
     background: "#F6F1E8",
     textPrimary: "#000000",
     textColor: "#111827",
@@ -65,7 +67,9 @@ export const colors: AppColors = {
     tabBarBackground: "#F6F1E8",
     TealGreen: "#1F5D58",
     divider: "#E5E7EB",
-
+    progressFillStart: "#6485d9",
+    progressFillEnd: "#3cc79f",
+    accentGold: "#C09754",
     taskFilterActiveBg: "#f8fafc",
     containerInvite: "#13141a",
     green: "#34D399",
@@ -75,9 +79,10 @@ export const colors: AppColors = {
     ...MD3Colors,
     ...commonColors,
     charcoal: "#171817",
-    cardBackgroud: "#222421",
+    cardBackground: "#222421",
     slate: "#475569",
     graphiteGray: "#475569",
+    accentGold: "#C09754",
     gunmetal: "#475569",
     GunmetalGray: "#475569",
     textPrimary: "#FFFFFF",

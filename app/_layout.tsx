@@ -1,10 +1,10 @@
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
-} from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+} from "expo-router/react-navigation";
 import { MD3DarkTheme, MD3LightTheme, PaperProvider } from "react-native-paper";
 import "react-native-reanimated";
 
@@ -17,6 +17,7 @@ import { useColorScheme } from "@/hooks/use-color-scheme";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const navigationTheme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
   const paperTheme =
     colorScheme === "dark"
       ? { ...MD3DarkTheme, colors: { ...MD3DarkTheme.colors, ...Colors.dark } }
@@ -36,9 +37,21 @@ export default function RootLayout() {
 
   return (
     <PaperProvider theme={paperTheme}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <ThemeProvider
+        value={{
+          ...navigationTheme,
+          colors: {
+            primary: String(navigationTheme.colors.primary),
+            background: String(navigationTheme.colors.background),
+            card: String(navigationTheme.colors.card),
+            text: String(navigationTheme.colors.text),
+            border: String(navigationTheme.colors.border),
+            notification: String(navigationTheme.colors.notification),
+          },
+        }}
+      >
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(auth)/register" />
+          <Stack.Screen name="(auth)/login" />
           <Stack.Screen name="(tabs)" />
         </Stack>
       </ThemeProvider>

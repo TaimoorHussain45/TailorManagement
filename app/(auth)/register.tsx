@@ -8,13 +8,13 @@ import { AppTheme } from "@/constants/theme";
 import { validateBiometricAvailability } from "@/utils/biometric";
 import * as LocalAuthentication from "expo-local-authentication";
 import { router } from "expo-router";
+import { setItemAsync } from "expo-secure-store";
 import { ArrowRight } from "lucide-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { registerStyle } from "./style";
-
 const Register = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const theme = useTheme<AppTheme>();
@@ -30,7 +30,7 @@ const Register = () => {
       disableDeviceFallback: true,
     });
     if (result.success) {
-      // await setItemAsync("isRegistered", "true");
+      await setItemAsync("isRegistered", "true");
       router.replace("/login");
       console.log("working");
     }

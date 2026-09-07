@@ -1,3 +1,4 @@
+import { Metrics } from "@/constants/metrics";
 import { AppTheme } from "@/constants/theme";
 import { StyleSheet } from "react-native";
 export const customerCardStyles = (theme: AppTheme) =>
@@ -7,10 +8,10 @@ export const customerCardStyles = (theme: AppTheme) =>
       alignItems: "center",
       gap: 12,
       padding: 12,
-      backgroundColor: theme.colors.cardBackgroud,
+      backgroundColor: theme.colors.cardBackground,
       elevation: 5,
       borderRadius: 20,
-      marginVertical: 10,
+      marginVertical: Metrics.spacingRegular,
     },
     content: {
       flexDirection: "column",

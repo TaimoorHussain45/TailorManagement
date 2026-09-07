@@ -4,3 +4,16 @@ export const getFormattedDate = (date: any) => {
   const month = date.toLocaleDateString("en-US", { month: "long" }); // "October"
   return `${day}, ${dayNum} ${month}`;
 };
+export const getGreeting = (date: any) => {
+  const hour = date.getHours();
+
+  if (hour < 12) {
+    return "Good Morning";
+  } else if (hour < 17) {
+    return "Good Afternoon";
+  } else if (hour < 21) {
+    return "Good Evening";
+  } else {
+    return "Good Night";
+  }
+};

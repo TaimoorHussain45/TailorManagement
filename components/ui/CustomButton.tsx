@@ -1,6 +1,5 @@
 import { AppTheme } from "@/constants/theme";
 import type { LucideIcon } from "lucide-react-native";
-import React from "react";
 import {
   ActivityIndicator,
   StyleSheet,
@@ -19,12 +18,11 @@ type CustomButtonProps = {
   backgroundColor?: string;
   textColor?: string;
   iconColor?: string;
-
+  borderStyle?: string;
   // Icon
   icon?: LucideIcon;
   iconPosition?: "left" | "right";
   iconSize?: number;
-
   // States
   disabled?: boolean;
   loading?: boolean;
@@ -36,7 +34,7 @@ type CustomButtonProps = {
 const CustomButton = ({
   text,
   onPress,
-  backgroundColor,
+  backgroundColor = "transparent",
   textColor = "#FFFFFF",
   iconColor,
   icon: Icon,

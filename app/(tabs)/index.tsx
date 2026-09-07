@@ -1,26 +1,31 @@
 import NavLogo from "@/components/auth/NavLogo";
 import OrderCard from "@/components/home/orderCard";
+import { homeStyle } from "@/components/home/styles";
+import WelcomeCard from "@/components/home/welcomeCard";
+import CustomButton from "@/components/ui/CustomButton";
 import CustomerCard from "@/components/ui/CustomerCard";
 import Typography from "@/components/ui/Typography";
 import { dummyCustomers, homeCardsData } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
-import { getFormattedDate } from "@/utils/formattedDate";
-import { ChevronRightIcon } from "lucide-react-native";
-import React from "react";
-import { View } from "react-native";
+import { getFormattedDate, getGreeting } from "@/utils/formattedDate";
+import { router } from "expo-router";
+import { ChevronRight, ChevronRightIcon } from "lucide-react-native";
+import { ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { homeStyle } from "./style";
 
 export default function HomeScreen() {
   const theme = useTheme<AppTheme>();
   const styles = homeStyle(theme);
   const date = new Date();
   const currentDate = getFormattedDate(date);
+  let message = getGreeting(date);
   console.log(currentDate);
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <ScrollView
+      style={{ flex: 1, margin: 15 }}
+      showsVerticalScrollIndicator={false}
+    >
       <View>
         <NavLogo />
       </View>
@@ -28,6 +33,16 @@ export default function HomeScreen() {
         <Typography style={styles.title} color={theme.colors.red}>
           {currentDate}
         </Typography>
+        <Typography
+          color={theme.colors.black}
+          variant="h1"
+          style={styles.gretting}
+        >
+          {message}
+        </Typography>
+      </View>
+      <View>
+        <WelcomeCard />
       </View>
       <View style={styles.cardContainer}>
         {homeCardsData.map((element, index) => {
@@ -43,6 +58,19 @@ export default function HomeScreen() {
           );
         })}
       </View>
+      <View style={styles.customerButtonContainer}>
+        <Typography variant="body2">Recent Activity</Typography>
+        <CustomButton
+          text="View customers"
+          onPress={() => router.replace("/(tabs)/Customers")}
+          textColor={theme.colors.primary}
+          backgroundColor="transparent"
+          style={styles.customerButton}
+          icon={ChevronRight}
+          iconSize={20}
+          iconPosition="right"
+        />
+      </View>
       <View style={styles.customerCard}>
         {dummyCustomers.map((customer, index) => (
           <CustomerCard
@@ -54,6 +82,6 @@ export default function HomeScreen() {
           />
         ))}
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
