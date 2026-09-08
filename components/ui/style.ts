@@ -40,3 +40,33 @@ export const customerCardStyles = (theme: AppTheme) =>
       gap: 4,
     },
   });
+export const inputFieldStyle = (theme: AppTheme) =>
+  StyleSheet.create({
+    wrapper: {
+      gap: 6,
+      marginVertical: Metrics.spacingSmall,
+    },
+    label: {
+      color: theme.colors.textPrimary,
+      margin: 0,
+      padding: 0,
+    },
+    input: {
+      height: 50,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: theme.colors.borderColor,
+      paddingHorizontal: 12,
+      fontSize: Metrics.spacingMedium,
+      color: theme.colors.textPrimary,
+      backgroundColor: theme.colors.cardBackground,
+      margin: 0,
+      padding: 0,
+    },
+    inputError: {
+      borderColor: theme.colors.red,
+    },
+    errorText: {
+      color: theme.colors.red,
+    },
+  });

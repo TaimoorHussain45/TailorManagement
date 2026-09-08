@@ -1,5 +1,4 @@
 import { AppTheme } from "@/constants/theme";
-import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";

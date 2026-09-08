@@ -1,5 +1,24 @@
 import { Lock, ShieldCheck } from "lucide-react-native";
 
+type Fieldtypes = {
+  key: string;
+  label: string;
+  unit: string;
+};
+
+export const upperFields: Fieldtypes[] = [
+  { key: "shirtLength", label: "Shirt Length", unit: "in" },
+  { key: "chest", label: "Chest", unit: "in" },
+  { key: "shoulder", label: "Shoulder", unit: "in" },
+  { key: "sleeveLength", label: "Sleeve Length", unit: "in" },
+  { key: "collar", label: "Collar", unit: "in" },
+  { key: "gheraDamen", label: "Ghera / Damen", unit: "in" },
+];
+
+export const lowerFields: Fieldtypes[] = [
+  { key: "shalwarLength", label: "Shalwar Length", unit: "in" },
+  { key: "paonchaWidth", label: "Paoncha Width", unit: "in" },
+];
 export const authCardsData = [
   {
     icon: ShieldCheck,

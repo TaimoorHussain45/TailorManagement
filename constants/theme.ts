@@ -26,6 +26,8 @@ export type ThemeColors = typeof MD3Colors &
     TealGreen: string;
     red: string;
     accentGold: string;
+    SageGreen: string;
+    onColor: string;
   };
 
 export type AppTheme = MD3Theme & {
@@ -74,6 +76,8 @@ export const colors: AppColors = {
     containerInvite: "#13141a",
     green: "#34D399",
     borderColor: "#E3D9C9",
+    SageGreen: "#e7efe7",
+    onColor: "#e7efe7",
   },
   dark: {
     ...MD3Colors,
@@ -102,6 +106,8 @@ export const colors: AppColors = {
     green: "#34D399",
     borderColor: "#d8c8ad33",
     tabBarBackground: "#171817",
+    SageGreen: "#2f4137",
+    onColor: "#2f4137",
   },
 };
 

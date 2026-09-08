@@ -62,7 +62,7 @@ export default function HomeScreen() {
         <Typography variant="body2">Recent Activity</Typography>
         <CustomButton
           text="View customers"
-          onPress={() => router.replace("/(tabs)/Customers")}
+          onPress={() => router.replace("/(tabs)/customer")}
           textColor={theme.colors.primary}
           backgroundColor="transparent"
           style={styles.customerButton}

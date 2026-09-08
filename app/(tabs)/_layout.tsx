@@ -1,7 +1,6 @@
 import { AppTheme } from "@/constants/theme";
 import { Tabs } from "expo-router";
 import { ClipboardList, Home, Users } from "lucide-react-native";
-import React from "react";
 import { useTheme } from "react-native-paper";
 
 export default function TabLayout() {
@@ -28,7 +27,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="Customers"
+        name="customer"
         options={{
           title: "Customers",
           tabBarIcon: ({ color, size }) => <Users size={size} color={color} />,

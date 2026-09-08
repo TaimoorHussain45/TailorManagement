@@ -13,21 +13,15 @@ import Typography from "./Typography";
 type CustomButtonProps = {
   text: string;
   onPress?: () => void;
-
-  // Colors
   backgroundColor?: string;
   textColor?: string;
   iconColor?: string;
   borderStyle?: string;
-  // Icon
   icon?: LucideIcon;
   iconPosition?: "left" | "right";
   iconSize?: number;
-  // States
   disabled?: boolean;
   loading?: boolean;
-
-  // Style
   style?: ViewStyle;
 };
 
