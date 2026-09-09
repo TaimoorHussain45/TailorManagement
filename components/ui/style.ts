@@ -1,5 +1,5 @@
 import { Metrics } from "@/constants/metrics";
-import { AppTheme } from "@/constants/theme";
+import { AppTheme, Fonts } from "@/constants/theme";
 import { StyleSheet } from "react-native";
 export const customerCardStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -68,5 +68,44 @@ export const inputFieldStyle = (theme: AppTheme) =>
     },
     errorText: {
       color: theme.colors.red,
+    },
+  });
+export const measurementInputStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    container: {
+      gap: 3,
+      width: "48%",
+      marginVertical: Metrics.spacingSmall,
+    },
+    labelChip: {
+      alignSelf: "flex-start",
+    },
+    labelText: {
+      fontSize: Metrics.fontSizeSmall,
+      fontFamily: Fonts.semiBold,
+      color: theme.colors.textPrimary,
+    },
+    card: {
+      flexDirection: "row",
+      alignItems: "center",
+      borderWidth: 1.5,
+      paddingHorizontal: 16,
+      paddingVertical: 14,
+      backgroundColor: theme.colors.cardBackground,
+    },
+    valueText: {
+      flex: 1,
+      fontSize: Metrics.fontSizeXLarge,
+      fontFamily: Fonts.bold,
+      padding: 0,
+      color: theme.colors.textPrimary,
+    },
+    divider: {
+      width: 1,
+      height: 20,
+      marginHorizontal: 12,
+    },
+    unitText: {
+      fontSize: 14,
     },
   });

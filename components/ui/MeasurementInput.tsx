@@ -1,16 +1,15 @@
-import { Metrics } from "@/constants/metrics";
-import { AppTheme, Fonts } from "@/constants/theme";
+import { AppTheme } from "@/constants/theme";
 import { useState } from "react";
 import {
-    StyleProp,
-    StyleSheet,
-    Text,
-    TextInput,
-    TextInputProps,
-    View,
-    ViewStyle,
+  StyleProp,
+  TextInput,
+  TextInputProps,
+  View,
+  ViewStyle,
 } from "react-native";
 import { useTheme } from "react-native-paper";
+import { measurementInputStyles } from "./style";
+import Typography from "./Typography";
 
 interface MeasurementInputProps extends Omit<TextInputProps, "style"> {
   label: string;
@@ -32,7 +31,7 @@ export const MeasurementInput = ({
   unit = "in",
   selected = true,
   labelTextColor = "#2B2B2B",
-  cardBackgroundColor = "#FBF8F3",
+  cardBackgroundColor,
   valueColor = "#1F4E8C",
   unitColor = "#8A8A8A",
   dividerColor = "#D9D3C7",
@@ -45,19 +44,17 @@ export const MeasurementInput = ({
 }: MeasurementInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const theme = useTheme<AppTheme>();
+  const styles = measurementInputStyles(theme);
   return (
     <View style={[styles.container, style]}>
       <View style={[styles.labelChip]}>
-        <Text style={[styles.labelText, { color: labelTextColor }]}>
-          {label}
-        </Text>
+        <Typography style={styles.labelText}>{label}</Typography>
       </View>
 
       <View
         style={[
           styles.card,
           {
-            backgroundColor: cardBackgroundColor,
             borderRadius,
             borderColor: theme.colors.borderColor,
           },
@@ -69,48 +66,14 @@ export const MeasurementInput = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           keyboardType={keyboardType}
-          style={[styles.valueText, { color: valueColor }]}
+          style={[styles.valueText]}
           {...rest}
         />
         <View style={[styles.divider, { backgroundColor: dividerColor }]} />
-        <Text style={[styles.unitText, { color: unitColor }]}>{unit}</Text>
+        <Typography color={theme.colors.textSecondary} variant="h4">
+          {unit}
+        </Typography>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    gap: 3,
-    width: "48%",
-    marginVertical: Metrics.spacingSmall,
-  },
-  labelChip: {
-    alignSelf: "flex-start",
-  },
-  labelText: {
-    fontSize: Metrics.fontSizeSmall,
-    fontFamily: Fonts.semiBold,
-  },
-  card: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1.5,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-  },
-  valueText: {
-    flex: 1,
-    fontSize: Metrics.fontSizeXLarge,
-    fontFamily: Fonts.bold,
-    padding: 0,
-  },
-  divider: {
-    width: 1,
-    height: 20,
-    marginHorizontal: 12,
-  },
-  unitText: {
-    fontSize: 14,
-  },
-});

@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.bold,
   },
   h3: {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: Fonts.semiBold,
   },
   h4: {

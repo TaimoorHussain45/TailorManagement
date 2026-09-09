@@ -16,6 +16,7 @@ export type ThemeColors = typeof MD3Colors &
     divider: string;
     tabBarBackground: string;
     progressFillStart: string;
+    progressBar: string;
     progressFillEnd: string;
     taskFilterActiveBg: string;
     containerInvite: string;
@@ -28,6 +29,8 @@ export type ThemeColors = typeof MD3Colors &
     accentGold: string;
     SageGreen: string;
     onColor: string;
+    warmRust: string;
+    softPeach: string;
   };
 
 export type AppTheme = MD3Theme & {
@@ -45,6 +48,7 @@ const commonColors = {
   clayRose: "#CA846F",
   red: "#b86449",
   borderColor: "#c8bba7",
+  warmRust: "#9A503A",
 };
 
 // In your theme constants file
@@ -78,6 +82,7 @@ export const colors: AppColors = {
     borderColor: "#E3D9C9",
     SageGreen: "#e7efe7",
     onColor: "#e7efe7",
+    softPeach: "#F2DED4",
   },
   dark: {
     ...MD3Colors,
@@ -108,6 +113,8 @@ export const colors: AppColors = {
     tabBarBackground: "#171817",
     SageGreen: "#2f4137",
     onColor: "#2f4137",
+    progressBar: "#C79F65",
+    softPeach: "#3D2E28",
   },
 };
 
