@@ -1,29 +1,13 @@
 import { AppTheme } from "@/constants/theme";
-import type { LucideIcon } from "lucide-react-native";
+import type { CustomButtonProps } from "@/types";
 import {
-  ActivityIndicator,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewStyle,
+    ActivityIndicator,
+    StyleSheet,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { useTheme } from "react-native-paper";
 import Typography from "./Typography";
-
-type CustomButtonProps = {
-  text: string;
-  onPress?: () => void;
-  backgroundColor?: string;
-  textColor?: string;
-  iconColor?: string;
-  borderStyle?: string;
-  icon?: LucideIcon;
-  iconPosition?: "left" | "right";
-  iconSize?: number;
-  disabled?: boolean;
-  loading?: boolean;
-  style?: ViewStyle;
-};
 
 const CustomButton = ({
   text,

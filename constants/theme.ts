@@ -1,46 +1,7 @@
-import type { MD3Theme } from "react-native-paper";
+import type { AppColors } from "@/types";
 import { MD3Colors } from "react-native-paper";
 
-export type ThemeColors = typeof MD3Colors &
-  Record<string, string | [string, string]> & {
-    white: string;
-    black: string;
-    charcoal: string;
-    slate: string;
-    gunmetal: string;
-    offWhite: string;
-    background: string;
-    authLogo: string;
-    textPrimary: string;
-    textSecondary: string;
-    divider: string;
-    tabBarBackground: string;
-    progressFillStart: string;
-    progressBar: string;
-    progressFillEnd: string;
-    taskFilterActiveBg: string;
-    containerInvite: string;
-    green: string;
-    cardBackground: string;
-    borderColor: string;
-    clayRose: string;
-    TealGreen: string;
-    red: string;
-    accentGold: string;
-    SageGreen: string;
-    onColor: string;
-    warmRust: string;
-    softPeach: string;
-  };
-
-export type AppTheme = MD3Theme & {
-  colors: ThemeColors;
-};
-
-export type AppColors = {
-  light: ThemeColors;
-  dark: ThemeColors;
-};
+export type { AppColors, AppTheme, ThemeColors } from "@/types";
 
 const commonColors = {
   offWhite: "#ffffff",
@@ -74,6 +35,7 @@ export const colors: AppColors = {
     TealGreen: "#1F5D58",
     divider: "#E5E7EB",
     progressFillStart: "#6485d9",
+    progressBar: "#C79F65",
     progressFillEnd: "#3cc79f",
     accentGold: "#C09754",
     taskFilterActiveBg: "#f8fafc",
@@ -138,5 +100,3 @@ export const Fonts = {
   lightItalic: "PoppinsLightItalic",
   extraLightItalic: "PoppinsExtraLightItalic",
 } as const;
-
-export type FontKey = keyof typeof Fonts;

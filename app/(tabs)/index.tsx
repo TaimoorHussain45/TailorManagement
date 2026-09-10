@@ -79,6 +79,16 @@ export default function HomeScreen() {
             title={customer.title}
             text={customer.text}
             icon={<ChevronRightIcon color={theme.colors.textSecondary} />}
+            onPress={() =>
+              router.push({
+                pathname: "/customer/viewCustomer",
+                params: {
+                  customerName: customer.customerName,
+                  title: customer.title,
+                  text: customer.text,
+                },
+              })
+            }
           />
         ))}
       </View>

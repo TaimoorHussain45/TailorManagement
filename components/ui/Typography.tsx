@@ -1,33 +1,8 @@
 import { Fonts } from "@/constants/theme";
+import type { TypographyProps } from "@/types";
 import React from "react";
 import { StyleSheet, TextStyle } from "react-native";
-import { TextProps as PaperTextProps, Text } from "react-native-paper";
-
-export type TypographyVariant =
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "body1"
-  | "body2"
-  | "caption"
-  | "button"
-  | "iconText";
-
-// Use a specific type for the generic parameter or use the base type without generic
-export interface TypographyProps extends Omit<
-  PaperTextProps<never>,
-  "variant"
-> {
-  variant?: TypographyVariant;
-  children: React.ReactNode;
-  color?: string;
-  padding?: number;
-  paddingVertical?: number;
-  paddingHorizontal?: number;
-  align?: "auto" | "left" | "right" | "center" | "justify";
-  onPress?: () => void;
-}
+import { Text } from "react-native-paper";
 
 const Typography: React.FC<TypographyProps> = ({
   variant = "body1",

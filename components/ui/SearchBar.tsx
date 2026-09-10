@@ -1,21 +1,9 @@
 import { Metrics } from "@/constants/metrics";
 import { AppTheme } from "@/constants/theme";
+import type { SearchBarProps } from "@/types";
 import { Search } from "lucide-react-native";
-import {
-    StyleProp,
-    StyleSheet,
-    TextInput,
-    TextInputProps,
-    View,
-    ViewStyle,
-} from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { useTheme } from "react-native-paper";
-
-interface SearchBarProps extends TextInputProps {
-  iconSize?: number;
-  iconColor?: string;
-  containerStyle?: StyleProp<ViewStyle>;
-}
 
 const SearchBar = ({
   placeholder = "Search",

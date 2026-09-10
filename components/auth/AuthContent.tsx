@@ -1,22 +1,10 @@
 import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
-import React, { useMemo } from "react";
+import type { AuthContentProps } from "@/types";
+import { useMemo } from "react";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { authContentStyle } from "./style";
-
-type AuthContentProps = {
-  icon?: React.ReactNode;
-  eyebrow?: string;
-  title?: string;
-  description?: string;
-  eyebrowColor?: string;
-  titleColor?: string;
-  descriptionColor?: string;
-  borderColor?: string;
-  iconInnerColor?: string;
-  accentColor?: string;
-};
 
 const AuthContent = ({
   icon,

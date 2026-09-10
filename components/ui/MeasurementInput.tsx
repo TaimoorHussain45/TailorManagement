@@ -1,30 +1,10 @@
 import { AppTheme } from "@/constants/theme";
+import type { MeasurementInputProps } from "@/types";
 import { useState } from "react";
-import {
-  StyleProp,
-  TextInput,
-  TextInputProps,
-  View,
-  ViewStyle,
-} from "react-native";
+import { TextInput, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { measurementInputStyles } from "./style";
 import Typography from "./Typography";
-
-interface MeasurementInputProps extends Omit<TextInputProps, "style"> {
-  label: string;
-  unit?: string;
-  selected?: boolean;
-  labelBackgroundColor?: string;
-  labelBorderColor?: string;
-  labelTextColor?: string;
-  cardBackgroundColor?: string;
-  valueColor?: string;
-  unitColor?: string;
-  dividerColor?: string;
-  borderRadius?: number;
-  style?: StyleProp<ViewStyle>;
-}
 
 export const MeasurementInput = ({
   label,

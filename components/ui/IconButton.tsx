@@ -1,21 +1,6 @@
+import type { IconButtonProps } from "@/types";
 import { Plus } from "lucide-react-native";
-import {
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  ViewStyle,
-} from "react-native";
-
-interface IconButtonProps extends TouchableOpacityProps {
-  size?: number;
-  iconSize?: number;
-  iconColor?: string;
-  backgroundColor?: string;
-  icon?: React.ComponentType<{ size?: number; color?: string }>;
-  style?: StyleProp<ViewStyle>;
-  onPress?: () => void;
-}
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 export const IconButton = ({
   size = 48,

@@ -1,13 +1,14 @@
-import { ordersCardProps } from "@/constants/data";
 import { Metrics } from "@/constants/metrics";
 import { AppTheme } from "@/constants/theme";
+import type { OrdersCardProps } from "@/types";
+import { router } from "expo-router";
 import { CalendarDays, ChevronRight } from "lucide-react-native";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 import CustomButton from "../ui/CustomButton";
 import Typography from "../ui/Typography";
 import { OrdersCardStyles } from "./styles";
-const OrdersCard = ({ order }: ordersCardProps) => {
+const OrdersCard = ({ order }: OrdersCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = OrdersCardStyles(theme);
   let progress = order.progress;
@@ -64,6 +65,7 @@ const OrdersCard = ({ order }: ordersCardProps) => {
           icon={ChevronRight}
           backgroundColor="transparent"
           style={styles.recordButton}
+          onPress={() => router.replace("/(tabs)/customer/viewCustomer")}
         />
       </View>
     </View>

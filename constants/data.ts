@@ -1,17 +1,12 @@
+import type {
+  FieldType,
+  OrderCardData,
+  RadioGroupType,
+  StyleOptionGroup,
+} from "@/types";
 import { Lock, ShieldCheck } from "lucide-react-native";
 
-type fieldTypes = {
-  key: string;
-  label: string;
-  unit: string;
-};
-type radioGroupTypes = {
-  key: string;
-  title: string;
-  options: string[];
-};
-
-export const upperFields: fieldTypes[] = [
+export const upperFields: FieldType[] = [
   { key: "shirtLength", label: "Shirt Length", unit: "in" },
   { key: "chest", label: "Chest", unit: "in" },
   { key: "shoulder", label: "Shoulder", unit: "in" },
@@ -20,7 +15,7 @@ export const upperFields: fieldTypes[] = [
   { key: "gheraDamen", label: "Ghera / Damen", unit: "in" },
 ];
 
-export const lowerFields: fieldTypes[] = [
+export const lowerFields: FieldType[] = [
   { key: "shalwarLength", label: "Shalwar Length", unit: "in" },
   { key: "paonchaWidth", label: "Paoncha Width", unit: "in" },
 ];
@@ -92,27 +87,6 @@ export const dummyUsers = [
 ];
 // Add to your existing constants/data.ts (alongside upperFields, lowerFields, lowerStyleOptions)
 
-export type StyleOptionType = "radio" | "dropdown" | "checkbox";
-
-export type StyleOptionGroup = {
-  title: string;
-  type: StyleOptionType;
-  options: string[];
-};
-export type OrderStatus = "In Progress" | "Pending" | "Completed" | "Delayed";
-
-export interface OrderCardData {
-  id: string;
-  customerName: string;
-  status: OrderStatus;
-  title: string;
-  dueDate: string;
-  progress: number;
-}
-export interface ordersCardProps {
-  order: OrderCardData;
-}
-
 export const ordersData: OrderCardData[] = [
   {
     id: "AT-1048",
@@ -147,6 +121,24 @@ export const ordersData: OrderCardData[] = [
     progress: 60,
   },
 ];
+export const singleOrdersData: OrderCardData = {
+  id: "AT-1048",
+  customerName: "Sara Khan",
+  status: "In Progress",
+  title: "Suit silk two types",
+  dueDate: "14 Oct",
+  progress: 89,
+};
+
+export const singleMeasurementData = {
+  date: "08 Oct 2024",
+  description: "Upper and lower body record",
+  measurements: [
+    { label: "Chest", value: "36", unit: "in" },
+    { label: "Waist", value: "30", unit: "in" },
+    { label: "Inseam", value: "29", unit: "in" },
+  ],
+};
 
 export const upperStyleOptions: StyleOptionGroup[] = [
   {
@@ -174,7 +166,7 @@ export const upperStyleOptions: StyleOptionGroup[] = [
     ],
   },
 ];
-export const lowerStyleOptions: radioGroupTypes[] = [
+export const lowerStyleOptions: RadioGroupType[] = [
   {
     key: "bottomGarmentType",
     title: "Bottom Garment Type",

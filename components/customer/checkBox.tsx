@@ -1,16 +1,11 @@
 import { AppTheme } from "@/constants/theme";
+import type { CheckBoxProps } from "@/types";
 import { Check } from "lucide-react-native";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import Typography from "../ui/Typography";
 import { checkBoxStyles } from "./style";
-
-type CheckBoxProps = {
-  options: string;
-  selected?: boolean;
-  onPress?: () => void;
-};
 
 const CheckBox = ({ options, selected = false, onPress }: CheckBoxProps) => {
   const [isSelected, setIsSelected] = useState(selected);

@@ -1,18 +1,9 @@
 import { AppTheme } from "@/constants/theme";
-import React from "react";
-import { View } from "react-native";
+import type { CustomerCardProps } from "@/types";
+import { TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import Typography from "./Typography";
 import { customerCardStyles } from "./style";
-
-interface CustomerCardProps {
-  customerName: string;
-  title: string;
-  text: string;
-  phoneNumber?: string;
-  leftIcon?: React.ReactNode;
-  icon?: React.ReactNode;
-}
 
 const CustomerCard = ({
   customerName,
@@ -21,13 +12,14 @@ const CustomerCard = ({
   phoneNumber,
   leftIcon,
   icon,
+  onPress,
 }: CustomerCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = customerCardStyles(theme);
   const firstLetter = customerName?.trim().charAt(0).toUpperCase();
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       <View style={styles.customerLogo}>
         <Typography style={styles.logoText}>{firstLetter}</Typography>
       </View>
@@ -46,7 +38,7 @@ const CustomerCard = ({
         )}
       </View>
       <View>{icon}</View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

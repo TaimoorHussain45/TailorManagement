@@ -6,6 +6,8 @@ export default function CustomerLayout() {
       <Stack.Screen name="index" />
       <Stack.Screen name="addCustomer" />
       <Stack.Screen name="upperMeasurement" />
+      <Stack.Screen name="viewCustomer" />
+      <Stack.Screen name="updateRecord" />
     </Stack>
   );
 }

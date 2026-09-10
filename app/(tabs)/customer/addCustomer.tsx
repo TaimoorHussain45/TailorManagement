@@ -1,7 +1,7 @@
 import { addCustomerStyles } from "@/components/customer/style";
 import CustomButton from "@/components/ui/CustomButton";
+import Heading from "@/components/ui/Heading";
 import InputField from "@/components/ui/InputField";
-import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
 import { router } from "expo-router";
 import { ArrowLeft, ArrowRight } from "lucide-react-native";
@@ -17,9 +17,11 @@ const AddCustomer = () => {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
         <ArrowLeft size={30} onPress={() => router.back()} />
-        <Typography variant="h3" color={theme.colors.black}>
-          New Customer
-        </Typography>
+        <Heading
+          eyebrow="NEW CUSTOMER"
+          title="Customer details"
+          titleColor={theme.colors.black}
+        />
       </View>
       <View style={styles.InputContainer}>
         <InputField label="Full name" placeholder="e.g. John Smith" />

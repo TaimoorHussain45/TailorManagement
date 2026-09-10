@@ -18,6 +18,7 @@ export const OrdersCardStyles = (theme: AppTheme) =>
     status: {
       backgroundColor: theme.colors.softPeach,
       width: "30%",
+      height: 60,
       borderRadius: Metrics.radiusLarge,
       paddingHorizontal: Metrics.spacingTiny,
       justifyContent: "center",
@@ -50,5 +51,30 @@ export const OrdersCardStyles = (theme: AppTheme) =>
       backgroundColor: "transparent",
       fontSize: Metrics.fontSizeMedium,
       fontFamily: Fonts.semiBold,
+    },
+  });
+export const updateMeasurementStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      padding: 20,
+    },
+    navBar: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 12,
+    },
+    details: {
+      gap: 8,
+      marginTop: 32,
+    },
+    measurementBtn: {
+      backgroundColor: theme.colors.cardBackground,
+      borderColor: theme.colors.borderColor,
+      marginVertical: Metrics.spacingMedium,
     },
   });

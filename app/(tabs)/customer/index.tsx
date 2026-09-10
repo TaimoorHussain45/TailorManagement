@@ -1,9 +1,9 @@
 import { CustomerStyles } from "@/components/customer/style";
 import CustomButton from "@/components/ui/CustomButton";
 import CustomerCard from "@/components/ui/CustomerCard";
+import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
 import SearchBar from "@/components/ui/SearchBar";
-import Typography from "@/components/ui/Typography";
 import { dummyUsers } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
 import { router } from "expo-router";
@@ -18,9 +18,11 @@ const Customers = () => {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Typography variant="h3" color={theme.colors.black}>
-            Customer
-          </Typography>
+          <Heading
+            eyebrow="THE PEOPLE YOU SERVE"
+            title="Customers"
+            titleColor={theme.colors.black}
+          />
           <IconButton onPress={() => router.push("/customer/addCustomer")} />
         </View>
         <View style={styles.inputContainer}>
@@ -36,6 +38,17 @@ const Customers = () => {
               icon={<ChevronRightIcon color={theme.colors.textSecondary} />}
               leftIcon={<Phone color={theme.colors.textSecondary} size={14} />}
               phoneNumber={customer.phoneNumber}
+              onPress={() =>
+                router.push({
+                  pathname: "/customer/viewCustomer",
+                  // params: {
+                  //   customerName: customer.customerName,
+                  //   title: customer.title,
+                  //   text: customer.text,
+                  //   phoneNumber: customer.phoneNumber,
+                  // },
+                })
+              }
             />
           ))}
         </View>

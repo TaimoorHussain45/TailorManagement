@@ -1,23 +1,9 @@
 import { AppTheme } from "@/constants/theme";
-import {
-  StyleProp,
-  TextInput,
-  TextInputProps,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native";
+import type { InputFieldProps } from "@/types";
+import { TextInput, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import Typography from "./Typography";
 import { inputFieldStyle } from "./style";
-
-interface InputFieldProps extends Omit<TextInputProps, "style"> {
-  label?: string;
-  error?: string;
-  containerStyle?: StyleProp<ViewStyle>;
-  inputStyle?: StyleProp<TextStyle>;
-  style?: StyleProp<TextStyle>;
-}
 
 const InputField = ({
   label,

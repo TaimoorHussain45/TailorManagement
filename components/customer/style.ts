@@ -191,3 +191,45 @@ export const checkBoxStyles = (theme: AppTheme) =>
       marginBottom: Metrics.spacingLarge,
     },
   });
+export const measurementCardStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    card: {
+      borderColor: theme.colors.borderColor,
+      borderRadius: 18,
+      borderWidth: 1,
+      padding: 14,
+    },
+    headingRow: {
+      alignItems: "center",
+      flexDirection: "row",
+      gap: 10,
+    },
+    icon: {
+      alignItems: "center",
+      borderRadius: 16,
+      height: 34,
+      justifyContent: "center",
+      width: 34,
+    },
+    headingContent: {
+      flex: 1,
+      gap: 2,
+    },
+    divider: {
+      height: 1,
+      marginVertical: 12,
+    },
+    measurements: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    measurement: {
+      gap: 2,
+      minWidth: 58,
+    },
+    valueRow: {
+      alignItems: "baseline",
+      flexDirection: "row",
+      gap: 3,
+    },
+  });

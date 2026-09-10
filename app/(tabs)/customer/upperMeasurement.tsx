@@ -1,6 +1,7 @@
 import CheckBox from "@/components/customer/checkBox";
 import { upperMeasurementStyles } from "@/components/customer/style";
 import CustomButton from "@/components/ui/CustomButton";
+import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
 import { MeasurementInput } from "@/components/ui/MeasurementInput";
 import Typography from "@/components/ui/Typography";
@@ -41,10 +42,10 @@ const UpperMeasurement = () => {
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        <Typography variant="h4">ALI KHAN . NEW FITTING</Typography>
-        <Typography variant="h3">
-          {!isUpper ? "Upper body" : "Lower body"}
-        </Typography>
+        <Heading
+          eyebrow="ALI KHAN . NEW FITTING"
+          title={!isUpper ? "Upper body" : "Lower body"}
+        />
         <Typography variant="caption">
           A close, comfortable fit starts with these six lines.
         </Typography>

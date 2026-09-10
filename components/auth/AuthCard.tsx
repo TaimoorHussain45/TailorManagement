@@ -1,15 +1,10 @@
 import { AppTheme } from "@/constants/theme";
-import React, { useMemo } from "react";
+import type { AuthCardProps } from "@/types";
+import { useMemo } from "react";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 import Typography from "../ui/Typography";
 import { authCardStyles } from "./style";
-
-type AuthCardProps = {
-  icon: React.ReactNode;
-  title: string;
-  paragraph: string;
-};
 
 const AuthCard = ({ icon, title, paragraph }: AuthCardProps) => {
   const theme = useTheme<AppTheme>();
