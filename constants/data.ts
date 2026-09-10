@@ -5,8 +5,8 @@ import type {
   StyleOptionGroup,
 } from "@/types";
 import { router } from "expo-router";
-import { Lock, ShieldCheck } from "lucide-react-native";
-
+import { Lock, Moon, ShieldCheck, Smartphone, Sun } from "lucide-react-native";
+type ThemeMode = "light" | "dark" | "system";
 export const upperFields: FieldType[] = [
   { key: "shirtLength", label: "Shirt Length", unit: "in" },
   { key: "chest", label: "Chest", unit: "in" },
@@ -52,6 +52,16 @@ export const homeCardsData = [
       router.push("/(tabs)/customer");
     },
   },
+];
+
+export const themeOptions: {
+  mode: ThemeMode;
+  label: string;
+  icon: typeof Sun;
+}[] = [
+  { mode: "light", label: "Light", icon: Sun },
+  { mode: "dark", label: "Dark", icon: Moon },
+  { mode: "system", label: "System", icon: Smartphone },
 ];
 export const dummyCustomers = [
   {

@@ -1,11 +1,11 @@
 import type { LucideIcon } from "lucide-react-native";
 import type { ComponentType, ReactNode } from "react";
 import type {
-    StyleProp,
-    TextInputProps,
-    TextStyle,
-    TouchableOpacityProps,
-    ViewStyle,
+  StyleProp,
+  TextInputProps,
+  TextStyle,
+  TouchableOpacityProps,
+  ViewStyle,
 } from "react-native";
 import type { MD3Theme, TextProps as PaperTextProps } from "react-native-paper";
 import { MD3Colors } from "react-native-paper";
@@ -133,6 +133,7 @@ export interface IconButtonProps extends TouchableOpacityProps {
   iconSize?: number;
   iconColor?: string;
   backgroundColor?: string;
+  borderColor?: string;
   icon?: ComponentType<{ size?: number; color?: string }>;
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;

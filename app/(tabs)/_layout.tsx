@@ -1,6 +1,7 @@
 import { AppTheme } from "@/constants/theme";
 import { Tabs } from "expo-router";
-import { ClipboardList, Home, Users } from "lucide-react-native";
+import { ClipboardList, Home, Settings, Users } from "lucide-react-native";
+
 import { useTheme } from "react-native-paper";
 
 export default function TabLayout() {
@@ -39,6 +40,15 @@ export default function TabLayout() {
           title: "Orders",
           tabBarIcon: ({ color, size }) => (
             <ClipboardList size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="setting"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color, size }) => (
+            <Settings size={size} color={color} />
           ),
         }}
       />

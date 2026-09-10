@@ -8,6 +8,7 @@ export const IconButton = ({
   size = 48,
   iconSize = 24,
   iconColor,
+  borderColor,
   backgroundColor,
   icon: Icon = Plus,
   style,
@@ -16,7 +17,9 @@ export const IconButton = ({
 }: IconButtonProps) => {
   const theme = useTheme<AppTheme>();
   const resolvedIconColor = iconColor ?? theme.colors.white;
-  const resolvedBackgroundColor = backgroundColor ?? theme.colors.red;
+  const resolvedBackgroundColor =
+    backgroundColor ?? theme.colors.cardBackground;
+  const borderTheme = borderColor ?? theme.colors.borderColor;
 
   return (
     <TouchableOpacity
@@ -29,7 +32,7 @@ export const IconButton = ({
           height: size,
           borderRadius: size / 2,
           backgroundColor: resolvedBackgroundColor,
-          shadowColor: theme.colors.shadow,
+          borderColor: borderTheme,
         },
         style,
       ]}
@@ -44,9 +47,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    elevation: 3,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
+    borderWidth: 1,
     shadowRadius: 4,
   },
 });
