@@ -41,9 +41,6 @@ export const Metrics = {
   fontSizeLarge: 18,
   fontSizeXLarge: 20,
   fontSizeXXLarge: 36,
-
-  // colors
-  whatsAppVIewColor: "#F5F0EB",
 };
 
 export const isIOS = () => {

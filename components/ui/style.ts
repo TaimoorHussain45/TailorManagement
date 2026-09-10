@@ -21,14 +21,14 @@ export const customerCardStyles = (theme: AppTheme) =>
       width: 44,
       height: 44,
       borderRadius: 22,
-      backgroundColor: "#E8DED1",
+      backgroundColor: theme.colors.customerLogoBackground,
       justifyContent: "center",
       alignItems: "center",
     },
     logoText: {
       fontSize: 18,
       fontWeight: "600",
-      color: "#B5651D",
+      color: theme.colors.customerLogoText,
     },
     details: {
       flex: 1,

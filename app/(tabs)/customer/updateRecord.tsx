@@ -1,13 +1,13 @@
+import { updateRecordStyles } from "@/components/customer/style";
 import CustomButton from "@/components/ui/CustomButton";
 import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
 import Typography from "@/components/ui/Typography";
-import { Metrics } from "@/constants/metrics";
 import { AppTheme } from "@/constants/theme";
 import { router } from "expo-router";
-import { ArrowLeft, ChevronDown, FileText, Save } from "lucide-react-native";
+import { ArrowLeft, FileText, Save } from "lucide-react-native";
 import { useState } from "react";
-import { ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { ScrollView, TextInput, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -19,15 +19,14 @@ const measurementHistory = [
 
 const UpdateRecord = () => {
   const theme = useTheme<AppTheme>();
+  const styles = updateRecordStyles(theme);
   const [selectedFeeling, setSelectedFeeling] = useState("Comfortable");
   const [notes, setNotes] = useState(
     "Slight ease at the waist. Check sleeve pitch at next fitting.",
   );
 
   return (
-    <SafeAreaView
-      style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
-    >
+    <SafeAreaView style={styles.safeArea}>
       <ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
@@ -37,7 +36,7 @@ const UpdateRecord = () => {
           <IconButton
             icon={ArrowLeft}
             iconColor={theme.colors.textPrimary}
-            backgroundColor="transparent"
+            backgroundColor={theme.colors.transparent}
             onPress={() => router.back()}
           />
           <View style={styles.headerText}>
@@ -63,21 +62,8 @@ const UpdateRecord = () => {
           />
         </View>
 
-        <View
-          style={[
-            styles.recordCard,
-            {
-              backgroundColor: theme.colors.cardBackground,
-              borderColor: theme.colors.borderColor,
-            },
-          ]}
-        >
-          <View
-            style={[
-              styles.recordIcon,
-              { backgroundColor: theme.colors.SageGreen },
-            ]}
-          >
+        <View style={styles.recordCard}>
+          <View style={styles.recordIcon}>
             <FileText size={20} color={theme.colors.accentGold} />
           </View>
           <View style={styles.recordInfo}>
@@ -88,15 +74,7 @@ const UpdateRecord = () => {
               Upper + lower body measurements
             </Typography>
           </View>
-          <View
-            style={[
-              styles.status,
-              {
-                backgroundColor: theme.colors.SageGreen,
-                borderColor: theme.colors.accentGold,
-              },
-            ]}
-          >
+          <View style={styles.status}>
             <Typography variant="caption" color={theme.colors.accentGold}>
               Draft
             </Typography>
@@ -116,14 +94,7 @@ const UpdateRecord = () => {
           onChangeText={setNotes}
           placeholder="Add notes for the next fitting"
           placeholderTextColor={theme.colors.textSecondary}
-          style={[
-            styles.notes,
-            {
-              color: theme.colors.textPrimary,
-              borderColor: theme.colors.borderColor,
-              backgroundColor: theme.colors.cardBackground,
-            },
-          ]}
+          style={styles.notes}
         />
 
         <Typography variant="h4" color={theme.colors.textSecondary}>
@@ -142,29 +113,19 @@ const UpdateRecord = () => {
                     ? theme.colors.accentGold
                     : theme.colors.textSecondary
                 }
-                backgroundColor="transparent"
+                backgroundColor={theme.colors.transparent}
                 style={[
                   styles.feelingButton,
-                  {
-                    borderColor: isSelected
-                      ? theme.colors.accentGold
-                      : theme.colors.borderColor,
-                    backgroundColor: isSelected
-                      ? theme.colors.SageGreen
-                      : "transparent",
-                  },
+                  isSelected
+                    ? styles.feelingButtonSelected
+                    : styles.feelingButtonUnselected,
                 ]}
               />
             );
           })}
         </View>
 
-        <View
-          style={[
-            styles.history,
-            { backgroundColor: theme.colors.cardBackground },
-          ]}
-        >
+        <View style={styles.history}>
           <Typography variant="h4" color={theme.colors.accentGold}>
             MEASUREMENT HISTORY
           </Typography>
@@ -191,11 +152,11 @@ const UpdateRecord = () => {
         />
         <CustomButton
           text="Keep editing later"
-          icon={ChevronDown}
+          icon={ArrowLeft}
           iconPosition="left"
           iconSize={16}
           textColor={theme.colors.textSecondary}
-          backgroundColor="transparent"
+          backgroundColor={theme.colors.transparent}
           style={styles.laterButton}
           onPress={() => router.back()}
         />
@@ -203,86 +164,5 @@ const UpdateRecord = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-  content: {
-    gap: 12,
-    padding: 20,
-    paddingBottom: 32,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 12,
-  },
-  headerText: {
-    gap: 2,
-  },
-  recordCard: {
-    alignItems: "center",
-    borderRadius: 20,
-    borderWidth: 1,
-    flexDirection: "row",
-    gap: 12,
-    padding: 16,
-  },
-  recordIcon: {
-    alignItems: "center",
-    borderRadius: 18,
-    height: 38,
-    justifyContent: "center",
-    width: 38,
-  },
-  recordInfo: {
-    flex: 1,
-    gap: 2,
-  },
-  status: {
-    borderRadius: 16,
-    borderWidth: 1,
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-  },
-  notes: {
-    borderRadius: 14,
-    borderWidth: 1,
-    minHeight: 100,
-    padding: 14,
-    textAlignVertical: "top",
-  },
-  feelings: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gap: Metrics.spacingTiny,
-  },
-  feelingButton: {
-    flex: 1,
-    minHeight: 44,
-    borderRadius: 22,
-    paddingHorizontal: 4,
-  },
-  history: {
-    borderRadius: 18,
-    gap: 12,
-    marginTop: 12,
-    padding: 16,
-  },
-  historyRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  saveButton: {
-    marginTop: 16,
-    borderRadius: 26,
-  },
-  laterButton: {
-    backgroundColor: "transparent",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-  },
-});
 
 export default UpdateRecord;

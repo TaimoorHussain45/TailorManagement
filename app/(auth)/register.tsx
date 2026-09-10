@@ -2,6 +2,7 @@ import AuthCard from "@/components/auth/AuthCard";
 import AuthContent from "@/components/auth/AuthContent";
 import FingerPrintLogo from "@/components/auth/FingerPrintLogo";
 import NavLogo from "@/components/auth/NavLogo";
+import { registerStyle } from "@/components/auth/style";
 import CustomButton from "@/components/ui/CustomButton";
 import { authCardsData } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
@@ -14,7 +15,7 @@ import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { registerStyle } from "./style";
+
 const Register = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const theme = useTheme<AppTheme>();
@@ -37,7 +38,7 @@ const Register = () => {
     setIsAuthenticating(false);
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={style.safeArea}>
       <ScrollView
         style={style.scrollView}
         contentContainerStyle={style.container}

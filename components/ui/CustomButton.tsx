@@ -12,8 +12,8 @@ import Typography from "./Typography";
 const CustomButton = ({
   text,
   onPress,
-  backgroundColor = "transparent",
-  textColor = "#FFFFFF",
+  backgroundColor,
+  textColor,
   iconColor,
   icon: Icon,
   iconPosition = "left",
@@ -24,7 +24,8 @@ const CustomButton = ({
 }: CustomButtonProps) => {
   const theme = useTheme<AppTheme>();
   const isDisabled = disabled || loading;
-  const resolvedIconColor = iconColor ?? textColor;
+  const resolvedTextColor = textColor ?? theme.colors.white;
+  const resolvedIconColor = iconColor ?? resolvedTextColor;
 
   const renderIcon = () => {
     if (!Icon) return null;
@@ -40,19 +41,19 @@ const CustomButton = ({
       style={[
         styles.button,
         {
-          backgroundColor: theme.colors.TealGreen,
+          backgroundColor: backgroundColor ?? theme.colors.TealGreen,
           opacity: isDisabled ? 0.5 : 1,
         },
         style,
       ]}
     >
       {loading ? (
-        <ActivityIndicator size="small" color={textColor} />
+        <ActivityIndicator size="small" color={resolvedTextColor} />
       ) : (
         <View style={styles.btnContent}>
           {iconPosition === "left" && renderIcon()}
 
-          <Typography variant="h4" color={textColor}>
+          <Typography variant="h4" color={resolvedTextColor}>
             {text}
           </Typography>
 

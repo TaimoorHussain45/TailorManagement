@@ -6,10 +6,10 @@ import { IconButton } from "@/components/ui/IconButton";
 import { MeasurementInput } from "@/components/ui/MeasurementInput";
 import Typography from "@/components/ui/Typography";
 import {
-  lowerFields,
-  lowerStyleOptions,
-  upperFields,
-  upperStyleOptions,
+    lowerFields,
+    lowerStyleOptions,
+    upperFields,
+    upperStyleOptions,
 } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
 import { router } from "expo-router";
@@ -52,11 +52,7 @@ const UpperMeasurement = () => {
         <View
           style={[
             styles.toolContainer,
-            {
-              backgroundColor: isUpper
-                ? theme.colors.borderColor
-                : theme.colors.SageGreen,
-            },
+            isUpper ? styles.toolContainerLower : styles.toolContainerUpper,
           ]}
         >
           <Ruler size={24} color={theme.colors.TealGreen} />
@@ -141,7 +137,11 @@ const UpperMeasurement = () => {
               icon={ArrowRight}
               iconSize={24}
               iconPosition="right"
-              style={isUpper ? { width: "70%" } : { width: "100%" }}
+              style={
+                isUpper
+                  ? styles.continueButtonUpper
+                  : styles.continueButtonLower
+              }
               backgroundColor={theme.colors.TealGreen}
               onPress={isUpper ? handleMeasurement : handleUpper}
             />
@@ -153,20 +153,14 @@ const UpperMeasurement = () => {
         <TouchableOpacity
           style={[
             styles.upper,
-            {
-              backgroundColor: !isUpper
-                ? theme.colors.TealGreen
-                : "transparent",
-            },
+            !isUpper ? styles.upperActive : styles.upperInactive,
           ]}
           onPress={() => setIsUpper((prev) => !prev)}
         />
         <TouchableOpacity
           style={[
             styles.upper,
-            {
-              backgroundColor: isUpper ? theme.colors.TealGreen : "transparent",
-            },
+            isUpper ? styles.upperActive : styles.upperInactive,
           ]}
           onPress={() => setIsUpper((prev) => !prev)}
         />

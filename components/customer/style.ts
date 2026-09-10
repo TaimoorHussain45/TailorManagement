@@ -85,7 +85,7 @@ export const upperMeasurementStyles = (theme: AppTheme) =>
       height: 6,
       borderRadius: Metrics.radiusMedium,
       borderWidth: 1,
-      backgroundColor: "#D9D0C1",
+      backgroundColor: theme.colors.measurementTrack,
     },
     inputContainer: {
       flexDirection: "row",
@@ -118,6 +118,8 @@ export const upperMeasurementStyles = (theme: AppTheme) =>
       borderRadius: Metrics.radiusLarge,
       marginVertical: Metrics.spacingSmall,
     },
+    toolContainerUpper: { backgroundColor: theme.colors.SageGreen },
+    toolContainerLower: { backgroundColor: theme.colors.borderColor },
     caresoul: {
       flexDirection: "row",
       justifyContent: "flex-start",
@@ -153,6 +155,10 @@ export const upperMeasurementStyles = (theme: AppTheme) =>
       borderColor: theme.colors.borderColor,
       borderWidth: 2,
     },
+    continueButtonUpper: { width: "70%" },
+    continueButtonLower: { width: "100%" },
+    upperActive: { backgroundColor: theme.colors.TealGreen },
+    upperInactive: { backgroundColor: theme.colors.transparent },
   });
 export const checkBoxStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -173,13 +179,13 @@ export const checkBoxStyles = (theme: AppTheme) =>
       height: 18,
       borderRadius: 9,
       borderWidth: 1.5,
-      borderColor: "#B7AF9B",
+      borderColor: theme.colors.checkboxBorder,
       alignItems: "center",
       justifyContent: "center",
     },
     radioOuterSelected: {
-      backgroundColor: "#1F4B43",
-      borderColor: "#1F4B43",
+      backgroundColor: theme.colors.checkboxSelected,
+      borderColor: theme.colors.checkboxSelected,
     },
     optionText: {
       fontSize: 13,
@@ -189,6 +195,84 @@ export const checkBoxStyles = (theme: AppTheme) =>
       gap: 12,
       marginTop: Metrics.spacingLarge,
       marginBottom: Metrics.spacingLarge,
+    },
+  });
+
+export const updateRecordStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    safeArea: { flex: 1, backgroundColor: theme.colors.background },
+    content: { gap: 12, padding: 20, paddingBottom: 32 },
+    header: { flexDirection: "row", alignItems: "flex-start", gap: 12 },
+    recordCard: {
+      alignItems: "center",
+      backgroundColor: theme.colors.cardBackground,
+      borderColor: theme.colors.borderColor,
+      borderRadius: 20,
+      borderWidth: 1,
+      flexDirection: "row",
+      gap: 12,
+      padding: 16,
+    },
+    recordIcon: {
+      alignItems: "center",
+      backgroundColor: theme.colors.SageGreen,
+      borderRadius: 18,
+      height: 38,
+      justifyContent: "center",
+      width: 38,
+    },
+    recordInfo: { flex: 1, gap: 2 },
+    status: {
+      backgroundColor: theme.colors.SageGreen,
+      borderColor: theme.colors.accentGold,
+      borderRadius: 16,
+      borderWidth: 1,
+      paddingHorizontal: 14,
+      paddingVertical: 6,
+    },
+    notes: {
+      backgroundColor: theme.colors.cardBackground,
+      borderColor: theme.colors.borderColor,
+      borderRadius: 14,
+      borderWidth: 1,
+      color: theme.colors.textPrimary,
+      minHeight: 100,
+      padding: 14,
+      textAlignVertical: "top",
+    },
+    feelings: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      gap: Metrics.spacingTiny,
+    },
+    feelingButton: {
+      flex: 1,
+      minHeight: 44,
+      borderRadius: 22,
+      paddingHorizontal: 4,
+    },
+    feelingButtonSelected: {
+      backgroundColor: theme.colors.SageGreen,
+      borderColor: theme.colors.accentGold,
+    },
+    feelingButtonUnselected: {
+      backgroundColor: theme.colors.transparent,
+      borderColor: theme.colors.borderColor,
+    },
+    history: {
+      backgroundColor: theme.colors.cardBackground,
+      borderRadius: 18,
+      gap: 12,
+      marginTop: 12,
+      padding: 16,
+    },
+    historyRow: { flexDirection: "row", justifyContent: "space-between" },
+    saveButton: { marginTop: 16, borderRadius: 26 },
+    laterButton: {
+      backgroundColor: theme.colors.transparent,
+      justifyContent: "center",
+      alignItems: "center",
+      bottom: Metrics.spacingMedium,
     },
   });
 export const measurementCardStyles = (theme: AppTheme) =>

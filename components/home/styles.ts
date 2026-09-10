@@ -7,6 +7,7 @@ export const homeStyle = (theme: AppTheme) =>
   StyleSheet.create({
     scrollView: {
       flex: 1,
+      margin: 15,
     },
     container: {},
     customerCard: {
@@ -30,7 +31,7 @@ export const homeStyle = (theme: AppTheme) =>
     customerButton: {
       minHeight: 10,
       paddingHorizontal: 4,
-      backgroundColor: "transparent",
+      backgroundColor: theme.colors.transparent,
     },
     customerButtonContainer: {
       flexDirection: "row",
@@ -131,13 +132,13 @@ export const WelcomeCardStyles = (theme: AppTheme) =>
     progressTrack: {
       height: 6,
       borderRadius: 3,
-      backgroundColor: "rgba(255,255,255,0.25)",
+      backgroundColor: theme.colors.progressTrack,
       overflow: "hidden",
     },
     progressFill: {
       height: "100%",
       borderRadius: 3,
-      backgroundColor: "red",
+      backgroundColor: theme.colors.red,
     },
     footerConatiner: {
       flexDirection: "row",

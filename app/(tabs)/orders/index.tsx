@@ -1,12 +1,16 @@
 import OrdersCard from "@/components/orders/ordersCard";
+import { ordersScreenStyles } from "@/components/orders/styles";
 import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
 import { ordersData } from "@/constants/data";
-import { Metrics } from "@/constants/metrics";
-import { FlatList, StyleSheet, View } from "react-native";
+import { AppTheme } from "@/constants/theme";
+import { FlatList, View } from "react-native";
+import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Orders() {
+  const theme = useTheme<AppTheme>();
+  const styles = ordersScreenStyles(theme);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
@@ -26,28 +30,10 @@ export default function Orders() {
           contentContainerStyle={styles.listContent}
           showsVerticalScrollIndicator={false}
           persistentScrollbar
-          indicatorStyle="black"
+          indicatorStyle={theme.colors.scrollIndicatorStyle}
           renderItem={({ item }) => <OrdersCard order={item} />}
         />
       </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    padding: Metrics.spacingMedium,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  listContainer: {
-    flex: 1,
-  },
-  listContent: {
-    gap: Metrics.spacingXLarge,
-    paddingBottom: Metrics.spacingXLarge,
-  },
-});

@@ -1,13 +1,14 @@
+import type { AppTheme } from "@/constants/theme";
 import { Fonts } from "@/constants/theme";
 import type { TypographyProps } from "@/types";
 import React from "react";
 import { StyleSheet, TextStyle } from "react-native";
-import { Text } from "react-native-paper";
+import { Text, useTheme } from "react-native-paper";
 
 const Typography: React.FC<TypographyProps> = ({
   variant = "body1",
   children,
-  color = "#00000",
+  color,
   align = "left",
   style,
   padding,
@@ -16,6 +17,7 @@ const Typography: React.FC<TypographyProps> = ({
   onPress,
   ...props
 }) => {
+  const theme = useTheme<AppTheme>();
   const getVariantStyle = (): TextStyle => {
     switch (variant) {
       case "h1":
@@ -46,7 +48,7 @@ const Typography: React.FC<TypographyProps> = ({
       style={[
         getVariantStyle(),
         {
-          color,
+          color: color ?? theme.colors.textPrimary,
           textAlign: align,
           padding: padding,
           paddingHorizontal: paddingHorizontal,

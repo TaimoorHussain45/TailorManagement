@@ -1,9 +1,8 @@
-import { Metrics } from "@/constants/metrics";
 import { AppTheme } from "@/constants/theme";
 import type { OrdersCardProps } from "@/types";
 import { router } from "expo-router";
 import { CalendarDays, ChevronRight } from "lucide-react-native";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import CustomButton from "../ui/CustomButton";
 import Typography from "../ui/Typography";
@@ -11,9 +10,14 @@ import { OrdersCardStyles } from "./styles";
 const OrdersCard = ({ order }: OrdersCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = OrdersCardStyles(theme);
-  let progress = order.progress;
+  const openOrder = () => router.push("/customer/viewCustomer");
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={openOrder}
+      style={styles.container}
+    >
       <View style={[styles.setFlex]}>
         <View>
           <Typography variant="h4" color={theme.colors.red}>
@@ -51,24 +55,22 @@ const OrdersCard = ({ order }: OrdersCardProps) => {
           </Typography>
         </View>
       </View>
-      <View
-        style={[styles.progressTrack, { marginVertical: Metrics.spacingTiny }]}
-      >
-        <View style={[styles.progressFill, { width: `${progress}%` }]} />
+      <View style={styles.progressTrack}>
+        <View style={[styles.progressFill, { width: `${order.progress}%` }]} />
       </View>
-      <View style={{ justifyContent: "flex-end", alignItems: "flex-end" }}>
+      <View style={styles.recordActions}>
         <CustomButton
           text="Open record"
           textColor={theme.colors.warmRust}
           iconSize={20}
           iconPosition="right"
           icon={ChevronRight}
-          backgroundColor="transparent"
+          backgroundColor={theme.colors.transparent}
           style={styles.recordButton}
-          onPress={() => router.replace("/(tabs)/customer/viewCustomer")}
+          onPress={openOrder}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

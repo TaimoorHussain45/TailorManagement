@@ -4,6 +4,7 @@ import type {
   RadioGroupType,
   StyleOptionGroup,
 } from "@/types";
+import { router } from "expo-router";
 import { Lock, ShieldCheck } from "lucide-react-native";
 
 export const upperFields: FieldType[] = [
@@ -37,12 +38,19 @@ export const homeCardsData = [
     title: "12",
     paragraph: "active orders",
     rightOrder: "orders",
+    onPress: () => {
+      router.push("/(tabs)/orders");
+    },
   },
   {
     icon: Lock,
     title: "24",
     paragraph: "customer saved",
     rightOrder: "people",
+    // onPress: router.replace("/(tabs)/customer"),
+    onPress: () => {
+      router.push("/(tabs)/customer");
+    },
   },
 ];
 export const dummyCustomers = [

@@ -22,10 +22,7 @@ export default function HomeScreen() {
   console.log(currentDate);
 
   return (
-    <ScrollView
-      style={{ flex: 1, margin: 15 }}
-      showsVerticalScrollIndicator={false}
-    >
+    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <View>
         <NavLogo />
       </View>
@@ -47,6 +44,7 @@ export default function HomeScreen() {
       <View style={styles.cardContainer}>
         {homeCardsData.map((element, index) => {
           const Icon = element.icon;
+
           return (
             <OrderCard
               key={index}
@@ -54,6 +52,7 @@ export default function HomeScreen() {
               title={element.title}
               paragraph={element.paragraph}
               rightTitle={element.rightOrder}
+              onPress={() => element.onPress()}
             />
           );
         })}

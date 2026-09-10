@@ -6,10 +6,12 @@ export type { AppColors, AppTheme, ThemeColors } from "@/types";
 const commonColors = {
   offWhite: "#ffffff",
   darkBlack: "#000000",
+  transparent: "transparent",
   clayRose: "#CA846F",
   red: "#b86449",
   borderColor: "#c8bba7",
   warmRust: "#9A503A",
+  whatsAppVIewColor: "#F5F0EB",
 };
 
 // In your theme constants file
@@ -45,6 +47,17 @@ export const colors: AppColors = {
     SageGreen: "#e7efe7",
     onColor: "#e7efe7",
     softPeach: "#F2DED4",
+    shadow: "#000000",
+    customerLogoBackground: "#E8DED1",
+    customerLogoText: "#B5651D",
+    measurementTrack: "#D9D0C1",
+    checkboxBorder: "#B7AF9B",
+    checkboxSelected: "#1F4B43",
+    progressTrack: "#FFFFFF40",
+    measurementValue: "#1F4E8C",
+    mutedText: "#8A8A8A",
+    inputDivider: "#D9D3C7",
+    scrollIndicatorStyle: "black",
   },
   dark: {
     ...MD3Colors,
@@ -77,6 +90,17 @@ export const colors: AppColors = {
     onColor: "#2f4137",
     progressBar: "#C79F65",
     softPeach: "#3D2E28",
+    shadow: "#000000",
+    customerLogoBackground: "#3D3328",
+    customerLogoText: "#E7B17A",
+    measurementTrack: "#4B453D",
+    checkboxBorder: "#8F866F",
+    checkboxSelected: "#C79F65",
+    progressTrack: "#FFFFFF40",
+    measurementValue: "#8FB7E8",
+    mutedText: "#A8AAA4",
+    inputDivider: "#625C52",
+    scrollIndicatorStyle: "white",
   },
 };
 

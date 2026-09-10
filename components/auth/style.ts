@@ -135,3 +135,58 @@ export const navLogoStyle = (theme: AppTheme) =>
       paddingTop: 0,
     },
   });
+export const registerStyle = (theme: AppTheme) =>
+  StyleSheet.create({
+    safeArea: {
+      flex: 1,
+    },
+    scrollView: {
+      flex: 1,
+    },
+    container: {
+      flexGrow: 1,
+      marginHorizontal: Metrics.spacingMedium,
+      paddingBottom: Metrics.spacingMedium,
+    },
+    logo: {},
+    cardContainer: {
+      flexDirection: "row",
+      justifyContent: "space-around",
+    },
+    authButton: {
+      marginVertical: 20,
+    },
+    content: {
+      paddingVertical: 20,
+    },
+  });
+export const loginStyle = (theme: AppTheme) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: "column",
+      justifyContent: "space-between",
+      gap: 20,
+      marginHorizontal: Metrics.spacingMedium,
+    },
+    logo: {},
+    authLogo: {
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
+    authButton: {},
+    signInRow: {
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      lineHeight: 32,
+      padding: 0,
+      margin: 0,
+      bottom: 15,
+    },
+    signInButton: {
+      minHeight: 10,
+      paddingHorizontal: 4,
+      backgroundColor: theme.colors.transparent,
+    },
+  });

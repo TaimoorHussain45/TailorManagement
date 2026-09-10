@@ -41,16 +41,17 @@ export const OrdersCardStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.borderColor,
       borderRadius: Metrics.radiusLarge,
       overflow: "hidden",
+      marginVertical: Metrics.spacingTiny,
     },
     progressFill: {
       height: "100%",
       backgroundColor: theme.colors.TealGreen,
       borderRadius: Metrics.radiusCircle,
     },
-    recordButton: {
-      backgroundColor: "transparent",
-      fontSize: Metrics.fontSizeMedium,
-      fontFamily: Fonts.semiBold,
+    recordButton: {},
+    recordActions: {
+      justifyContent: "flex-end",
+      alignItems: "flex-end",
     },
   });
 export const updateMeasurementStyles = (theme: AppTheme) =>
@@ -76,5 +77,16 @@ export const updateMeasurementStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.cardBackground,
       borderColor: theme.colors.borderColor,
       marginVertical: Metrics.spacingMedium,
+    },
+  });
+
+export const ordersScreenStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    safeArea: { flex: 1, padding: Metrics.spacingMedium },
+    header: { flexDirection: "row", justifyContent: "space-between" },
+    listContainer: { flex: 1 },
+    listContent: {
+      gap: Metrics.spacingXLarge,
+      paddingBottom: Metrics.spacingXLarge,
     },
   });

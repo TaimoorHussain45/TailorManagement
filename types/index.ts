@@ -92,6 +92,7 @@ export type OrderCardProps = {
   title: string;
   paragraph: string;
   rightTitle: string;
+  onPress?: () => void;
 };
 
 export type CustomButtonProps = {
@@ -225,11 +226,24 @@ export type ThemeColors = typeof MD3Colors &
     clayRose: string;
     TealGreen: string;
     red: string;
+    whatsAppVIewColor: string;
     accentGold: string;
     SageGreen: string;
     onColor: string;
     warmRust: string;
     softPeach: string;
+    transparent: string;
+    shadow: string;
+    customerLogoBackground: string;
+    customerLogoText: string;
+    measurementTrack: string;
+    checkboxBorder: string;
+    checkboxSelected: string;
+    progressTrack: string;
+    measurementValue: string;
+    mutedText: string;
+    inputDivider: string;
+    scrollIndicatorStyle: "black" | "white";
   };
 
 export type AppTheme = MD3Theme & {
