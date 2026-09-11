@@ -1,6 +1,6 @@
 import { Metrics } from "@/constants/metrics";
 import { AppTheme, Fonts } from "@/constants/theme";
-import type { AuthContentStyles } from "@/types";
+import type { AuthContentStyles } from "@/types/types";
 import { StyleSheet } from "react-native";
 
 export const fingerPrintLogostyle = (theme: AppTheme) =>

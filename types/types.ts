@@ -16,11 +16,12 @@ export type FieldType = {
   unit: string;
 };
 export type Customer = {
-  id: string;
+  id: number;
   name: string;
-  phone: string | null;
+  phone: string;
+  address: string | null;
   notes: string | null;
-  customerType: "regular" | "vip" | "new";
+  created_at: string;
 };
 
 export type RadioGroupType = {
@@ -118,10 +119,10 @@ export type CustomButtonProps = {
 };
 
 export type CustomerCardProps = {
-  customerName: string;
-  title: string;
+  name: string;
+
   text: string;
-  phoneNumber?: string;
+  phone?: string;
   leftIcon?: ReactNode;
   icon?: ReactNode;
   onPress: () => void;
@@ -148,10 +149,11 @@ export interface IconButtonProps extends TouchableOpacityProps {
 
 export interface InputFieldProps extends Omit<TextInputProps, "style"> {
   label?: string;
-  error?: string;
+  error?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
   style?: StyleProp<TextStyle>;
+  errorMessage?: string;
 }
 
 export interface MeasurementInputProps extends Omit<TextInputProps, "style"> {

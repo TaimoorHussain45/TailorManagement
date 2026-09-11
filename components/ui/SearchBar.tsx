@@ -1,6 +1,6 @@
 import { Metrics } from "@/constants/metrics";
 import { AppTheme } from "@/constants/theme";
-import type { SearchBarProps } from "@/types";
+import type { SearchBarProps } from "@/types/types";
 import { Search } from "lucide-react-native";
 import { StyleSheet, TextInput, View } from "react-native";
 import { useTheme } from "react-native-paper";

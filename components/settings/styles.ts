@@ -1,5 +1,5 @@
 import { Metrics } from "@/constants/metrics";
-import { AppTheme } from "@/types";
+import { AppTheme } from "@/types/types";
 import { StyleSheet } from "react-native";
 
 export const settingStyle = (theme: AppTheme) =>

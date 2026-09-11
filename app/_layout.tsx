@@ -1,5 +1,4 @@
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
 import {
   DarkTheme,
   DefaultTheme,
@@ -8,10 +7,11 @@ import {
 import { MD3DarkTheme, MD3LightTheme, PaperProvider } from "react-native-paper";
 import "react-native-reanimated";
 
+import RootNavigator from "@/components/navigation/RootNavigator";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { SQLiteProvider } from "expo-sqlite";
-import { initSchema } from "./db/schema";
+import { initSchema } from "./database/schema";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -34,7 +34,7 @@ export default function RootLayout() {
   }
 
   return (
-    <SQLiteProvider databaseName="atelier.db" onInit={initSchema}>
+    <SQLiteProvider databaseName="TailorManagement.db" onInit={initSchema}>
       <PaperProvider theme={paperTheme}>
         <ThemeProvider
           value={{
@@ -49,10 +49,7 @@ export default function RootLayout() {
             },
           }}
         >
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(auth)/login" />
-            <Stack.Screen name="(tabs)" />
-          </Stack>
+          <RootNavigator />
         </ThemeProvider>
       </PaperProvider>
     </SQLiteProvider>

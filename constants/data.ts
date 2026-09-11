@@ -1,9 +1,9 @@
 import type {
-  FieldType,
-  OrderCardData,
-  RadioGroupType,
-  StyleOptionGroup,
-} from "@/types";
+    FieldType,
+    OrderCardData,
+    RadioGroupType,
+    StyleOptionGroup,
+} from "@/types/types";
 import { router } from "expo-router";
 import { Lock, Moon, ShieldCheck, Smartphone, Sun } from "lucide-react-native";
 type ThemeMode = "light" | "dark" | "system";

@@ -1,22 +1,21 @@
 import { AppTheme } from "@/constants/theme";
-import type { CustomerCardProps } from "@/types";
+import type { CustomerCardProps } from "@/types/types";
 import { TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import Typography from "./Typography";
 import { customerCardStyles } from "./style";
 
 const CustomerCard = ({
-  customerName,
-  title,
+  name,
   text,
-  phoneNumber,
+  phone,
   leftIcon,
   icon,
   onPress,
 }: CustomerCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = customerCardStyles(theme);
-  const firstLetter = customerName?.trim().charAt(0).toUpperCase();
+  const firstLetter = name?.trim().charAt(0).toUpperCase();
 
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
@@ -25,15 +24,15 @@ const CustomerCard = ({
       </View>
       <View style={styles.details}>
         <View style={styles.content}>
-          <Typography color={theme.colors.black}>{title}</Typography>
+          <Typography color={theme.colors.black}>{name}</Typography>
           <Typography color={theme.colors.textPrimary} variant="caption">
-            {text}
+            Last Fitted 8 oct
           </Typography>
         </View>
         {leftIcon && (
           <View style={styles.phoneRow}>
             <View>{leftIcon}</View>
-            <Typography>{phoneNumber}</Typography>
+            <Typography>{phone}</Typography>
           </View>
         )}
       </View>

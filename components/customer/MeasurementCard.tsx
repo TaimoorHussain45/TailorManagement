@@ -1,5 +1,5 @@
 import { AppTheme } from "@/constants/theme";
-import type { MeasurementCardProps } from "@/types";
+import type { MeasurementCardProps } from "@/types/types";
 import { ChevronRight, Ruler } from "lucide-react-native";
 import { TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";

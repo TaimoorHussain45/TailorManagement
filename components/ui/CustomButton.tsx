@@ -1,5 +1,5 @@
 import { AppTheme } from "@/constants/theme";
-import type { CustomButtonProps } from "@/types";
+import type { CustomButtonProps } from "@/types/types";
 import {
     ActivityIndicator,
     StyleSheet,

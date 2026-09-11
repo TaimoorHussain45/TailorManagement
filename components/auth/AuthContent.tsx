@@ -1,6 +1,6 @@
 import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
-import type { AuthContentProps } from "@/types";
+import type { AuthContentProps } from "@/types/types";
 import { useMemo } from "react";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";

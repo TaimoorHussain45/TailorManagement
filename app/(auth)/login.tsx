@@ -5,10 +5,12 @@ import { loginStyle } from "@/components/auth/style";
 import CustomButton from "@/components/ui/CustomButton";
 import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
+import { createSession } from "@/services/session";
 import { validateBiometricAvailability } from "@/utils/biometric";
 import * as LocalAuthentication from "expo-local-authentication";
 import { router } from "expo-router";
 import { getItemAsync } from "expo-secure-store";
+import { useSQLiteContext } from "expo-sqlite";
 import { ArrowRight } from "lucide-react-native";
 import { useState } from "react";
 import { View } from "react-native";
@@ -18,6 +20,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Login = () => {
   const theme = useTheme<AppTheme>();
   const style = loginStyle(theme);
+  const db = useSQLiteContext();
   const [isUnlocking, setIsUnlocking] = useState(false);
 
   const handleUnlock = async () => {
@@ -29,7 +32,7 @@ const Login = () => {
       const isRegistered = await getItemAsync("isRegistered");
 
       if (isRegistered !== "true") {
-        console.warn("")
+        console.warn("");
         router.replace("/register");
         return;
       }
@@ -43,6 +46,7 @@ const Login = () => {
         console.warn("Biometric authentication failed:", result.error);
         return;
       }
+      await createSession(db);
       router.replace("/(tabs)");
     } catch (error) {
       console.error("Biometric authentication error:", error);

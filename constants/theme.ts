@@ -1,7 +1,7 @@
-import type { AppColors } from "@/types";
+import type { AppColors } from "@/types/types";
 import { MD3Colors } from "react-native-paper";
 
-export type { AppColors, AppTheme, ThemeColors } from "@/types";
+export type { AppColors, AppTheme, ThemeColors } from "@/types/types";
 
 const commonColors = {
   offWhite: "#ffffff",

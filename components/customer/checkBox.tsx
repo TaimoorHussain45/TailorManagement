@@ -1,5 +1,5 @@
 import { AppTheme } from "@/constants/theme";
-import type { CheckBoxProps } from "@/types";
+import type { CheckBoxProps } from "@/types/types";
 import { Check } from "lucide-react-native";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";

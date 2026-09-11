@@ -1,5 +1,5 @@
 import type { AppTheme } from "@/constants/theme";
-import type { IconButtonProps } from "@/types";
+import type { IconButtonProps } from "@/types/types";
 import { Plus } from "lucide-react-native";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useTheme } from "react-native-paper";

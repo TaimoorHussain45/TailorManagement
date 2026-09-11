@@ -1,6 +1,6 @@
 import type { AppTheme } from "@/constants/theme";
 import { Fonts } from "@/constants/theme";
-import type { TypographyProps } from "@/types";
+import type { TypographyProps } from "@/types/types";
 import React from "react";
 import { StyleSheet, TextStyle } from "react-native";
 import { Text, useTheme } from "react-native-paper";

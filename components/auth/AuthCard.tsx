@@ -1,5 +1,5 @@
 import { AppTheme } from "@/constants/theme";
-import type { AuthCardProps } from "@/types";
+import type { AuthCardProps } from "@/types/types";
 import { useMemo } from "react";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";

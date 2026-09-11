@@ -1,5 +1,5 @@
 import { AppTheme } from "@/constants/theme";
-import type { OrdersCardProps } from "@/types";
+import type { OrdersCardProps } from "@/types/types";
 import { router } from "expo-router";
 import { CalendarDays, ChevronRight } from "lucide-react-native";
 import { TouchableOpacity, View } from "react-native";

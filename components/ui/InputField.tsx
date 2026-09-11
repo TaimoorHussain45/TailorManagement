@@ -1,5 +1,5 @@
 import { AppTheme } from "@/constants/theme";
-import type { InputFieldProps } from "@/types";
+import type { InputFieldProps } from "@/types/types";
 import { TextInput, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import Typography from "./Typography";
@@ -10,6 +10,7 @@ const InputField = ({
   error,
   containerStyle,
   inputStyle,
+  errorMessage,
   style,
   ...rest
 }: InputFieldProps) => {
@@ -30,7 +31,7 @@ const InputField = ({
       />
       {error && (
         <Typography variant="body2" style={styles.errorText}>
-          {error}
+          {errorMessage}
         </Typography>
       )}
     </View>

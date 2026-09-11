@@ -1,5 +1,5 @@
 import { AppTheme } from "@/constants/theme";
-import type { MeasurementInputProps } from "@/types";
+import type { MeasurementInputProps } from "@/types/types";
 import { TextInput, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { measurementInputStyles } from "./style";

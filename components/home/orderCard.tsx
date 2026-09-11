@@ -1,10 +1,16 @@
 import { AppTheme } from "@/constants/theme";
-import type { OrderCardProps } from "@/types";
+import type { OrderCardProps } from "@/types/types";
 import { TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import Typography from "../ui/Typography";
 import { orderCardStyles } from "./styles";
-const OrderCard = ({ icon, title, paragraph, rightTitle,onPress }: OrderCardProps) => {
+const OrderCard = ({
+  icon,
+  title,
+  paragraph,
+  rightTitle,
+  onPress,
+}: OrderCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = orderCardStyles(theme);
   return (

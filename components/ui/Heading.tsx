@@ -1,6 +1,6 @@
 import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
-import type { HeadingProps } from "@/types";
+import type { HeadingProps } from "@/types/types";
 import { StyleSheet, View } from "react-native";
 import { useTheme } from "react-native-paper";
 
