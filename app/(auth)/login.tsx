@@ -8,6 +8,7 @@ import { AppTheme } from "@/constants/theme";
 import { validateBiometricAvailability } from "@/utils/biometric";
 import * as LocalAuthentication from "expo-local-authentication";
 import { router } from "expo-router";
+import { getItemAsync } from "expo-secure-store";
 import { ArrowRight } from "lucide-react-native";
 import { useState } from "react";
 import { View } from "react-native";
@@ -20,20 +21,33 @@ const Login = () => {
   const [isUnlocking, setIsUnlocking] = useState(false);
 
   const handleUnlock = async () => {
-    const isValid = await validateBiometricAvailability();
-    if (!isValid) return;
-
     setIsUnlocking(true);
-    const result = await LocalAuthentication.authenticateAsync({
-      promptMessage: "Scan your fingerprint to unlock",
-      cancelLabel: "Cancel",
-      disableDeviceFallback: true,
-    });
-    setIsUnlocking(false);
-    router.replace("/(tabs)");
-    if (!result.success) {
-      console.warn("Biometric authentication failed:", result.error);
-      return;
+    try {
+      const isValid = await validateBiometricAvailability();
+      if (!isValid) return;
+
+      const isRegistered = await getItemAsync("isRegistered");
+
+      if (isRegistered !== "true") {
+        console.warn("")
+        router.replace("/register");
+        return;
+      }
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage: "Scan your fingerprint to unlock",
+        cancelLabel: "Cancel",
+        disableDeviceFallback: true,
+      });
+
+      if (!result.success) {
+        console.warn("Biometric authentication failed:", result.error);
+        return;
+      }
+      router.replace("/(tabs)");
+    } catch (error) {
+      console.error("Biometric authentication error:", error);
+    } finally {
+      setIsUnlocking(false);
     }
   };
 

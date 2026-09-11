@@ -15,6 +15,13 @@ export type FieldType = {
   label: string;
   unit: string;
 };
+export type Customer = {
+  id: string;
+  name: string;
+  phone: string | null;
+  notes: string | null;
+  customerType: "regular" | "vip" | "new";
+};
 
 export type RadioGroupType = {
   key: string;

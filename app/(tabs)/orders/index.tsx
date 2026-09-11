@@ -1,7 +1,6 @@
 import OrdersCard from "@/components/orders/ordersCard";
 import { ordersScreenStyles } from "@/components/orders/styles";
 import Heading from "@/components/ui/Heading";
-import { IconButton } from "@/components/ui/IconButton";
 import { ordersData } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
 import { FlatList, View } from "react-native";
@@ -16,10 +15,6 @@ export default function Orders() {
       <View style={styles.header}>
         <View>
           <Heading eyebrow="THE WORK IN MOTION" title="Orders" />
-        </View>
-        <View></View>
-        <View>
-          <IconButton />
         </View>
       </View>
       <View></View>

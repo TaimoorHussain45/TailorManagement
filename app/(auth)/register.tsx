@@ -21,21 +21,26 @@ const Register = () => {
   const theme = useTheme<AppTheme>();
   const style = registerStyle(theme);
   const handleBiometricAuth = async () => {
-    const isValid = await validateBiometricAvailability();
-    if (!isValid) return;
-
     setIsAuthenticating(true);
-    const result = await LocalAuthentication.authenticateAsync({
-      promptMessage: "Scan your fingerprint to register",
-      cancelLabel: "Cancel",
-      disableDeviceFallback: true,
-    });
-    if (result.success) {
-      await setItemAsync("isRegistered", "true");
-      router.replace("/login");
-      console.log("working");
+    try {
+      const isValid = await validateBiometricAvailability();
+      if (!isValid) return;
+
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage: "Scan your fingerprint to register",
+        cancelLabel: "Cancel",
+        disableDeviceFallback: true,
+      });
+      if (result.success) {
+        await setItemAsync("isRegistered", "true");
+        router.replace("/login");
+        console.log("working");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsAuthenticating(false);
     }
-    setIsAuthenticating(false);
   };
   return (
     <SafeAreaView style={style.safeArea}>

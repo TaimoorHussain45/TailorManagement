@@ -16,7 +16,7 @@ export const IconButton = ({
   ...rest
 }: IconButtonProps) => {
   const theme = useTheme<AppTheme>();
-  const resolvedIconColor = iconColor ?? theme.colors.white;
+  const resolvedIconColor = iconColor ?? theme.colors.black;
   const resolvedBackgroundColor =
     backgroundColor ?? theme.colors.cardBackground;
   const borderTheme = borderColor ?? theme.colors.borderColor;

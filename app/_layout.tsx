@@ -10,10 +10,8 @@ import "react-native-reanimated";
 
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-
-// export const unstable_settings = {
-//   anchor: "(tabs)",
-// };
+import { SQLiteProvider } from "expo-sqlite";
+import { initSchema } from "./db/schema";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -36,25 +34,27 @@ export default function RootLayout() {
   }
 
   return (
-    <PaperProvider theme={paperTheme}>
-      <ThemeProvider
-        value={{
-          ...navigationTheme,
-          colors: {
-            primary: String(navigationTheme.colors.primary),
-            background: String(navigationTheme.colors.background),
-            card: String(navigationTheme.colors.card),
-            text: String(navigationTheme.colors.text),
-            border: String(navigationTheme.colors.border),
-            notification: String(navigationTheme.colors.notification),
-          },
-        }}
-      >
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(auth)/login" />
-          <Stack.Screen name="(tabs)" />
-        </Stack>
-      </ThemeProvider>
-    </PaperProvider>
+    <SQLiteProvider databaseName="atelier.db" onInit={initSchema}>
+      <PaperProvider theme={paperTheme}>
+        <ThemeProvider
+          value={{
+            ...navigationTheme,
+            colors: {
+              primary: String(navigationTheme.colors.primary),
+              background: String(navigationTheme.colors.background),
+              card: String(navigationTheme.colors.card),
+              text: String(navigationTheme.colors.text),
+              border: String(navigationTheme.colors.border),
+              notification: String(navigationTheme.colors.notification),
+            },
+          }}
+        >
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(auth)/login" />
+            <Stack.Screen name="(tabs)" />
+          </Stack>
+        </ThemeProvider>
+      </PaperProvider>
+    </SQLiteProvider>
   );
 }
