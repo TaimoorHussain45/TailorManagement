@@ -14,5 +14,25 @@ export const initSchema = async (db: SQLiteDatabase) => {
       notes TEXT,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
+    CREATE TABLE IF NOT EXISTS Measurement (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    customer_id INTEGER NOT NULL,
+    shirt_length REAL NOT NULL,
+  chest REAL NOT NULL,
+  shoulder REAL NOT NULL,
+  sleeve REAL NOT NULL,
+  collar REAL NOT NULL,
+  ghera REAL NOT NULL,
+    shalwar_length REAL NOT NULL,
+  paoncha_width REAL NOT NULL,
+    collar_style TEXT NOT NULL,
+  cuff_style TEXT NOT NULL,
+  pocket_config TEXT NOT NULL,
+  bottom_type TEXT NOT NULL,
+  waist_attachment TEXT NOT NULL,
+   created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (customer_id) REFERENCES Customer(id) ON DELETE CASCADE
+    )
+    
   `);
 };

@@ -6,6 +6,11 @@ export const CustomerStyles = (theme: AppTheme) =>
     safeArea: {
       flex: 1,
     },
+    emptyContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
     container: {
       flex: 1,
       padding: 20,
@@ -36,7 +41,7 @@ export const CustomerStyles = (theme: AppTheme) =>
       height: 40,
     },
     addButton: {
-      marginVertical: Metrics.spacingMedium,
+      // marginVertical: Metrics.spacingMedium,
     },
   });
 export const addCustomerStyles = (theme: AppTheme) =>

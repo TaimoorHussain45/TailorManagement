@@ -1,6 +1,19 @@
 import type { Customer } from "@/types/types";
 import { SQLiteDatabase } from "expo-sqlite";
 
+type AddCustomerResponse =
+  | {
+      success: true;
+      data: { lastInsertRowId: number };
+      error: null;
+      message: string;
+    }
+  | {
+      success: false;
+      data: null;
+      error: string;
+    };
+
 export const addCustomer = async (
   db: SQLiteDatabase,
   data: {
@@ -9,7 +22,7 @@ export const addCustomer = async (
     notes?: string;
     address?: string;
   },
-) => {
+): Promise<AddCustomerResponse> => {
   try {
     const result = await db.runAsync(
       `INSERT INTO Customer
@@ -82,3 +95,13 @@ export async function getCustomerById(db: SQLiteDatabase, id: number) {
     };
   }
 }
+export const deleteCustomerById = async (db: SQLiteDatabase, id: number) => {
+  try {
+    await db.runAsync("DELETE FROM Measurement WHERE customer_id = ?", id);
+    await db.runAsync("DELETE FROM Customer WHERE id = ?", id);
+    return { success: true };
+  } catch (error) {
+    console.error("Delete customer error:", error);
+    return { success: false, error: "Failed to delete customer" };
+  }
+};

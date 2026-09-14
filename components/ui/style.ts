@@ -105,6 +105,9 @@ export const measurementInputStyles = (theme: AppTheme) =>
       height: 20,
       marginHorizontal: 12,
     },
+    errorText: {
+      
+    },
     unitText: {
       fontSize: 14,
     },

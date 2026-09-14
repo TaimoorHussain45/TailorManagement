@@ -45,12 +45,15 @@ export interface OrderCardData {
   customerName: string;
   status: OrderStatus;
   title: string;
+  description?: string;
+  phoneNumber?: string;
   dueDate: string;
   progress: number;
 }
 
 export interface OrdersCardProps {
   order: OrderCardData;
+  icon?: ReactNode;
 }
 
 export type MeasurementValue = {
@@ -127,6 +130,24 @@ export type CustomerCardProps = {
   icon?: ReactNode;
   onPress: () => void;
 };
+export type Measurement = {
+  id: number;
+  customer_id: number;
+  shirt_length: number | null;
+  chest: number | null;
+  shoulder: number | null;
+  sleeve: number | null;
+  collar: number | null;
+  ghera: number | null;
+  shalwar_length: number | null;
+  paoncha_width: number | null;
+  collar_style: string | null;
+  cuff_style: string | null;
+  pocket_config: string | null;
+  bottom_type: string | null;
+  waist_attachment: string | null;
+  created_at: string;
+};
 
 export type HeadingProps = {
   eyebrow: string;
@@ -167,6 +188,8 @@ export interface MeasurementInputProps extends Omit<TextInputProps, "style"> {
   valueColor?: string;
   unitColor?: string;
   dividerColor?: string;
+  error?: boolean;
+  errorMessage?: string;
   borderRadius?: number;
   style?: StyleProp<ViewStyle>;
 }

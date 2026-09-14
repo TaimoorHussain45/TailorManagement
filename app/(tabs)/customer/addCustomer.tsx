@@ -8,7 +8,7 @@ import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { ArrowLeft, ArrowRight } from "lucide-react-native";
 import { useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -48,13 +48,19 @@ const AddCustomer = () => {
     };
     try {
       const res = await addCustomer(db, payload);
-      console.log("Data", res.data);
 
-      router.push(`/customer/upperMeasurement?customerId=${res}`);
-    } catch (error) {
-      console.error(error);
+      if (!res.success) {
+        setError(res.error);
+        return;
+      }
+
+      router.push({
+        pathname: "/customer/upperMeasurement",
+        params: { customerId: String(res.data.lastInsertRowId) },
+      });
+    } catch {
+      setError("Unable to save customer. Please try again.");
     } finally {
-      setFormData(null);
       setLoading(false);
     }
   };
@@ -101,6 +107,7 @@ const AddCustomer = () => {
           style={styles.messageBox}
           onChangeText={(text) => onChange("notes", text)}
         />
+        {error && <Text style={{ color: theme.colors.red }}>{error}</Text>}
         <CustomButton
           text={loading ? "loading..." : "Save and Continue"}
           icon={ArrowRight}
@@ -109,6 +116,7 @@ const AddCustomer = () => {
           backgroundColor={theme.colors.TealGreen}
           style={styles.customBtn}
           onPress={onAddCustomer}
+          disabled={loading}
         />
       </View>
     </SafeAreaView>

@@ -6,27 +6,123 @@ import { IconButton } from "@/components/ui/IconButton";
 import { MeasurementInput } from "@/components/ui/MeasurementInput";
 import Typography from "@/components/ui/Typography";
 import {
-    lowerFields,
-    lowerStyleOptions,
-    upperFields,
-    upperStyleOptions,
+  lowerFields,
+  lowerStyleOptions,
+  upperFields,
+  upperStyleOptions,
 } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
-import { router } from "expo-router";
+import { getCustomerById } from "@/services/customer";
+import { addMeasurement, type NewMeasurement } from "@/services/measurement";
+import { Customer } from "@/types/types";
+import { router, useLocalSearchParams } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
 import { ArrowLeft, ArrowRight, CircleAlert, Ruler } from "lucide-react-native";
-import { useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const UpperMeasurement = () => {
   const theme = useTheme<AppTheme>();
+  const db = useSQLiteContext();
+  const [customer, setCustomer] = useState<Customer | null>(null);
+  const [measurements, setMeasurements] = useState<Record<string, string>>({});
+  const [styleSelections, setStyleSelections] = useState<
+    Record<string, string>
+  >({});
   const [isUpper, setIsUpper] = useState(false);
+  const [showValidationErrors, setShowValidationErrors] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
   const styles = upperMeasurementStyles(theme);
-  const handleUpper = () => {
-    setIsUpper((prev) => !prev);
+
+  const { customerId } = useLocalSearchParams<{ customerId: string }>();
+
+  useEffect(() => {
+    const id = Number(customerId);
+    if (!customerId || Number.isNaN(id)) {
+      return;
+    }
+    getCustomerById(db, id).then((response) => {
+      if (response.success) setCustomer(response.data);
+    });
+  }, [customerId, db]);
+
+  const onMeasurementChange = (key: string, value: string) => {
+    setSaveError("");
+    setMeasurements((prev) => ({ ...prev, [key]: value }));
   };
-  const handleMeasurement = () => {};
+  const onStyleSelect = (category: string, option: string) => {
+    setSaveError("");
+    setStyleSelections((prev) => ({ ...prev, [category]: option }));
+  };
+  const hasEmptyField = (fields: { key: string }[]) =>
+    fields.some((item) => !measurements[item.key]);
+  const hasMissingStyleOption = (
+    groups: { title: string; options: string[] }[],
+  ) => groups.some((group) => !styleSelections[group.title]);
+
+  const onContinueToLower = () => {
+    if (
+      hasEmptyField(upperFields) ||
+      hasMissingStyleOption(upperStyleOptions)
+    ) {
+      setShowValidationErrors(true);
+      return;
+    }
+    setShowValidationErrors(false);
+    setIsUpper(true);
+  };
+
+  const onBackToUpper = () => {
+    setShowValidationErrors(false);
+    setIsUpper(false);
+  };
+
+  const handleMeasurement = async () => {
+    if (isSaving) return;
+    if (
+      hasEmptyField(lowerFields) ||
+      hasMissingStyleOption(lowerStyleOptions)
+    ) {
+      setShowValidationErrors(true);
+      return;
+    }
+    const id = Number(customerId);
+    const payload: NewMeasurement = {
+      customer_id: id,
+      shirt_length: Number(measurements.shirtLength),
+      chest: Number(measurements.chest),
+      shoulder: Number(measurements.shoulder),
+      sleeve: Number(measurements.sleeveLength),
+      collar: Number(measurements.collar),
+      ghera: Number(measurements.gheraDamen),
+      shalwar_length: Number(measurements.shalwarLength),
+      paoncha_width: Number(measurements.paonchaWidth),
+      collar_style: styleSelections["Collar / Ban Style"],
+      cuff_style: styleSelections["Cuff / Sleeve End"],
+      pocket_config: styleSelections["Pocket Configuration"],
+      bottom_type: styleSelections["Bottom Garment Type"],
+      waist_attachment: styleSelections["Waist / Belt Attachment"],
+    };
+    setIsSaving(true);
+    setSaveError("");
+    try {
+      const response = await addMeasurement(db, payload);
+      if (!response.success) {
+        setSaveError(response.error);
+        return;
+      }
+      router.push("/(tabs)");
+    } catch (error) {
+      console.error("Failed to save measurement:", error);
+      setSaveError("Could not save measurements. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -43,7 +139,11 @@ const UpperMeasurement = () => {
         showsVerticalScrollIndicator={false}
       >
         <Heading
-          eyebrow="ALI KHAN . NEW FITTING"
+          eyebrow={
+            customer
+              ? `${customer.name.toUpperCase()} · NEW FITTING`
+              : "NEW FITTING"
+          }
           title={!isUpper ? "Upper body" : "Lower body"}
         />
         <Typography variant="caption">
@@ -69,57 +169,51 @@ const UpperMeasurement = () => {
         <View>
           <Typography variant="h4">BODY MEASUREMENTS</Typography>
           <View style={styles.inputContainer}>
-            {!isUpper
-              ? upperFields.map((element) => (
-                  <MeasurementInput
-                    key={element.key}
-                    label={element.label}
-                    unit={element.unit}
-                  />
-                ))
-              : lowerFields.map((element) => (
-                  <MeasurementInput
-                    key={element.key}
-                    label={element.label}
-                    unit={element.unit}
-                  />
-                ))}
+            {(isUpper ? lowerFields : upperFields).map((element) => (
+              <MeasurementInput
+                key={element.key}
+                label={element.label}
+                unit={element.unit}
+                value={measurements[element.key]}
+                onChangeText={(text: string) =>
+                  onMeasurementChange(element.key, text)
+                }
+                error={showValidationErrors && !measurements[element.key]}
+                errorMessage={`${element.label} is required*`}
+              />
+            ))}
           </View>
+
           <Typography variant="h4">STYLE AND OPTIONS</Typography>
           <View style={styles.optionsContainer}>
-            {!isUpper
-              ? upperStyleOptions.map((element) => (
-                  <View key={element.title}>
-                    <Typography
-                      variant="caption"
-                      color={theme.colors.black}
-                      style={styles.optionTitle}
-                    >
-                      {element.title}
-                    </Typography>
-                    <View style={styles.bottomGarment}>
-                      {element.options.map((option) => (
-                        <CheckBox key={option} options={option} />
-                      ))}
-                    </View>
+            {(isUpper ? lowerStyleOptions : upperStyleOptions).map(
+              (element) => (
+                <View key={element.title}>
+                  <Typography
+                    variant="caption"
+                    color={theme.colors.black}
+                    style={styles.optionTitle}
+                  >
+                    {element.title}
+                  </Typography>
+                  <View style={styles.bottomGarment}>
+                    {element.options.map((option) => (
+                      <CheckBox
+                        key={option}
+                        options={option}
+                        selected={styleSelections[element.title] === option}
+                        onPress={() => onStyleSelect(element.title, option)}
+                      />
+                    ))}
                   </View>
-                ))
-              : lowerStyleOptions.map((element) => (
-                  <View key={element.key}>
-                    <Typography
-                      variant="caption"
-                      color={theme.colors.black}
-                      style={styles.optionTitle}
-                    >
-                      {element.title}
+                  {showValidationErrors && !styleSelections[element.title] ? (
+                    <Typography variant="caption" color={theme.colors.error}>
+                      Select one option*
                     </Typography>
-                    <View style={styles.bottomGarment}>
-                      {element.options.map((option) => (
-                        <CheckBox key={option} options={option} />
-                      ))}
-                    </View>
-                  </View>
-                ))}
+                  ) : null}
+                </View>
+              ),
+            )}
           </View>
 
           <View style={styles.btn}>
@@ -128,7 +222,7 @@ const UpperMeasurement = () => {
                 text="Back"
                 textColor={theme.colors.black}
                 style={styles.backButton}
-                onPress={handleUpper}
+                onPress={onBackToUpper}
               />
             )}
 
@@ -143,26 +237,31 @@ const UpperMeasurement = () => {
                   : styles.continueButtonLower
               }
               backgroundColor={theme.colors.TealGreen}
-              onPress={isUpper ? handleMeasurement : handleUpper}
+              loading={isSaving}
+              onPress={isUpper ? handleMeasurement : onContinueToLower}
             />
           </View>
+
+          {saveError ? (
+            <Typography variant="caption" color={theme.colors.error}>
+              {saveError}
+            </Typography>
+          ) : null}
         </View>
       </ScrollView>
 
       <View style={styles.caresoul}>
-        <TouchableOpacity
+        <View
           style={[
             styles.upper,
             !isUpper ? styles.upperActive : styles.upperInactive,
           ]}
-          onPress={() => setIsUpper((prev) => !prev)}
         />
-        <TouchableOpacity
+        <View
           style={[
             styles.upper,
             isUpper ? styles.upperActive : styles.upperInactive,
           ]}
-          onPress={() => setIsUpper((prev) => !prev)}
         />
       </View>
     </SafeAreaView>

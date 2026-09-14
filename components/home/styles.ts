@@ -38,6 +38,12 @@ export const homeStyle = (theme: AppTheme) =>
       justifyContent: "space-between",
       alignItems: "center",
     },
+    emptyContainer: {
+      width: "100%",
+      minHeight: 120,
+      justifyContent: "center",
+      alignItems: "center",
+    },
   });
 
 export const orderCardStyles = (theme: AppTheme) =>

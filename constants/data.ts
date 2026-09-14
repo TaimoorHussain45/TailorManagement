@@ -1,8 +1,8 @@
 import type {
-    FieldType,
-    OrderCardData,
-    RadioGroupType,
-    StyleOptionGroup,
+  FieldType,
+  OrderCardData,
+  RadioGroupType,
+  StyleOptionGroup,
 } from "@/types/types";
 import { router } from "expo-router";
 import { Lock, Moon, ShieldCheck, Smartphone, Sun } from "lucide-react-native";
@@ -139,14 +139,14 @@ export const ordersData: OrderCardData[] = [
     progress: 60,
   },
 ];
-export const singleOrdersData: OrderCardData = {
-  id: "AT-1048",
-  customerName: "Sara Khan",
-  status: "In Progress",
-  title: "Suit silk two types",
-  dueDate: "14 Oct",
-  progress: 89,
-};
+// export const singleOrdersData: OrderCardData = {
+//   id: "AT-1048",
+//   customerName: "Sara Khan",
+//   status: "In Progress",
+//   title: "Suit silk two types",
+//   dueDate: "14 Oct",
+//   progress: 89,
+// };
 
 export const singleMeasurementData = {
   date: "08 Oct 2024",

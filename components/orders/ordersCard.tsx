@@ -7,7 +7,7 @@ import { useTheme } from "react-native-paper";
 import CustomButton from "../ui/CustomButton";
 import Typography from "../ui/Typography";
 import { OrdersCardStyles } from "./styles";
-const OrdersCard = ({ order }: OrdersCardProps) => {
+const OrdersCard = ({ order, icon }: OrdersCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = OrdersCardStyles(theme);
   const openOrder = () => router.push("/customer/viewCustomer");
@@ -20,6 +20,7 @@ const OrdersCard = ({ order }: OrdersCardProps) => {
     >
       <View style={[styles.setFlex]}>
         <View>
+          {icon}
           <Typography variant="h4" color={theme.colors.red}>
             {order.id}
           </Typography>
@@ -41,6 +42,16 @@ const OrdersCard = ({ order }: OrdersCardProps) => {
         <Typography variant="body2" color={theme.colors.textSecondary}>
           {order.title}
         </Typography>
+        {order.description ? (
+          <Typography variant="caption" color={theme.colors.textSecondary}>
+            {order.description}
+          </Typography>
+        ) : null}
+        {order.phoneNumber ? (
+          <Typography variant="caption" color={theme.colors.textSecondary}>
+            {order.phoneNumber}
+          </Typography>
+        ) : null}
       </View>
       <View style={styles.dueDate}>
         <View style={styles.dueDate}>

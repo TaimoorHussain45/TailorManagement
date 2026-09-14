@@ -4,6 +4,7 @@ import CustomerCard from "@/components/ui/CustomerCard";
 import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
 import SearchBar from "@/components/ui/SearchBar";
+import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
 import { getAllCustomers } from "@/services/customer";
 import type { Customer } from "@/types/types";
@@ -20,21 +21,75 @@ const Customers = () => {
   const styles = CustomerStyles(theme);
   const db = useSQLiteContext();
   const [customers, setCustomers] = useState<Customer[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  const loadCustomers = useCallback(
+    async (isActive: () => boolean = () => true) => {
+      setLoading(true);
+      setLoadError(null);
+
+      try {
+        const response = await getAllCustomers(db);
+        if (!isActive()) return;
+
+        if (!response.success) {
+          setLoadError("Unable to load customers. Please try again.");
+          setCustomers([]);
+        } else {
+          setCustomers(response.data);
+        }
+      } catch {
+        if (!isActive()) return;
+        setLoadError("Unable to load customers. Please try again.");
+        setCustomers([]);
+      } finally {
+        if (isActive()) setLoading(false);
+      }
+    },
+    [db],
+  );
 
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      getAllCustomers(db).then((response) => {
-        if (active) {
-          setCustomers(response.data ?? []);
-        }
-      });
+      loadCustomers(() => active);
       return () => {
         active = false;
       };
-    }, [db]),
+    }, [loadCustomers]),
   );
-  console.log(customers);
+
+  if (loading) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Typography variant="h2">Loading customers...</Typography>
+      </View>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Typography variant="h2">Unable to load customers</Typography>
+        <Typography variant="caption">{loadError}</Typography>
+        <CustomButton text="Try again" onPress={() => loadCustomers()} />
+      </View>
+    );
+  }
+
+  if (customers.length === 0) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Typography variant="h2">No customer yet!</Typography>
+        <Typography variant="caption">Please add customer</Typography>
+        <CustomButton
+          text="Add customer"
+          onPress={() => router.push("/customer/addCustomer")}
+        />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
