@@ -77,7 +77,7 @@ export const getAllCustomers = async (
 
 export async function getCustomerById(db: SQLiteDatabase, id: number) {
   try {
-    const result = await db.getFirstAsync(
+    const result = await db.getFirstAsync<Customer>(
       "SELECT * FROM Customer WHERE id = ?",
       id,
     );

@@ -165,6 +165,34 @@ export const upperMeasurementStyles = (theme: AppTheme) =>
     upperActive: { backgroundColor: theme.colors.TealGreen },
     upperInactive: { backgroundColor: theme.colors.transparent },
   });
+export const measurementFormStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    inputContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      flexWrap: "wrap",
+      marginVertical: Metrics.spacingTiny,
+    },
+    optionsContainer: {
+      flexDirection: "column",
+      justifyContent: "space-between",
+      gap: 10,
+    },
+    optionTitle: {
+      fontSize: Metrics.fontSizeSmall,
+      fontFamily: Fonts.semiBold,
+    },
+    optionGroup: {
+      backgroundColor: theme.colors.cardBackground,
+      borderColor: theme.colors.borderColor,
+      borderWidth: 1,
+      borderRadius: Metrics.spacingSmall,
+      paddingHorizontal: Metrics.spacingTiny,
+      paddingVertical: Metrics.spacingSmall,
+      elevation: Metrics.spacingTiny,
+      marginVertical: Metrics.spacingSmall,
+    },
+  });
 export const checkBoxStyles = (theme: AppTheme) =>
   StyleSheet.create({
     optionsRow: {

@@ -4,13 +4,15 @@ import { updateMeasurementStyles } from "@/components/orders/styles";
 import CustomButton from "@/components/ui/CustomButton";
 import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
-import { singleMeasurementData } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
 import { deleteCustomerById } from "@/services/customer";
-import { router, useLocalSearchParams } from "expo-router";
+import { getMeasurement } from "@/services/measurement";
+import { Measurement } from "@/types/types";
+import { getFormattedDate } from "@/utils/formattedDate";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { ArrowLeft, MoveUpRight, Shirt, Trash } from "lucide-react-native";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Alert, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,6 +22,11 @@ const ViewCustomer = () => {
   const styles = updateMeasurementStyles(theme);
   const db = useSQLiteContext();
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const [measurement, setMeasurement] = useState<Measurement[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
   const { customerId, id, customerName, title, text, phoneNumber } =
     useLocalSearchParams<{
       customerId?: string;
@@ -30,7 +37,68 @@ const ViewCustomer = () => {
       phoneNumber?: string;
     }>();
   const resolvedCustomerId = customerId ?? id;
+  const numericCustomerId = Number(resolvedCustomerId);
   console.log("id ", customerId);
+  const loadCustomers = useCallback(async () => {
+    setLoading(true);
+    setLoadError(null);
+
+    try {
+      const response = await getMeasurement(db, numericCustomerId);
+
+      if (!response.success) {
+        setLoadError(
+          response.error ?? "Unable to load customers. Please try again.",
+        );
+        setMeasurement([]);
+        return;
+      }
+
+      setMeasurement(response.data);
+    } catch (error) {
+      console.error("loadCustomers failed:", error);
+      setLoadError("Unable to load customers. Please try again.");
+      setMeasurement([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [db, numericCustomerId]);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadCustomers();
+    }, [loadCustomers]),
+  );
+
+  const latestMeasurement = measurement[0];
+  const singleMeasurementData = {
+    date: latestMeasurement
+      ? getFormattedDate(new Date(latestMeasurement.created_at))
+      : "No record",
+    description: latestMeasurement
+      ? "Upper and lower body record"
+      : "No measurements saved yet",
+    measurements: latestMeasurement
+      ? [
+          {
+            label: "Shirt length",
+            value: String(latestMeasurement.shirt_length),
+            unit: "in",
+          },
+          {
+            label: "Chest",
+            value: String(latestMeasurement.chest),
+            unit: "in",
+          },
+
+          {
+            label: "Shalwar length",
+            value: String(latestMeasurement.shalwar_length),
+            unit: "in",
+          },
+        ]
+      : [],
+  };
   const order = {
     id: "CUSTOMER-RECORD",
     customerName: customerName ?? "Customer",
@@ -44,7 +112,7 @@ const ViewCustomer = () => {
 
   const onDelete = () => {
     console.log("working 1");
-    const numericCustomerId = Number(resolvedCustomerId);
+
     if (!resolvedCustomerId || Number.isNaN(numericCustomerId)) {
       Alert.alert("Unable to delete", "Customer ID is missing.");
       return;
@@ -74,6 +142,7 @@ const ViewCustomer = () => {
       ],
     );
   };
+  console.log("measurement", measurement);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -108,7 +177,7 @@ const ViewCustomer = () => {
           icon={<Shirt size={24} color={theme.colors.TealGreen} />}
         />
       </View>
-      <View>
+      {latestMeasurement ? (
         <CustomButton
           text="Update measurement"
           icon={MoveUpRight}
@@ -116,9 +185,17 @@ const ViewCustomer = () => {
           iconSize={17}
           textColor={theme.colors.black}
           style={styles.measurementBtn}
-          onPress={() => router.push("/customer/updateRecord")}
+          onPress={() =>
+            router.push({
+              pathname: "/customer/updateRecord",
+              params: {
+                customerId: String(numericCustomerId),
+                measurementId: String(latestMeasurement.id),
+              },
+            })
+          }
         />
-      </View>
+      ) : null}
     </SafeAreaView>
   );
 };

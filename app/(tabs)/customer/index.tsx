@@ -24,39 +24,34 @@ const Customers = () => {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const loadCustomers = useCallback(
-    async (isActive: () => boolean = () => true) => {
-      setLoading(true);
-      setLoadError(null);
+  const loadCustomers = useCallback(async () => {
+    setLoading(true);
+    setLoadError(null);
 
-      try {
-        const response = await getAllCustomers(db);
-        if (!isActive()) return;
+    try {
+      const response = await getAllCustomers(db);
 
-        if (!response.success) {
-          setLoadError("Unable to load customers. Please try again.");
-          setCustomers([]);
-        } else {
-          setCustomers(response.data);
-        }
-      } catch {
-        if (!isActive()) return;
-        setLoadError("Unable to load customers. Please try again.");
+      if (!response.success) {
+        setLoadError(
+          response.error ?? "Unable to load customers. Please try again.",
+        );
         setCustomers([]);
-      } finally {
-        if (isActive()) setLoading(false);
+        return;
       }
-    },
-    [db],
-  );
+
+      setCustomers(response.data);
+    } catch (error) {
+      console.error("loadCustomers failed:", error);
+      setLoadError("Unable to load customers. Please try again.");
+      setCustomers([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [db]);
 
   useFocusEffect(
     useCallback(() => {
-      let active = true;
-      loadCustomers(() => active);
-      return () => {
-        active = false;
-      };
+      loadCustomers();
     }, [loadCustomers]),
   );
 

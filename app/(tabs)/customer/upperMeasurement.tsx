@@ -1,9 +1,8 @@
-import CheckBox from "@/components/customer/checkBox";
+import { MeasurementForm } from "@/components/customer/MeasurementForm";
 import { upperMeasurementStyles } from "@/components/customer/style";
 import CustomButton from "@/components/ui/CustomButton";
 import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
-import { MeasurementInput } from "@/components/ui/MeasurementInput";
 import Typography from "@/components/ui/Typography";
 import {
   lowerFields,
@@ -53,10 +52,12 @@ const UpperMeasurement = () => {
     setSaveError("");
     setMeasurements((prev) => ({ ...prev, [key]: value }));
   };
+
   const onStyleSelect = (category: string, option: string) => {
     setSaveError("");
     setStyleSelections((prev) => ({ ...prev, [category]: option }));
   };
+
   const hasEmptyField = (fields: { key: string }[]) =>
     fields.some((item) => !measurements[item.key]);
   const hasMissingStyleOption = (
@@ -89,9 +90,8 @@ const UpperMeasurement = () => {
       setShowValidationErrors(true);
       return;
     }
-    const id = Number(customerId);
     const payload: NewMeasurement = {
-      customer_id: id,
+      customer_id: Number(customerId),
       shirt_length: Number(measurements.shirtLength),
       chest: Number(measurements.chest),
       shoulder: Number(measurements.shoulder),
@@ -167,55 +167,15 @@ const UpperMeasurement = () => {
         </View>
 
         <View>
-          <Typography variant="h4">BODY MEASUREMENTS</Typography>
-          <View style={styles.inputContainer}>
-            {(isUpper ? lowerFields : upperFields).map((element) => (
-              <MeasurementInput
-                key={element.key}
-                label={element.label}
-                unit={element.unit}
-                value={measurements[element.key]}
-                onChangeText={(text: string) =>
-                  onMeasurementChange(element.key, text)
-                }
-                error={showValidationErrors && !measurements[element.key]}
-                errorMessage={`${element.label} is required*`}
-              />
-            ))}
-          </View>
-
-          <Typography variant="h4">STYLE AND OPTIONS</Typography>
-          <View style={styles.optionsContainer}>
-            {(isUpper ? lowerStyleOptions : upperStyleOptions).map(
-              (element) => (
-                <View key={element.title}>
-                  <Typography
-                    variant="caption"
-                    color={theme.colors.black}
-                    style={styles.optionTitle}
-                  >
-                    {element.title}
-                  </Typography>
-                  <View style={styles.bottomGarment}>
-                    {element.options.map((option) => (
-                      <CheckBox
-                        key={option}
-                        options={option}
-                        selected={styleSelections[element.title] === option}
-                        onPress={() => onStyleSelect(element.title, option)}
-                      />
-                    ))}
-                  </View>
-                  {showValidationErrors && !styleSelections[element.title] ? (
-                    <Typography variant="caption" color={theme.colors.error}>
-                      Select one option*
-                    </Typography>
-                  ) : null}
-                </View>
-              ),
-            )}
-          </View>
-
+          <MeasurementForm
+            fields={isUpper ? lowerFields : upperFields}
+            styleOptions={isUpper ? lowerStyleOptions : upperStyleOptions}
+            measurements={measurements}
+            styleSelections={styleSelections}
+            showValidationErrors={showValidationErrors}
+            onMeasurementChange={onMeasurementChange}
+            onStyleSelect={onStyleSelect}
+          />
           <View style={styles.btn}>
             {isUpper && (
               <CustomButton
@@ -225,7 +185,6 @@ const UpperMeasurement = () => {
                 onPress={onBackToUpper}
               />
             )}
-
             <CustomButton
               text={!isUpper ? "Continue to lower body" : "Save measurement"}
               icon={ArrowRight}

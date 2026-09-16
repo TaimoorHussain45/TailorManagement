@@ -1,6 +1,5 @@
 import { AppTheme } from "@/constants/theme";
 import type { OrdersCardProps } from "@/types/types";
-import { router } from "expo-router";
 import { CalendarDays, ChevronRight } from "lucide-react-native";
 import { TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
@@ -10,14 +9,10 @@ import { OrdersCardStyles } from "./styles";
 const OrdersCard = ({ order, icon }: OrdersCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = OrdersCardStyles(theme);
-  const openOrder = () => router.push("/customer/viewCustomer");
+  const openOrder = () => console.log("Oder details");
 
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={openOrder}
-      style={styles.container}
-    >
+    <TouchableOpacity activeOpacity={0.8} style={styles.container}>
       <View style={[styles.setFlex]}>
         <View>
           {icon}
