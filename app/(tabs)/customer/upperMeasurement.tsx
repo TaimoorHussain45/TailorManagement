@@ -114,7 +114,14 @@ const UpperMeasurement = () => {
         setSaveError(response.error);
         return;
       }
-      router.push("/(tabs)");
+      router.push({
+        pathname: "/(tabs)/orders/addOrder",
+        params: {
+          customerId: customerId,
+          customerName: customer?.name,
+          measurementId: String(response.data.lastInsertRowId),
+        },
+      });
     } catch (error) {
       console.error("Failed to save measurement:", error);
       setSaveError("Could not save measurements. Please try again.");

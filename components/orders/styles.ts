@@ -90,3 +90,64 @@ export const ordersScreenStyles = (theme: AppTheme) =>
       paddingBottom: Metrics.spacingXLarge,
     },
   });
+export const addOrderStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    content: {
+      padding: Metrics.spacingMedium,
+      paddingBottom: Metrics.spacingXLarge,
+      gap: Metrics.spacingMedium,
+    },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: Metrics.spacingSmall,
+    },
+    backButton: {
+      width: 48,
+      paddingHorizontal: 0,
+      backgroundColor: theme.colors.white,
+    },
+    form: {
+      backgroundColor: theme.colors.cardBackground,
+      borderColor: theme.colors.borderColor,
+      borderWidth: 1,
+      borderRadius: Metrics.radiusMedium,
+      padding: Metrics.spacingMedium,
+    },
+    descriptionInput: {
+      height: 100,
+      paddingTop: Metrics.spacingSmall,
+      textAlignVertical: "top",
+    },
+    row: {
+      flexDirection: "row",
+      gap: Metrics.spacingSmall,
+    },
+    halfField: {
+      flex: 1,
+    },
+    statusSection: {
+      gap: Metrics.spacingSmall,
+    },
+    buttons: {
+      flexDirection: "row",
+      gap: Metrics.spacingSmall,
+      flexWrap: "wrap",
+    },
+    statusButton: {
+      width: "48%",
+      borderColor: theme.colors.borderColor,
+      borderWidth: 1,
+      paddingHorizontal: Metrics.spacingSmall,
+    },
+    statusButtonSelected: {
+      borderColor: theme.colors.TealGreen,
+    },
+    saveButton: {
+      marginTop: Metrics.spacingSmall,
+    },
+  });

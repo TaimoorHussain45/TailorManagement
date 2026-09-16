@@ -147,6 +147,20 @@ export const ordersData: OrderCardData[] = [
 //   dueDate: "14 Oct",
 //   progress: 89,
 // };
+export const buttonState = [
+  {
+    title: "pending",
+  },
+  {
+    title: "in progress",
+  },
+  {
+    title: "Completed",
+  },
+  {
+    title: "Delayed",
+  },
+];
 
 export const singleMeasurementData = {
   date: "08 Oct 2024",

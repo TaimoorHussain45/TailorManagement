@@ -32,7 +32,23 @@ export const initSchema = async (db: SQLiteDatabase) => {
   waist_attachment TEXT NOT NULL,
    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (customer_id) REFERENCES Customer(id) ON DELETE CASCADE
-    )
+    );
+    CREATE TABLE IF NOT EXISTS "Order" (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    customer_id INTEGER NOT NULL,
+    measurement_id INTEGER,
+    title TEXT NOT NULL,
+    description TEXT,
+    status TEXT NOT NULL DEFAULT 'PENDING' CHECK (status IN ('In Progress', 'Pending', 'Completed', 'Delayed')),
+    due_date TEXT,
+    quantity INTEGER NOT NULL DEFAULT 1 CHECK (quantity >= 1),
+    progress INTEGER NOT NULL DEFAULT 0
+    CHECK(progress>=0 AND progress<=100),
+     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (customer_id) REFERENCES Customer(id) ON DELETE CASCADE,
+      FOREIGN KEY (measurement_id) REFERENCES Measurement(id) ON DELETE SET NULL
+    );
     
   `);
 };
