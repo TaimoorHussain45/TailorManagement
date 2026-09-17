@@ -75,7 +75,13 @@ export const getAllCustomers = async (
   }
 };
 
-export async function getCustomerById(db: SQLiteDatabase, id: number) {
+export async function getCustomerById(
+  db: SQLiteDatabase,
+  id: number,
+): Promise<
+  | { success: true; data: Customer | null; error: null }
+  | { success: false; data: null; error: string }
+> {
   try {
     const result = await db.getFirstAsync<Customer>(
       "SELECT * FROM Customer WHERE id = ?",
@@ -88,11 +94,36 @@ export async function getCustomerById(db: SQLiteDatabase, id: number) {
       error: null,
     };
   } catch (error) {
+    console.error("getCustomerById failed:", error);
     return {
       success: false,
       data: null,
-      error,
+      error: "Could not load customer. Please try again.",
     };
+  }
+}
+
+export async function updateCustomer(
+  db: SQLiteDatabase,
+  id: number,
+  data: { name: string; phone: string; address?: string; notes?: string },
+) {
+  try {
+    const result = await db.runAsync(
+      `UPDATE Customer SET name = ?, phone = ?, address = ?, notes = ? WHERE id = ?`,
+      data.name,
+      data.phone,
+      data.address?.trim() || null,
+      data.notes?.trim() || null,
+      id,
+    );
+
+    return result.changes > 0
+      ? { success: true as const }
+      : { success: false as const, error: "Customer not found." };
+  } catch (error) {
+    console.error("updateCustomer failed:", error);
+    return { success: false as const, error: "Could not update customer." };
   }
 }
 export const deleteCustomerById = async (db: SQLiteDatabase, id: number) => {

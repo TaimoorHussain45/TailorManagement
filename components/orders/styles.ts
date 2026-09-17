@@ -50,8 +50,7 @@ export const OrdersCardStyles = (theme: AppTheme) =>
     },
     recordButton: {},
     recordActions: {
-      justifyContent: "flex-end",
-      alignItems: "flex-end",
+      marginVertical: 10,
     },
   });
 export const updateMeasurementStyles = (theme: AppTheme) =>

@@ -41,14 +41,32 @@ export type StyleOptionGroup = {
 export type OrderStatus = "In Progress" | "Pending" | "Completed" | "Delayed";
 
 export interface OrderCardData {
-  id: number;
+  id: number | string;
   customerName: string;
   status: OrderStatus;
   title: string;
-  description?: string;
+  description?: string | null;
   phoneNumber?: string;
-  due_date?: string;
+  due_date?: string | null;
+  quantity?: number;
   progress: number;
+}
+
+export interface OrderRecord {
+  id: number;
+  customer_id: number;
+  measurement_id: number | null;
+  title: string;
+  description: string | null;
+  status: OrderStatus;
+  due_date: string | null;
+  quantity: number;
+  progress: number;
+  created_at: string;
+  updated_at: string;
+  customerName: string;
+  phoneNumber: string;
+  measurement: Measurement | null;
 }
 
 export interface OrdersCardProps {
@@ -141,7 +159,7 @@ export type Measurement = {
   ghera: number | null;
   shalwar_length: number | null;
   paoncha_width: number | null;
-  ghera_style: number | null;
+  ghera_style: string | null;
   collar_style: string | null;
   cuff_style: string | null;
   pocket_config: string | null;

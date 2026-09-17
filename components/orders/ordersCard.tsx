@@ -1,5 +1,6 @@
 import { AppTheme } from "@/constants/theme";
 import type { OrdersCardProps } from "@/types/types";
+import { router } from "expo-router";
 import { CalendarDays, ChevronRight } from "lucide-react-native";
 import { TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
@@ -9,7 +10,11 @@ import { OrdersCardStyles } from "./styles";
 const OrdersCard = ({ order, icon }: OrdersCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = OrdersCardStyles(theme);
-  const openOrder = () => console.log("Oder details", order);
+  const openOrder = () =>
+    router.push({
+      pathname: "/orders/viewOrder",
+      params: { orderId: String(order.id) },
+    });
 
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.container}>
@@ -66,12 +71,11 @@ const OrdersCard = ({ order, icon }: OrdersCardProps) => {
       </View>
       <View style={styles.recordActions}>
         <CustomButton
-          text="Open record"
-          textColor={theme.colors.warmRust}
+          text="Open Order details"
+          // textColor={theme.colors.warmRust}
           iconSize={20}
           iconPosition="right"
           icon={ChevronRight}
-          backgroundColor={theme.colors.transparent}
           style={styles.recordButton}
           onPress={openOrder}
         />

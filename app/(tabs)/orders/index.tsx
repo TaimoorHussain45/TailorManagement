@@ -4,10 +4,10 @@ import CustomButton from "@/components/ui/CustomButton";
 import Heading from "@/components/ui/Heading";
 import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
-import { getAllOrders, type NewOrder } from "@/services/orders";
+import { getAllOrders } from "@/services/orders";
+import type { OrderRecord } from "@/types/types";
 import { useFocusEffect } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import type { ComponentProps } from "react";
 import { useCallback, useState } from "react";
 import { FlatList, View } from "react-native";
 import { useTheme } from "react-native-paper";
@@ -17,7 +17,7 @@ export default function Orders() {
   const theme = useTheme<AppTheme>();
   const styles = ordersScreenStyles(theme);
   const db = useSQLiteContext();
-  const [oders, setOders] = useState<NewOrder[]>([]);
+  const [orders, setOrders] = useState<OrderRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const loadCustomers = useCallback(async () => {
@@ -34,15 +34,15 @@ export default function Orders() {
             ? response.error
             : "Unable to load oders. Please try again.",
         );
-        setOders([]);
+        setOrders([]);
         return;
       }
 
-      setOders(response.data);
+      setOrders(response.data);
     } catch (error) {
       console.error("loadCustomers failed:", error);
       setLoadError("Unable to load oders. Please try again.");
-      setOders([]);
+      setOrders([]);
     } finally {
       setLoading(false);
     }
@@ -80,19 +80,13 @@ export default function Orders() {
       <View></View>
       <View style={styles.listContainer}>
         <FlatList
-          data={oders}
-          keyExtractor={(_, index) => index.toString()}
+          data={orders}
+          keyExtractor={(item) => String(item.id)}
           contentContainerStyle={styles.listContent}
           showsVerticalScrollIndicator={false}
           persistentScrollbar
           indicatorStyle={theme.colors.scrollIndicatorStyle}
-          renderItem={({ item }) => (
-            <OrdersCard
-              order={
-                item as unknown as ComponentProps<typeof OrdersCard>["order"]
-              }
-            />
-          )}
+          renderItem={({ item }) => <OrdersCard order={item} />}
         />
       </View>
     </SafeAreaView>

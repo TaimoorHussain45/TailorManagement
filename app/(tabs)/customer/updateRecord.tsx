@@ -5,16 +5,16 @@ import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
 import Typography from "@/components/ui/Typography";
 import {
-  lowerFields,
-  lowerStyleOptions,
-  upperFields,
-  upperStyleOptions,
+    lowerFields,
+    lowerStyleOptions,
+    upperFields,
+    upperStyleOptions,
 } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
 import {
-  getMeasurementById,
-  NewMeasurement,
-  updateMeasurement,
+    getMeasurementById,
+    NewMeasurement,
+    updateMeasurement,
 } from "@/services/measurement";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
@@ -137,6 +137,7 @@ const UpdateRecord = () => {
       ghera: Number(measurements.gheraDamen),
       shalwar_length: Number(measurements.shalwarLength),
       paoncha_width: Number(measurements.paonchaWidth),
+      ghera_style: styleSelections["Ghera / Damen Style"],
       collar_style: styleSelections["Collar / Ban Style"],
       cuff_style: styleSelections["Cuff / Sleeve End"],
       pocket_config: styleSelections["Pocket Configuration"],

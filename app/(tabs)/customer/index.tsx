@@ -33,7 +33,9 @@ const Customers = () => {
 
       if (!response.success) {
         setLoadError(
-          response.error ?? "Unable to load customers. Please try again.",
+          typeof response.error === "string"
+            ? response.error
+            : "Unable to load customers. Please try again.",
         );
         setCustomers([]);
         return;
