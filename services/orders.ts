@@ -44,3 +44,27 @@ export async function addOrder(
     };
   }
 }
+export async function getAllOrders(
+  db: SQLiteDatabase,
+): Promise<
+  | { success: true; data: NewOrder[]; error: null }
+  | { success: false; data: null; error: unknown }
+> {
+  try {
+    const response = await db.getAllAsync<NewOrder>(`SELECT * FROM "Order"`);
+
+    return {
+      success: true,
+      data: response,
+      error: null,
+    };
+  } catch (error) {
+    console.error("getAllOrders failed:", error);
+
+    return {
+      success: false,
+      data: null,
+      error,
+    };
+  }
+}

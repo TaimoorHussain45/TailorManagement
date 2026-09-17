@@ -19,9 +19,9 @@ export async function addMeasurement(
     const result = await db.runAsync(
       `INSERT INTO Measurement
         (customer_id, shirt_length, chest, shoulder, sleeve, collar, ghera,
-         shalwar_length, paoncha_width, collar_style, cuff_style, pocket_config,
+         shalwar_length, paoncha_width, collar_style,ghera_style, cuff_style, pocket_config,
          bottom_type, waist_attachment)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)`,
       data.customer_id,
       data.shirt_length,
       data.chest,
@@ -32,8 +32,10 @@ export async function addMeasurement(
       data.shalwar_length,
       data.paoncha_width,
       data.collar_style,
+      data.ghera_style,
       data.cuff_style,
       data.pocket_config,
+
       data.bottom_type,
       data.waist_attachment,
     );

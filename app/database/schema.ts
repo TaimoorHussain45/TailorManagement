@@ -27,6 +27,7 @@ export const initSchema = async (db: SQLiteDatabase) => {
   paoncha_width REAL NOT NULL,
     collar_style TEXT NOT NULL,
   cuff_style TEXT NOT NULL,
+   ghera_style TEXT NOT NUll,
   pocket_config TEXT NOT NULL,
   bottom_type TEXT NOT NULL,
   waist_attachment TEXT NOT NULL,

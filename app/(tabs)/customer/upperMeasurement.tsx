@@ -100,6 +100,7 @@ const UpperMeasurement = () => {
       ghera: Number(measurements.gheraDamen),
       shalwar_length: Number(measurements.shalwarLength),
       paoncha_width: Number(measurements.paonchaWidth),
+      ghera_style: styleSelections["Ghera / Damen Style"],
       collar_style: styleSelections["Collar / Ban Style"],
       cuff_style: styleSelections["Cuff / Sleeve End"],
       pocket_config: styleSelections["Pocket Configuration"],

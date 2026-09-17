@@ -9,7 +9,7 @@ import { OrdersCardStyles } from "./styles";
 const OrdersCard = ({ order, icon }: OrdersCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = OrdersCardStyles(theme);
-  const openOrder = () => console.log("Oder details");
+  const openOrder = () => console.log("Oder details", order);
 
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.container}>
@@ -17,7 +17,7 @@ const OrdersCard = ({ order, icon }: OrdersCardProps) => {
         <View>
           {icon}
           <Typography variant="h4" color={theme.colors.red}>
-            {order.id}
+            AT-{order.id}
           </Typography>
           <Typography variant="h3" color={theme.colors.black}>
             {order.customerName}
@@ -52,7 +52,7 @@ const OrdersCard = ({ order, icon }: OrdersCardProps) => {
         <View style={styles.dueDate}>
           <CalendarDays size={22} color={theme.colors.textSecondary} />
           <Typography variant="body1" color={theme.colors.textSecondary}>
-            {order.dueDate}
+            {order.due_date}
           </Typography>
         </View>
         <View>

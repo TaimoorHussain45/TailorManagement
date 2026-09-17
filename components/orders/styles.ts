@@ -89,6 +89,11 @@ export const ordersScreenStyles = (theme: AppTheme) =>
       gap: Metrics.spacingXLarge,
       paddingBottom: Metrics.spacingXLarge,
     },
+    emptyContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
   });
 export const addOrderStyles = (theme: AppTheme) =>
   StyleSheet.create({
