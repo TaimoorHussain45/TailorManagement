@@ -350,3 +350,66 @@ export const measurementCardStyles = (theme: AppTheme) =>
       gap: 3,
     },
   });
+export const userCardStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    card: {
+      backgroundColor: theme.colors.surface,
+      borderRadius: 20,
+      padding: 18,
+      marginBottom: 16,
+      elevation: 2,
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
+      shadowOffset: { width: 0, height: 3 },
+    },
+    cardNoMargin: {
+      backgroundColor: theme.colors.surface,
+      borderRadius: 20,
+      padding: 18,
+      elevation: 2,
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
+      shadowOffset: { width: 0, height: 3 },
+    },
+    sectionHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 16,
+      gap: 10,
+    },
+    sectionHeaderTight: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+      marginBottom: 18,
+    },
+    avatarBadge: {
+      width: 42,
+      height: 42,
+      borderRadius: 14,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: theme.colors.secondaryContainer,
+    },
+    statusRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    statusLeft: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+    },
+    infoRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+      marginBottom: 12,
+    },
+    infoRowLast: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+    },
+  });

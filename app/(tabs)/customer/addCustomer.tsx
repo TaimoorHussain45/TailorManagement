@@ -24,7 +24,11 @@ const AddCustomer = () => {
     address: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState({
+    nameError: "",
+    phoneNumberError: "",
+    generalError: "",
+  });
 
   const onChange = (key: keyof typeof formData, value: string) => {
     setFormData((prev) => ({
@@ -34,32 +38,43 @@ const AddCustomer = () => {
   };
 
   const onAddCustomer = async () => {
-    if (!formData.name.trim() || !formData.phoneNumber.trim()) {
-      setError("Name and phone are required.");
+    const nameError = !formData.name.trim() ? "Name is required*" : "";
+    const phoneNumberError = !formData.phoneNumber.trim()
+      ? "Phone number is required*"
+      : "";
+
+    if (nameError || phoneNumberError) {
+      setErrors({ nameError, phoneNumberError, generalError: "" });
       return;
     }
+
     setLoading(true);
-    setError(null);
+    setErrors({ nameError: "", phoneNumberError: "", generalError: "" });
+
     const payload = {
       name: formData.name,
       phone: formData.phoneNumber,
       notes: formData.notes,
       address: formData.address,
     };
+
     try {
       const res = await addCustomer(db, payload);
 
       if (!res.success) {
-        setError(res.error);
+        setErrors((prev) => ({ ...prev, generalError: res.error }));
         return;
       }
 
-      router.push({
+      router.replace({
         pathname: "/customer/upperMeasurement",
         params: { customerId: String(res.data.lastInsertRowId) },
       });
     } catch {
-      setError("Unable to save customer. Please try again.");
+      setErrors((prev) => ({
+        ...prev,
+        generalError: "Unable to save customer. Please try again.",
+      }));
     } finally {
       setLoading(false);
     }
@@ -81,16 +96,15 @@ const AddCustomer = () => {
           placeholder="e.g. John Smith"
           value={formData.name}
           onChangeText={(text) => onChange("name", text)}
-          error={!formData.name}
-          errorMessage="Name is required*"
+          error={errors.nameError}
         />
         <InputField
-          label="Phone  number"
+          label="Phone number"
           placeholder="+92300000329"
           value={formData.phoneNumber}
+          keyboardType="numeric"
           onChangeText={(text) => onChange("phoneNumber", text)}
-          error={!formData.phoneNumber}
-          errorMessage="Phone Number is required*"
+          error={errors.phoneNumberError}
         />
         <InputField
           label="Address"
@@ -107,7 +121,9 @@ const AddCustomer = () => {
           style={styles.messageBox}
           onChangeText={(text) => onChange("notes", text)}
         />
-        {error && <Text style={{ color: theme.colors.red }}>{error}</Text>}
+        {!!errors.generalError && (
+          <Text style={{ color: theme.colors.red }}>{errors.generalError}</Text>
+        )}
         <CustomButton
           text={loading ? "loading..." : "Save and Continue"}
           icon={ArrowRight}

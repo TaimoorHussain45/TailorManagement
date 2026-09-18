@@ -9,12 +9,12 @@ import "react-native-reanimated";
 
 import RootNavigator from "@/components/navigation/RootNavigator";
 import { Colors } from "@/constants/theme";
-import { useColorScheme } from "@/hooks/use-color-scheme";
+import { ThemeContextProvider, useAppTheme } from "@/context/theme-context";
 import { SQLiteProvider } from "expo-sqlite";
 import { initSchema } from "./database/schema";
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+function AppShell() {
+  const { colorScheme } = useAppTheme();
   const navigationTheme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
   const paperTheme =
     colorScheme === "dark"
@@ -23,6 +23,29 @@ export default function RootLayout() {
           ...MD3LightTheme,
           colors: { ...MD3LightTheme.colors, ...Colors.light },
         };
+
+  return (
+    <PaperProvider theme={paperTheme}>
+      <ThemeProvider
+        value={{
+          ...navigationTheme,
+          colors: {
+            primary: String(navigationTheme.colors.primary),
+            background: String(navigationTheme.colors.background),
+            card: String(navigationTheme.colors.card),
+            text: String(navigationTheme.colors.text),
+            border: String(navigationTheme.colors.border),
+            notification: String(navigationTheme.colors.notification),
+          },
+        }}
+      >
+        <RootNavigator />
+      </ThemeProvider>
+    </PaperProvider>
+  );
+}
+
+export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     PoppinsRegular: require("@/assets/Fonts/Poppins-Regular.ttf"),
     PoppinsMedium: require("@/assets/Fonts/Poppins-Medium.ttf"),
@@ -35,23 +58,9 @@ export default function RootLayout() {
 
   return (
     <SQLiteProvider databaseName="TailorManagement.db" onInit={initSchema}>
-      <PaperProvider theme={paperTheme}>
-        <ThemeProvider
-          value={{
-            ...navigationTheme,
-            colors: {
-              primary: String(navigationTheme.colors.primary),
-              background: String(navigationTheme.colors.background),
-              card: String(navigationTheme.colors.card),
-              text: String(navigationTheme.colors.text),
-              border: String(navigationTheme.colors.border),
-              notification: String(navigationTheme.colors.notification),
-            },
-          }}
-        >
-          <RootNavigator />
-        </ThemeProvider>
-      </PaperProvider>
+      <ThemeContextProvider>
+        <AppShell />
+      </ThemeContextProvider>
     </SQLiteProvider>
   );
 }

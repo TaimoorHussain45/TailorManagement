@@ -10,7 +10,7 @@ const InputField = ({
   error,
   containerStyle,
   inputStyle,
-  errorMessage,
+
   style,
   ...rest
 }: InputFieldProps) => {
@@ -31,7 +31,7 @@ const InputField = ({
       />
       {error && (
         <Typography variant="body2" style={styles.errorText}>
-          {errorMessage}
+          {error}
         </Typography>
       )}
     </View>

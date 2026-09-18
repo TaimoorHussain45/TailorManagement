@@ -34,7 +34,7 @@ export const addCustomer = async (
       data.address ?? null,
     );
 
-    console.log("Customer inserted:", result);
+    // console.log("Customer inserted:", result);
 
     return {
       success: true,

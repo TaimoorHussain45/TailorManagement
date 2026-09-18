@@ -1,4 +1,5 @@
 import MeasurementCard from "@/components/customer/MeasurementCard";
+import UserCard from "@/components/customer/userCard";
 import OrdersCard from "@/components/orders/ordersCard";
 import { updateMeasurementStyles } from "@/components/orders/styles";
 import CustomButton from "@/components/ui/CustomButton";
@@ -14,11 +15,11 @@ import { getFormattedDate } from "@/utils/formattedDate";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import {
-    ArrowLeft,
-    MoveUpRight,
-    Pencil,
-    Shirt,
-    Trash,
+  ArrowLeft,
+  MoveUpRight,
+  Pencil,
+  Shirt,
+  Trash,
 } from "lucide-react-native";
 import { useCallback, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
@@ -131,6 +132,7 @@ export default function ViewCustomer() {
   }
 
   const latestMeasurement = measurements[0];
+  console.log("ids...", latestMeasurement, customer.id);
   const measurementData = {
     date: latestMeasurement
       ? getFormattedDate(new Date(latestMeasurement.created_at))
@@ -182,7 +184,7 @@ export default function ViewCustomer() {
               iconColor={theme.colors.black}
               backgroundColor={theme.colors.white}
               onPress={() =>
-                router.push({
+                router.replace({
                   pathname: "/customer/editCustomer",
                   params: { customerId: String(customer.id) },
                 })
@@ -198,38 +200,78 @@ export default function ViewCustomer() {
           </View>
         </View>
         <View style={styles.details}>
-          <Typography variant="body1">{customer.phone}</Typography>
-          <Typography variant="caption">
-            {customer.address ?? "No address"}
-          </Typography>
-          <Typography variant="caption">
-            {customer.notes ?? "No notes"}
-          </Typography>
-          <MeasurementCard data={measurementData} />
+          <UserCard
+            customerName={customer.name}
+            phoneNumber={customer.phone}
+            createdAt={customer.created_at}
+          />
           {latestMeasurement ? (
-            <CustomButton
-              text="Update measurement"
-              icon={MoveUpRight}
-              iconPosition="right"
-              iconSize={17}
-              textColor={theme.colors.black}
-              style={styles.measurementBtn}
-              onPress={() =>
-                router.push({
-                  pathname: "/customer/updateRecord",
-                  params: {
-                    customerId: String(customer.id),
-                    measurementId: String(latestMeasurement.id),
-                  },
-                })
-              }
-            />
-          ) : null}
+            <>
+              <MeasurementCard data={measurementData} />
+
+              <CustomButton
+                text="Update measurement"
+                icon={MoveUpRight}
+                iconPosition="right"
+                iconSize={17}
+                textColor={theme.colors.black}
+                style={styles.measurementBtn}
+                onPress={() =>
+                  router.replace({
+                    pathname: "/customer/updateRecord",
+                    params: {
+                      customerId: String(customer.id),
+                      measurementId: String(latestMeasurement.id),
+                    },
+                  })
+                }
+              />
+            </>
+          ) : (
+            <>
+              <Typography variant="caption">
+                No Measurement record for this customer.
+              </Typography>
+              <CustomButton
+                text="Create Order"
+                icon={MoveUpRight}
+                iconPosition="right"
+                iconSize={17}
+                textColor={theme.colors.black}
+                style={styles.measurementBtn}
+                onPress={() =>
+                  router.replace({
+                    pathname: "/customer/upperMeasurement",
+                    params: { customerId: String(customer.id) },
+                  })
+                }
+              />
+            </>
+          )}
           <Typography variant="h4">ORDERS</Typography>
           {orders.length === 0 ? (
-            <Typography variant="caption">
-              No orders for this customer.
-            </Typography>
+            <>
+              <Typography variant="caption">
+                No orders for this customer.
+              </Typography>
+              <CustomButton
+                text="Create Order"
+                icon={MoveUpRight}
+                iconPosition="right"
+                iconSize={17}
+                textColor={theme.colors.black}
+                style={styles.measurementBtn}
+                onPress={() =>
+                  router.replace({
+                    pathname: "/(tabs)/orders/addOrder",
+                    params: {
+                      customerId: String(customer.id),
+                      measurementId: String(latestMeasurement.id),
+                    },
+                  })
+                }
+              />
+            </>
           ) : (
             orders.map((order) => (
               <OrdersCard

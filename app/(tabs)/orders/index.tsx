@@ -2,6 +2,7 @@ import OrdersCard from "@/components/orders/ordersCard";
 import { ordersScreenStyles } from "@/components/orders/styles";
 import CustomButton from "@/components/ui/CustomButton";
 import Heading from "@/components/ui/Heading";
+import { IconButton } from "@/components/ui/IconButton";
 import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
 import { getAllOrders } from "@/services/orders";
@@ -26,7 +27,7 @@ export default function Orders() {
 
     try {
       const response = await getAllOrders(db);
-      console.log("response", response);
+      // console.log("response", response);
 
       if (!response.success) {
         setLoadError(
@@ -70,6 +71,19 @@ export default function Orders() {
       </View>
     );
   }
+  if (orders.length === 0) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Typography variant="h2">No order yet</Typography>
+        <Typography variant="caption">{loadError}</Typography>
+        {/* <CustomButton
+          text="Add order"
+          icon={Plus}
+          // onPress={router.push("/(tab")}
+        /> */}
+      </View>
+    );
+  }
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
@@ -78,17 +92,22 @@ export default function Orders() {
         </View>
       </View>
       <View></View>
-      <View style={styles.listContainer}>
-        <FlatList
-          data={orders}
-          keyExtractor={(item) => String(item.id)}
-          contentContainerStyle={styles.listContent}
-          showsVerticalScrollIndicator={false}
-          persistentScrollbar
-          indicatorStyle={theme.colors.scrollIndicatorStyle}
-          renderItem={({ item }) => <OrdersCard order={item} />}
-        />
-      </View>
+
+      {orders ? (
+        <View style={styles.listContainer}>
+          <FlatList
+            data={orders}
+            keyExtractor={(item) => String(item.id)}
+            contentContainerStyle={styles.listContent}
+            showsVerticalScrollIndicator={false}
+            persistentScrollbar
+            indicatorStyle={theme.colors.scrollIndicatorStyle}
+            renderItem={({ item }) => <OrdersCard order={item} />}
+          />
+        </View>
+      ) : (
+        <IconButton backgroundColor={theme.colors.primary} />
+      )}
     </SafeAreaView>
   );
 }

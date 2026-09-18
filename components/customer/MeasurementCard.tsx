@@ -1,7 +1,7 @@
 import { AppTheme } from "@/constants/theme";
 import type { MeasurementCardProps } from "@/types/types";
-import { ChevronRight, Ruler } from "lucide-react-native";
-import { TouchableOpacity, View } from "react-native";
+import { Ruler } from "lucide-react-native";
+import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 import Typography from "../ui/Typography";
 import { measurementCardStyles } from "./style";
@@ -10,9 +10,8 @@ const MeasurementCard = ({ data, onPress }: MeasurementCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = measurementCardStyles(theme);
   return (
-    <TouchableOpacity
+    <View
       style={[styles.card, { backgroundColor: theme.colors.cardBackground }]}
-      onPress={onPress}
     >
       <View style={styles.headingRow}>
         <View
@@ -28,7 +27,6 @@ const MeasurementCard = ({ data, onPress }: MeasurementCardProps) => {
             {data.description}
           </Typography>
         </View>
-        <ChevronRight size={18} color={theme.colors.textSecondary} />
       </View>
       <View
         style={[styles.divider, { backgroundColor: theme.colors.divider }]}
@@ -52,7 +50,7 @@ const MeasurementCard = ({ data, onPress }: MeasurementCardProps) => {
           </View>
         ))}
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 

@@ -141,12 +141,12 @@ export type CustomButtonProps = {
 
 export type CustomerCardProps = {
   name: string;
-
+  createdAt?: string;
   text: string;
   phone?: string;
   leftIcon?: ReactNode;
   icon?: ReactNode;
-  onPress: () => void;
+  onPress?: () => void;
 };
 export type Measurement = {
   id: number;
@@ -189,11 +189,10 @@ export interface IconButtonProps extends TouchableOpacityProps {
 
 export interface InputFieldProps extends Omit<TextInputProps, "style"> {
   label?: string;
-  error?: boolean;
+  error?: boolean | string;
   containerStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
   style?: StyleProp<TextStyle>;
-  errorMessage?: string;
 }
 
 export interface MeasurementInputProps extends Omit<TextInputProps, "style"> {

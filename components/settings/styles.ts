@@ -32,6 +32,5 @@ export const settingStyle = (theme: AppTheme) =>
       borderWidth: 1,
       paddingHorizontal: 14,
       borderColor: theme.colors.borderColor,
-      backgroundColor: theme.colors.cardBackground,
     },
   });

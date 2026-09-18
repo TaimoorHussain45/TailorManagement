@@ -105,10 +105,26 @@ export const measurementInputStyles = (theme: AppTheme) =>
       height: 20,
       marginHorizontal: 12,
     },
-    errorText: {
-      
-    },
+    errorText: {},
     unitText: {
       fontSize: 14,
+    },
+  });
+export const measurementRowStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    measurementRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      paddingVertical: 4,
+    },
+    measurementValueBadge: {
+      backgroundColor: theme.colors.surfaceVariant,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 10,
+    },
+    measurementValueText: {
+      fontWeight: "600",
     },
   });

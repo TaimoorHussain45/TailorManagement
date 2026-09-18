@@ -1,13 +1,13 @@
 import { settingStyle } from "@/components/settings/styles";
 import CustomButton from "@/components/ui/CustomButton";
-import { IconButton } from "@/components/ui/IconButton";
 import Typography from "@/components/ui/Typography";
 import { themeOptions } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
+import { ThemeMode, useAppTheme } from "@/context/theme-context";
 import { clearSession } from "@/services/session";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { ArrowLeft, LogOut } from "lucide-react-native";
+import { LogOut } from "lucide-react-native";
 import { useState } from "react";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";
@@ -18,6 +18,7 @@ const Settings = () => {
   const styles = settingStyle(theme);
   const db = useSQLiteContext();
   const [loading, setLoading] = useState(false);
+  const { themeMode, setThemeMode } = useAppTheme();
 
   const onLogout = async () => {
     setLoading(true);
@@ -34,12 +35,12 @@ const Settings = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
-        <IconButton
+        {/* <IconButton
           icon={ArrowLeft}
           iconColor={theme.colors.textPrimary}
           backgroundColor="transparent"
           onPress={() => router.back()}
-        />
+        /> */}
         <Typography variant="h2" color={theme.colors.textPrimary}>
           Settings
         </Typography>
@@ -51,6 +52,7 @@ const Settings = () => {
       <View style={styles.card}>
         {themeOptions.map((option) => {
           const Icon = option.icon;
+          const isSelected = themeMode === option.mode;
           return (
             <CustomButton
               key={option.mode}
@@ -58,9 +60,13 @@ const Settings = () => {
               icon={Icon}
               iconPosition="left"
               iconSize={18}
-              textColor={theme.colors.black}
-              backgroundColor={"transparent"}
+              textColor={isSelected ? theme.colors.white : theme.colors.black}
+              iconColor={isSelected ? theme.colors.white : theme.colors.black}
+              backgroundColor={
+                isSelected ? theme.colors.accentGold : "transparent"
+              }
               style={styles.themeRow}
+              onPress={() => setThemeMode(option.mode as ThemeMode)}
             />
           );
         })}

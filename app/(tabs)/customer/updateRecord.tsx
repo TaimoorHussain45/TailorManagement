@@ -5,16 +5,16 @@ import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
 import Typography from "@/components/ui/Typography";
 import {
-    lowerFields,
-    lowerStyleOptions,
-    upperFields,
-    upperStyleOptions,
+  lowerFields,
+  lowerStyleOptions,
+  upperFields,
+  upperStyleOptions,
 } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
 import {
-    getMeasurementById,
-    NewMeasurement,
-    updateMeasurement,
+  getMeasurementById,
+  NewMeasurement,
+  updateMeasurement,
 } from "@/services/measurement";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
@@ -123,7 +123,7 @@ const UpdateRecord = () => {
       setSaveError(
         "Could not determine which customer this record belongs to.",
       );
-      console.log("work 4");
+      //console.log("work 4");
       return;
     }
 
@@ -144,18 +144,18 @@ const UpdateRecord = () => {
       bottom_type: styleSelections["Bottom Garment Type"],
       waist_attachment: styleSelections["Waist / Belt Attachment"],
     };
-    console.log("work 5");
+    // console.log("work 5");
     setIsSaving(true);
     setSaveError("");
     try {
-      console.log("work 6");
+      // console.log("work 6");
       const result = await updateMeasurement(db, measurementIdNum, payload);
-      console.log(result);
+      // console.log(result);
       if (!result.success) {
         setSaveError(result.error);
         return;
       }
-      router.push("/(tabs)");
+      router.replace("/(tabs)");
     } catch (error) {
       console.error("Failed to update measurement:", error);
       setSaveError("Could not save measurements. Please try again.");

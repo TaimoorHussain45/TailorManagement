@@ -11,76 +11,80 @@ const OrdersCard = ({ order, icon }: OrdersCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = OrdersCardStyles(theme);
   const openOrder = () =>
-    router.push({
+    router.replace({
       pathname: "/orders/viewOrder",
       params: { orderId: String(order.id) },
     });
 
   return (
-    <TouchableOpacity activeOpacity={0.8} style={styles.container}>
-      <View style={[styles.setFlex]}>
-        <View>
-          {icon}
-          <Typography variant="h4" color={theme.colors.red}>
-            AT-{order.id}
-          </Typography>
-          <Typography variant="h3" color={theme.colors.black}>
-            {order.customerName}
-          </Typography>
+    <>
+      <TouchableOpacity activeOpacity={0.8} style={styles.container}>
+        <View style={[styles.setFlex]}>
+          <View>
+            {icon}
+            <Typography variant="h4" color={theme.colors.red}>
+              AT-{order.id}
+            </Typography>
+            <Typography variant="h3" color={theme.colors.black}>
+              {order.customerName}
+            </Typography>
+          </View>
+          <View style={styles.status}>
+            <Typography
+              align="center"
+              color={theme.colors.clayRose}
+              style={styles.statusTitle}
+            >
+              {order.status}
+            </Typography>
+          </View>
         </View>
-        <View style={styles.status}>
-          <Typography
-            align="center"
-            color={theme.colors.clayRose}
-            style={styles.statusTitle}
-          >
-            {order.status}
+        <View style={styles.title}>
+          <Typography variant="body2" color={theme.colors.textSecondary}>
+            {order.title}
           </Typography>
+          {order.description ? (
+            <Typography variant="caption" color={theme.colors.textSecondary}>
+              {order.description}
+            </Typography>
+          ) : null}
+          {order.phoneNumber ? (
+            <Typography variant="caption" color={theme.colors.textSecondary}>
+              {order.phoneNumber}
+            </Typography>
+          ) : null}
         </View>
-      </View>
-      <View style={styles.title}>
-        <Typography variant="body2" color={theme.colors.textSecondary}>
-          {order.title}
-        </Typography>
-        {order.description ? (
-          <Typography variant="caption" color={theme.colors.textSecondary}>
-            {order.description}
-          </Typography>
-        ) : null}
-        {order.phoneNumber ? (
-          <Typography variant="caption" color={theme.colors.textSecondary}>
-            {order.phoneNumber}
-          </Typography>
-        ) : null}
-      </View>
-      <View style={styles.dueDate}>
         <View style={styles.dueDate}>
-          <CalendarDays size={22} color={theme.colors.textSecondary} />
-          <Typography variant="body1" color={theme.colors.textSecondary}>
-            {order.due_date}
-          </Typography>
+          <View style={styles.dueDate}>
+            <CalendarDays size={22} color={theme.colors.textSecondary} />
+            <Typography variant="body1" color={theme.colors.textSecondary}>
+              {order.due_date}
+            </Typography>
+          </View>
+          <View>
+            <Typography variant="body1" color={theme.colors.textSecondary}>
+              {order.progress}% complete
+            </Typography>
+          </View>
         </View>
-        <View>
-          <Typography variant="body1" color={theme.colors.textSecondary}>
-            {order.progress}% complete
-          </Typography>
+        <View style={styles.progressTrack}>
+          <View
+            style={[styles.progressFill, { width: `${order.progress}%` }]}
+          />
         </View>
-      </View>
-      <View style={styles.progressTrack}>
-        <View style={[styles.progressFill, { width: `${order.progress}%` }]} />
-      </View>
-      <View style={styles.recordActions}>
-        <CustomButton
-          text="Open Order details"
-          // textColor={theme.colors.warmRust}
-          iconSize={20}
-          iconPosition="right"
-          icon={ChevronRight}
-          style={styles.recordButton}
-          onPress={openOrder}
-        />
-      </View>
-    </TouchableOpacity>
+        <View style={styles.recordActions}>
+          <CustomButton
+            text="Open Order details"
+            // textColor={theme.colors.warmRust}
+            iconSize={20}
+            iconPosition="right"
+            icon={ChevronRight}
+            style={styles.recordButton}
+            onPress={openOrder}
+          />
+        </View>
+      </TouchableOpacity>
+    </>
   );
 };
 

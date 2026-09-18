@@ -11,6 +11,11 @@ export const OrdersCardStyles = (theme: AppTheme) =>
       elevation: Metrics.spacingTiny,
       borderRadius: Metrics.radiusLarge,
     },
+    emptyContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
     setFlex: {
       flexDirection: "row",
       justifyContent: "space-between",
@@ -52,12 +57,141 @@ export const OrdersCardStyles = (theme: AppTheme) =>
     recordActions: {
       marginVertical: 10,
     },
+    screen: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    scrollContent: {
+      padding: 20,
+      paddingBottom: 40,
+    },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: 24,
+    },
+    headerLeft: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    headerTitleWrap: {
+      marginLeft: 8,
+    },
+    orderIdLabel: {
+      letterSpacing: 1,
+      fontWeight: "600",
+    },
+    orderTitle: {
+      marginTop: 2,
+      maxWidth: 180,
+    },
+    headerActions: {
+      flexDirection: "row",
+      gap: 4,
+    },
+    card: {
+      backgroundColor: theme.colors.surface,
+      borderRadius: 20,
+      padding: 18,
+      marginBottom: 16,
+      elevation: 2,
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
+      shadowOffset: { width: 0, height: 3 },
+    },
+    cardNoMargin: {
+      backgroundColor: theme.colors.surface,
+      borderRadius: 20,
+      padding: 18,
+      elevation: 2,
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
+      shadowOffset: { width: 0, height: 3 },
+    },
+    statusRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    statusLeft: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+    },
+    statusValue: {
+      textTransform: "capitalize",
+    },
+    statusBadge: {
+      backgroundColor: theme.colors.primaryContainer,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 20,
+    },
+    statusBadgeText: {
+      color: theme.colors.onPrimaryContainer,
+      fontWeight: "700",
+    },
+    progressBarTrack: {
+      height: 8,
+      backgroundColor: theme.colors.surfaceVariant,
+      borderRadius: 10,
+      marginTop: 18,
+      overflow: "hidden",
+    },
+    progressBarFill: {
+      height: "100%",
+      backgroundColor: theme.colors.primary,
+      borderRadius: 10,
+    },
+    sectionHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 16,
+      gap: 10,
+    },
+    sectionHeaderTight: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+      marginBottom: 18,
+    },
+    avatarBadge: {
+      width: 42,
+      height: 42,
+      borderRadius: 14,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: theme.colors.secondaryContainer,
+    },
+    infoRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+      marginBottom: 12,
+    },
+    infoRowLast: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+    },
+
+    measurementList: {
+      gap: 12,
+    },
   });
 export const updateMeasurementStyles = (theme: AppTheme) =>
   StyleSheet.create({
     safeArea: {
       flex: 1,
       padding: 20,
+    },
+    emptyContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      padding: Metrics.spacingMedium,
+      gap: Metrics.spacingSmall,
     },
     navBar: {
       flexDirection: "row",
@@ -153,5 +287,50 @@ export const addOrderStyles = (theme: AppTheme) =>
     },
     saveButton: {
       marginTop: Metrics.spacingSmall,
+    },
+  });
+export const orderDetailCard = (theme: AppTheme) =>
+  StyleSheet.create({
+    card: {
+      backgroundColor: theme.colors.surface,
+      borderRadius: 20,
+      padding: 18,
+      marginBottom: 16,
+      elevation: 2,
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
+      shadowOffset: { width: 0, height: 3 },
+    },
+    sectionHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 16,
+      gap: 10,
+    },
+    statsRow: {
+      flexDirection: "row",
+      gap: 12,
+    },
+    statBox: {
+      flex: 1,
+      backgroundColor: theme.colors.surfaceVariant,
+      borderRadius: 14,
+      padding: 14,
+    },
+    statValue: {
+      marginTop: 4,
+    },
+    descriptionBlock: {
+      marginTop: 18,
+    },
+    descriptionLabel: {
+      marginBottom: 6,
+    },
+
+    sectionHeaderTight: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+      marginBottom: 18,
     },
   });

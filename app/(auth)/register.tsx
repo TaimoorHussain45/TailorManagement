@@ -34,7 +34,7 @@ const Register = () => {
       if (result.success) {
         await setItemAsync("isRegistered", "true");
         router.replace("/login");
-        console.log("working");
+        // console.log("working");
       }
     } catch (error) {
       console.error(error);

@@ -1,7 +1,9 @@
+import UserCard from "@/components/customer/userCard";
+import OrderDetailCard from "@/components/orders/orderDetailCard";
 import { OrdersCardStyles } from "@/components/orders/styles";
 import CustomButton from "@/components/ui/CustomButton";
-import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
+import { MeasurementRow } from "@/components/ui/measurementRow";
 import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
 import { getMeasurementById } from "@/services/measurement";
@@ -9,7 +11,7 @@ import { deleteOrderById, getOrderById } from "@/services/orders";
 import type { Measurement, OrderRecord } from "@/types/types";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { ArrowLeft, Pencil, Trash } from "lucide-react-native";
+import { ArrowLeft, Pencil, Ruler, Trash } from "lucide-react-native";
 import { useCallback, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
@@ -19,8 +21,10 @@ export default function ViewOrder() {
   const theme = useTheme<AppTheme>();
   const styles = OrdersCardStyles(theme);
   const db = useSQLiteContext();
+
   const { orderId } = useLocalSearchParams<{ orderId?: string }>();
   const numericId = Number(orderId);
+
   const [order, setOrder] = useState<OrderRecord | null>(null);
   const [measurement, setMeasurement] = useState<Measurement | null>(null);
   const [loading, setLoading] = useState(true);
@@ -32,22 +36,32 @@ export default function ViewOrder() {
       setLoading(false);
       return;
     }
+
     setLoading(true);
+
     const response = await getOrderById(db, numericId);
-    if (!response.success) setError(response.error);
-    else if (!response.data) setError("Order not found.");
-    else {
+
+    if (!response.success) {
+      setError(response.error);
+    } else if (!response.data) {
+      setError("Order not found.");
+    } else {
       setOrder(response.data);
+
       if (response.data.measurement_id) {
         const measurementResponse = await getMeasurementById(
           db,
           response.data.measurement_id,
         );
-        if (measurementResponse.success)
+
+        if (measurementResponse.success) {
           setMeasurement(measurementResponse.data);
+        }
       }
+
       setError(null);
     }
+
     setLoading(false);
   }, [db, numericId, orderId]);
 
@@ -65,19 +79,25 @@ export default function ViewOrder() {
         style: "destructive",
         onPress: async () => {
           const response = await deleteOrderById(db, numericId);
-          if (!response.success) Alert.alert("Delete failed", response.error);
-          else router.replace("/(tabs)/orders");
+
+          if (!response.success) {
+            Alert.alert("Delete failed", response.error);
+          } else {
+            router.replace("/(tabs)/orders");
+          }
         },
       },
     ]);
 
-  if (loading)
+  if (loading) {
     return (
       <View style={styles.emptyContainer}>
         <Typography variant="h2">Loading order...</Typography>
       </View>
     );
-  if (error || !order)
+  }
+
+  if (error || !order) {
     return (
       <View style={styles.emptyContainer}>
         <Typography variant="h2">Unable to open order</Typography>
@@ -85,26 +105,34 @@ export default function ViewOrder() {
         <CustomButton text="Try again" onPress={() => void loadOrder()} />
       </View>
     );
+  }
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 20 }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
+    <SafeAreaView style={styles.screen}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.header}>
+          <View style={styles.headerLeft}>
             <IconButton icon={ArrowLeft} onPress={() => router.back()} />
-            <Heading
-              eyebrow={`ORDER AT-${order.id}`}
-              title={order.title}
-              titleColor={theme.colors.black}
-            />
+
+            <View style={styles.headerTitleWrap}>
+              <Typography variant="caption" style={styles.orderIdLabel}>
+                ORDER #{order.id}
+              </Typography>
+
+              <Typography
+                variant="h4"
+                style={styles.orderTitle}
+                numberOfLines={1}
+              >
+                {order.title}
+              </Typography>
+            </View>
           </View>
-          <View style={{ flexDirection: "row" }}>
+
+          <View style={styles.headerActions}>
             <IconButton
               icon={Pencil}
               onPress={() =>
@@ -117,24 +145,71 @@ export default function ViewOrder() {
             <IconButton icon={Trash} onPress={remove} />
           </View>
         </View>
-        <View style={{ gap: 12, marginTop: 28 }}>
-          <Typography variant="h3">{order.customerName}</Typography>
-          <Typography variant="body1">{order.phoneNumber}</Typography>
-          <Typography variant="body1">Status: {order.status}</Typography>
-          <Typography variant="body1">
-            Due: {order.due_date ?? "No due date"}
-          </Typography>
-          <Typography variant="body1">Quantity: {order.quantity}</Typography>
-          <Typography variant="body1">Progress: {order.progress}%</Typography>
-          <Typography variant="body2">
-            {order.description ?? "No description"}
-          </Typography>
-          <Typography variant="h4">MEASUREMENT</Typography>
-          <Typography variant="caption">
-            {measurement
-              ? `Chest ${measurement.chest ?? "-"} in · Shirt ${measurement.shirt_length ?? "-"} in · Shalwar ${measurement.shalwar_length ?? "-"} in`
-              : "No measurement linked."}
-          </Typography>
+
+        {/* <View style={styles.card}>
+          <View style={styles.statusRow}>
+            <View style={styles.statusLeft}>
+              {isCompleted ? (
+                <CheckCircle2 size={22} color={theme.colors.primary} />
+              ) : (
+                <Clock3 size={22} color={theme.colors.primary} />
+              )}
+
+              <Typography variant="h4" style={styles.statusValue}>
+                {order.status}
+              </Typography>
+            </View>
+
+            <View style={styles.statusBadge}>
+              <Typography variant="caption" style={styles.statusBadgeText}>
+                {progress}%
+              </Typography>
+            </View>
+          </View>
+
+          <View style={styles.progressBarTrack}>
+            <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
+          </View>
+        </View> */}
+
+        <UserCard
+          customerName={order.customerName}
+          phoneNumber={order.phoneNumber}
+          dueDate={order.due_date}
+        />
+
+        <OrderDetailCard
+          quantity={order.quantity}
+          progress={order.status}
+          description={order.description}
+        />
+
+        <View style={styles.cardNoMargin}>
+          <View style={styles.sectionHeaderTight}>
+            <Ruler size={21} color={theme.colors.primary} />
+            <Typography variant="h4">Measurements</Typography>
+          </View>
+
+          {measurement ? (
+            <View style={styles.measurementList}>
+              <MeasurementRow label="Chest" value={measurement.chest} />
+              <MeasurementRow
+                label="Shirt Length"
+                value={measurement.shirt_length}
+              />
+              <MeasurementRow
+                label="Shalwar Length"
+                value={measurement.shalwar_length}
+              />
+              <MeasurementRow label="Shoulder" value={measurement.shoulder} />
+              <MeasurementRow label="Sleeve" value={measurement.sleeve} />
+              <MeasurementRow label="Collar" value={measurement.collar} />
+            </View>
+          ) : (
+            <Typography variant="body2">
+              No measurement linked to this order.
+            </Typography>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

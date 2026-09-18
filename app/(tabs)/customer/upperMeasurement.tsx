@@ -26,7 +26,22 @@ const UpperMeasurement = () => {
   const theme = useTheme<AppTheme>();
   const db = useSQLiteContext();
   const [customer, setCustomer] = useState<Customer | null>(null);
-  const [measurements, setMeasurements] = useState<Record<string, string>>({});
+  const [measurements, setMeasurements] = useState<Record<string, string>>({
+    shirtLength: "32",
+    chest: "28",
+    shoulder: "21",
+    sleeveLength: "12",
+    collar: "14",
+    gheraDamen: "13",
+    shalwarLength: "29",
+    paonchaWidth: "14",
+    ghera_style: "Ghera / Damen Style",
+    collar_style: "Collar / Ban Style",
+    cuff_style: "Cuff / Sleeve End",
+    pocket_config: "Pocket Configuration",
+    bottom_type: "Bottom Garment Type",
+    waist_attachment: "Waist / Belt Attachment",
+  });
   const [styleSelections, setStyleSelections] = useState<
     Record<string, string>
   >({});

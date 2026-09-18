@@ -1,6 +1,7 @@
 import { addCustomerStyles } from "@/components/customer/style";
 import CustomButton from "@/components/ui/CustomButton";
 import Heading from "@/components/ui/Heading";
+import { IconButton } from "@/components/ui/IconButton";
 import InputField from "@/components/ui/InputField";
 import { AppTheme } from "@/constants/theme";
 import { getCustomerById, updateCustomer } from "@/services/customer";
@@ -77,11 +78,10 @@ export default function EditCustomer() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
-        <CustomButton
-          text=""
+        <IconButton
           icon={ArrowLeft}
-          backgroundColor={theme.colors.white}
           iconColor={theme.colors.black}
+          backgroundColor={theme.colors.white}
           onPress={() => router.back()}
         />
         <Heading

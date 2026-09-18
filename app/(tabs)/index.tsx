@@ -40,7 +40,7 @@ export default function HomeScreen() {
       };
     }, [db]),
   );
-  console.log(currentDate);
+  // console.log(currentDate);
 
   return (
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
