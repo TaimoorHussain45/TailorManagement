@@ -63,7 +63,7 @@ export default function EditCustomer() {
       return;
     }
     router.replace({
-      pathname: "/customer/viewCustomer",
+      pathname: "/(tabs)/customer/viewCustomer",
       params: { customerId: String(numericId) },
     });
   };

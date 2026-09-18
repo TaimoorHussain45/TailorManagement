@@ -67,7 +67,7 @@ const AddCustomer = () => {
       }
 
       router.replace({
-        pathname: "/customer/upperMeasurement",
+        pathname: "/(tabs)/customer/upperMeasurement",
         params: { customerId: String(res.data.lastInsertRowId) },
       });
     } catch {

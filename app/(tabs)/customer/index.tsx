@@ -82,7 +82,7 @@ const Customers = () => {
         <Typography variant="caption">Please add customer</Typography>
         <CustomButton
           text="Add customer"
-          onPress={() => router.push("/customer/addCustomer")}
+          onPress={() => router.push("/(tabs)/customer/addCustomer")}
         />
       </View>
     );
@@ -97,7 +97,9 @@ const Customers = () => {
             title="Customers"
             titleColor={theme.colors.black}
           />
-          <IconButton onPress={() => router.push("/customer/addCustomer")} />
+          <IconButton
+            onPress={() => router.push("/(tabs)/customer/addCustomer")}
+          />
         </View>
         <View style={styles.inputContainer}>
           <SearchBar placeholder="Search by Name or Phone" />
@@ -116,7 +118,7 @@ const Customers = () => {
               phone={item.phone}
               onPress={() =>
                 router.push({
-                  pathname: "/customer/viewCustomer",
+                  pathname: "/(tabs)/customer/viewCustomer",
                   params: { customerId: String(item.id) },
                 })
               }
@@ -128,7 +130,7 @@ const Customers = () => {
           <CustomButton
             style={styles.userButton}
             text="Add a new customer"
-            onPress={() => router.push("/customer/addCustomer")}
+            onPress={() => router.push("/(tabs)/customer/addCustomer")}
             iconPosition="left"
             icon={Plus}
             iconColor={theme.colors.textSecondary}

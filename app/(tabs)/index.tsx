@@ -107,7 +107,7 @@ export default function HomeScreen() {
               icon={<ChevronRightIcon color={theme.colors.textSecondary} />}
               onPress={() =>
                 router.push({
-                  pathname: "/customer/viewCustomer",
+                  pathname: "/(tabs)/customer/viewCustomer",
                   params: {
                     customerId: String(customer.id),
                     customerName: customer.name,

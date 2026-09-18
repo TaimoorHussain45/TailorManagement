@@ -12,7 +12,7 @@ const OrdersCard = ({ order, icon }: OrdersCardProps) => {
   const styles = OrdersCardStyles(theme);
   const openOrder = () =>
     router.replace({
-      pathname: "/orders/viewOrder",
+      pathname: "/(tabs)/orders/viewOrder",
       params: { orderId: String(order.id) },
     });
 

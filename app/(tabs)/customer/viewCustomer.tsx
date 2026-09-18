@@ -185,7 +185,7 @@ export default function ViewCustomer() {
               backgroundColor={theme.colors.white}
               onPress={() =>
                 router.replace({
-                  pathname: "/customer/editCustomer",
+                  pathname: "/(tabs)/customer/editCustomer",
                   params: { customerId: String(customer.id) },
                 })
               }
@@ -218,7 +218,7 @@ export default function ViewCustomer() {
                 style={styles.measurementBtn}
                 onPress={() =>
                   router.replace({
-                    pathname: "/customer/updateRecord",
+                    pathname: "/(tabs)/customer/updateRecord",
                     params: {
                       customerId: String(customer.id),
                       measurementId: String(latestMeasurement.id),
@@ -241,7 +241,7 @@ export default function ViewCustomer() {
                 style={styles.measurementBtn}
                 onPress={() =>
                   router.replace({
-                    pathname: "/customer/upperMeasurement",
+                    pathname: "/(tabs)/customer/upperMeasurement",
                     params: { customerId: String(customer.id) },
                   })
                 }

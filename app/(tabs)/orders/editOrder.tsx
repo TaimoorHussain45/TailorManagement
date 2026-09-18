@@ -91,7 +91,7 @@ export default function EditOrder() {
       return;
     }
     router.replace({
-      pathname: "/orders/viewOrder",
+      pathname: "/(tabs)/orders/viewOrder",
       params: { orderId: String(numericId) },
     });
   };

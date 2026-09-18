@@ -137,7 +137,7 @@ export default function ViewOrder() {
               icon={Pencil}
               onPress={() =>
                 router.push({
-                  pathname: "/orders/editOrder",
+                  pathname: "/(tabs)/orders/editOrder",
                   params: { orderId: String(order.id) },
                 })
               }
