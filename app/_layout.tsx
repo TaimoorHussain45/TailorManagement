@@ -10,8 +10,8 @@ import "react-native-reanimated";
 import RootNavigator from "@/components/navigation/RootNavigator";
 import { Colors } from "@/constants/theme";
 import { ThemeContextProvider, useAppTheme } from "@/context/theme-context";
+import { initSchema } from "@/database/schema";
 import { SQLiteProvider } from "expo-sqlite";
-import { initSchema } from "./database/schema";
 
 function AppShell() {
   const { colorScheme } = useAppTheme();

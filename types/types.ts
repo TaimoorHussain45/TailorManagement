@@ -120,7 +120,7 @@ export type OrderCardProps = {
   icon: ReactNode;
   title: string;
   paragraph: string;
-  rightTitle: string;
+  rightTitle?: string;
   onPress?: () => void;
 };
 

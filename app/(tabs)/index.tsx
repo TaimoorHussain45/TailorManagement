@@ -7,116 +7,118 @@ import CustomerCard from "@/components/ui/CustomerCard";
 import Typography from "@/components/ui/Typography";
 import { homeCardsData } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
-import { getAllCustomers } from "@/services/customer";
-import { Customer } from "@/types/types";
+import { useDashboardData } from "@/hooks/dashboardHook";
 import { getFormattedDate, getGreeting } from "@/utils/formattedDate";
-import { router, useFocusEffect } from "expo-router";
-import { useSQLiteContext } from "expo-sqlite";
+import { getCardTitle } from "@/utils/getCardTitle";
+
+import { router } from "expo-router";
 import { ChevronRight, ChevronRightIcon } from "lucide-react-native";
-import { useCallback, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
 
 export default function HomeScreen() {
   const theme = useTheme<AppTheme>();
-  const db = useSQLiteContext();
   const styles = homeStyle(theme);
-  const date = new Date();
-  const currentDate = getFormattedDate(date);
 
-  let message = getGreeting(date);
-  const [customers, setCustomers] = useState<Customer[]>([]);
+  const { data, loading } = useDashboardData();
 
-  useFocusEffect(
-    useCallback(() => {
-      let active = true;
-      getAllCustomers(db).then((response) => {
-        if (active) {
-          setCustomers(response.data ?? []);
-        }
-      });
-      return () => {
-        active = false;
-      };
-    }, [db]),
+  const currentDate = getFormattedDate(new Date());
+  const greeting = getGreeting(new Date());
+
+  const cards = homeCardsData.map((card) => ({
+    ...card,
+    title: getCardTitle(card.key, card.title, data, loading),
+  }));
+
+  const hasRecentActivity = Boolean(
+    data?.recentActivity && data.recentActivity.length > 0,
   );
-  // console.log(currentDate);
+
+  const handleViewCustomers = () => {
+    router.push("/(tabs)/customer");
+  };
+
+  const handleCustomerPress = (customerName: string) => {
+    router.push({
+      pathname: "/(tabs)/customer/viewCustomer",
+      params: { customerName },
+    });
+  };
 
   return (
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-      <View>
-        <NavLogo />
-      </View>
+      <NavLogo />
+
       <View style={styles.container}>
         <Typography style={styles.title} color={theme.colors.red}>
           {currentDate}
         </Typography>
+
         <Typography
           color={theme.colors.black}
           variant="h1"
           style={styles.gretting}
         >
-          {message}
+          {greeting}
         </Typography>
       </View>
-      <View>
-        <WelcomeCard />
-      </View>
+
+      <WelcomeCard
+        fittingsThisWeek={data?.fittingsThisWeek ?? 0}
+        weekPlannedPercent={data?.weekPlannedPercent ?? 0}
+      />
+
+      {/* Dashboard Cards */}
       <View style={styles.cardContainer}>
-        {homeCardsData.map((element, index) => {
-          const Icon = element.icon;
+        {cards.map((card) => {
+          const Icon = card.icon;
 
           return (
             <OrderCard
-              key={index}
+              key={card.key}
               icon={<Icon color={theme.colors.TealGreen} />}
-              title={element.title}
-              paragraph={element.paragraph}
-              rightTitle={element.rightOrder}
-              onPress={() => element.onPress()}
+              title={card.title}
+              paragraph={card.paragraph}
+              rightTitle={card.rightOrder}
+              onPress={card.onPress}
             />
           );
         })}
       </View>
+
+      {/* Recent Activity Header */}
       <View style={styles.customerButtonContainer}>
         <Typography variant="body2">Recent Activity</Typography>
+
         <CustomButton
           text="View customers"
-          onPress={() => router.replace("/(tabs)/customer")}
+          onPress={handleViewCustomers}
           textColor={theme.colors.primary}
           backgroundColor="transparent"
           style={styles.customerButton}
           icon={ChevronRight}
           iconSize={20}
           iconPosition="right"
-          disabled={!customers}
+          disabled={!hasRecentActivity}
         />
       </View>
-      {customers.length === 0 ? (
+
+      {/* Recent Activity */}
+      {!loading && !hasRecentActivity ? (
         <View style={styles.emptyContainer}>
           <Typography variant="h4">No recent activity yet.</Typography>
         </View>
       ) : (
         <View style={styles.customerCard}>
-          {customers.map((customer, index) => (
+          {data?.recentActivity.map((activity) => (
             <CustomerCard
-              key={index}
-              name={customer.name}
-              text={customer.address ?? "No address"}
-              phone={customer.phone}
+              key={activity.customerName}
+              name={activity.customerName}
+              text={`Last Fitted ${getFormattedDate(
+                new Date(activity.lastUpdated),
+              )}`}
               icon={<ChevronRightIcon color={theme.colors.textSecondary} />}
-              onPress={() =>
-                router.push({
-                  pathname: "/(tabs)/customer/viewCustomer",
-                  params: {
-                    customerId: String(customer.id),
-                    customerName: customer.name,
-                    title: customer.address ?? "Measurement record",
-                    text: customer.notes ?? "No notes",
-                    phoneNumber: customer.phone,
-                  },
-                })
-              }
+              onPress={() => handleCustomerPress(activity.customerName)}
             />
           ))}
         </View>

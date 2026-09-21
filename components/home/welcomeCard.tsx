@@ -5,10 +5,17 @@ import { useTheme } from "react-native-paper";
 import Typography from "../ui/Typography";
 import { WelcomeCardStyles } from "./styles";
 
-const WelcomeCard = () => {
+type WelcomeCardProps = {
+  fittingsThisWeek: number;
+  weekPlannedPercent: number;
+};
+
+const WelcomeCard = ({
+  fittingsThisWeek,
+  weekPlannedPercent,
+}: WelcomeCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = WelcomeCardStyles(theme);
-  const weekPlannedPercent = 64;
 
   return (
     <View style={styles.container}>
@@ -26,7 +33,7 @@ const WelcomeCard = () => {
         <View style={styles.footerConatiner}>
           <View style={styles.countBlock}>
             <Typography variant="h1" color={theme.colors.white}>
-              8
+              {fittingsThisWeek}
             </Typography>
             <Typography
               color={theme.colors.textSecondary}

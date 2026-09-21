@@ -32,28 +32,49 @@ export const authCardsData = [
     paragraph: "No passwords to remember.",
   },
 ];
+// export const homeCardsData = [
+//   {
+//     icon: ShieldCheck,
+//     title: "12",
+//     paragraph: "active orders",
+//     rightOrder: "orders",
+//     onPress: () => {
+//       router.push("/(tabs)/orders");
+//     },
+//   },
+//   {
+//     icon: Lock,
+//     title: "24",
+//     paragraph: "customer saved",
+//     rightOrder: "people",
+//     // onPress: router.replace("/(tabs)/customer"),
+//     onPress: () => {
+//       router.push("/(tabs)/customer");
+//     },
+//   },
+// ];
 export const homeCardsData = [
   {
+    key: "activeOrders",
     icon: ShieldCheck,
-    title: "12",
+    title: "orders",
     paragraph: "active orders",
-    rightOrder: "orders",
+    rightOrder: "",
     onPress: () => {
       router.push("/(tabs)/orders");
     },
   },
   {
+    key: "customersSaved",
     icon: Lock,
-    title: "24",
+    title: "people",
     paragraph: "customer saved",
-    rightOrder: "people",
-    // onPress: router.replace("/(tabs)/customer"),
+    rightOrder: "",
     onPress: () => {
       router.push("/(tabs)/customer");
     },
   },
 ];
-
 export const themeOptions: {
   mode: ThemeMode;
   label: string;

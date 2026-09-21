@@ -40,7 +40,9 @@ export const initSchema = async (db: SQLiteDatabase) => {
     measurement_id INTEGER,
     title TEXT NOT NULL,
     description TEXT,
-    status TEXT NOT NULL DEFAULT 'PENDING' CHECK (status IN ('In Progress', 'Pending', 'Completed', 'Delayed')),
+    status TEXT NOT NULL DEFAULT 'Pending' CHECK (
+  status IN ('Pending', 'Cutting', 'Silai', 'Kaj Overlock', 'Pressing', 'Ready')
+),
     due_date TEXT,
     quantity INTEGER NOT NULL DEFAULT 1 CHECK (quantity >= 1),
     progress INTEGER NOT NULL DEFAULT 0

@@ -16,8 +16,10 @@ import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import {
   ArrowLeft,
+  ClipboardList,
   MoveUpRight,
   Pencil,
+  Ruler,
   Shirt,
   Trash,
 } from "lucide-react-native";
@@ -233,9 +235,9 @@ export default function ViewCustomer() {
                 No Measurement record for this customer.
               </Typography>
               <CustomButton
-                text="Create Order"
-                icon={MoveUpRight}
-                iconPosition="right"
+                text="Take the measurement"
+                icon={Ruler}
+                iconPosition="left"
                 iconSize={17}
                 textColor={theme.colors.black}
                 style={styles.measurementBtn}
@@ -256,8 +258,8 @@ export default function ViewCustomer() {
               </Typography>
               <CustomButton
                 text="Create Order"
-                icon={MoveUpRight}
-                iconPosition="right"
+                icon={ClipboardList}
+                iconPosition="left"
                 iconSize={17}
                 textColor={theme.colors.black}
                 style={styles.measurementBtn}
