@@ -1,5 +1,6 @@
 import { AppTheme } from "@/constants/theme";
 import type { OrdersCardProps } from "@/types/types";
+import { getFormattedDate } from "@/utils/formattedDate";
 import { router } from "expo-router";
 import { CalendarDays, ChevronRight } from "lucide-react-native";
 import { TouchableOpacity, View } from "react-native";
@@ -15,7 +16,9 @@ const OrdersCard = ({ order, icon }: OrdersCardProps) => {
       pathname: "/(tabs)/orders/viewOrder",
       params: { orderId: String(order.id) },
     });
-
+  const dueDateLabel = order.due_date
+    ? getFormattedDate(new Date(order.due_date))
+    : "No due date";
   return (
     <>
       <TouchableOpacity activeOpacity={0.8} style={styles.container}>
@@ -58,14 +61,10 @@ const OrdersCard = ({ order, icon }: OrdersCardProps) => {
           <View style={styles.dueDate}>
             <CalendarDays size={22} color={theme.colors.textSecondary} />
             <Typography variant="body1" color={theme.colors.textSecondary}>
-              {order.due_date}
+              {dueDateLabel}
             </Typography>
           </View>
-          <View>
-            <Typography variant="body1" color={theme.colors.textSecondary}>
-              {order.progress}% complete
-            </Typography>
-          </View>
+          <View></View>
         </View>
         <View style={styles.progressTrack}>
           <View

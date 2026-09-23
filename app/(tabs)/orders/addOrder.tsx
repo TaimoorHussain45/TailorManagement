@@ -148,15 +148,15 @@ const AddOrder = () => {
                 />
               )}
             </View>
-            <InputField
-              label="Quantity"
-              placeholder="1"
-              value={quantity}
-              onChangeText={setQuantity}
-              keyboardType="number-pad"
-              containerStyle={styles.halfField}
-            />
           </View>
+          <InputField
+            label="Quantity"
+            placeholder="1"
+            value={quantity}
+            onChangeText={setQuantity}
+            keyboardType="number-pad"
+            containerStyle={styles.halfField}
+          />
         </View>
 
         <View style={styles.statusSection}>

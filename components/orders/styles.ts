@@ -267,11 +267,11 @@ export const addOrderStyles = (theme: AppTheme) =>
       gap: Metrics.spacingSmall,
     },
     halfField: {
-      flex: 1,
-      marginTop: Metrics.spacingTiny,
+      width: "40%",
+      marginBottom: Metrics.spacingTiny,
     },
     dateContainer: {
-      width: "60%",
+      width: "70%",
     },
     dateFieldLabel: {
       marginBottom: Metrics.spacingSmall,
