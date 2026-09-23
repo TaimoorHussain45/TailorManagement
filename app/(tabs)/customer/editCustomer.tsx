@@ -104,6 +104,7 @@ export default function EditCustomer() {
           onChangeText={(value) =>
             setForm((current) => ({ ...current, phone: value }))
           }
+          maxLength={11}
         />
         <InputField
           label="Address"

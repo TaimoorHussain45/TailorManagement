@@ -6,20 +6,14 @@ import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
 import { addOrder, type NewOrder } from "@/services/orders";
 import type { OrderStatus } from "@/types/types";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { ArrowLeft, Check, Save } from "lucide-react-native";
+import { ArrowLeft, Calendar, Check, Save } from "lucide-react-native";
 import { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const statuses: OrderStatus[] = [
-  "Pending",
-  "In Progress",
-  "Completed",
-  "Delayed",
-];
 
 const AddOrder = () => {
   const { customerId, customerName, measurementId } = useLocalSearchParams<{
@@ -32,11 +26,12 @@ const AddOrder = () => {
   const db = useSQLiteContext();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate, setDueDate] = useState(new Date());
   const [quantity, setQuantity] = useState("1");
   const [status, setStatus] = useState<OrderStatus>("Pending");
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const saveOrder = async () => {
     const numericCustomerId = Number(customerId);
     const numericMeasurementId = measurementId ? Number(measurementId) : null;
@@ -54,7 +49,7 @@ const AddOrder = () => {
       setError("Quantity must be at least 1.");
       return;
     }
-
+    console.log(dueDate.toDateString);
     const payload: NewOrder = {
       customer_id: numericCustomerId,
       measurement_id:
@@ -63,7 +58,7 @@ const AddOrder = () => {
           : null,
       title: title.trim(),
       description: description.trim(),
-      due_date: dueDate.trim(),
+      due_date: dueDate.toISOString(),
       quantity: numericQuantity,
       status,
       progress: status === "Completed" ? 100 : 0,
@@ -117,7 +112,6 @@ const AddOrder = () => {
             value={title}
             onChangeText={setTitle}
             error={Boolean(error && !title.trim())}
-            errorMessage="Order title is required*"
           />
           <InputField
             label="Description"
@@ -129,13 +123,31 @@ const AddOrder = () => {
             style={styles.descriptionInput}
           />
           <View style={styles.row}>
-            <InputField
-              label="Due date"
-              placeholder="e.g. 20 Oct 2026"
-              value={dueDate}
-              onChangeText={setDueDate}
-              containerStyle={styles.halfField}
-            />
+            <View style={[styles.dateContainer]}>
+              <Typography variant="body2">Due date</Typography>
+              <TouchableOpacity
+                onPress={() => setShowDatePicker(true)}
+                style={styles.dateField}
+              >
+                <Typography variant="body2">
+                  {dueDate.toDateString()}
+                </Typography>
+                <Calendar size={22} color={theme.colors.textSecondary} />
+              </TouchableOpacity>
+              {showDatePicker && (
+                <DateTimePicker
+                  value={dueDate}
+                  mode="date"
+                  display="default"
+                  onChange={(event, selectedDate) => {
+                    setShowDatePicker(false);
+                    if (event.type === "set" && selectedDate) {
+                      setDueDate(selectedDate);
+                    }
+                  }}
+                />
+              )}
+            </View>
             <InputField
               label="Quantity"
               placeholder="1"
@@ -152,31 +164,15 @@ const AddOrder = () => {
             STATUS
           </Typography>
           <View style={styles.buttons}>
-            {statuses.map((option) => {
-              const selected = status === option;
-              return (
-                <CustomButton
-                  key={option}
-                  text={option}
-                  icon={selected ? Check : undefined}
-                  iconPosition="right"
-                  iconSize={16}
-                  textColor={
-                    selected ? theme.colors.white : theme.colors.textPrimary
-                  }
-                  backgroundColor={
-                    selected
-                      ? theme.colors.TealGreen
-                      : theme.colors.cardBackground
-                  }
-                  style={[
-                    styles.statusButton,
-                    selected && styles.statusButtonSelected,
-                  ]}
-                  onPress={() => setStatus(option)}
-                />
-              );
-            })}
+            <CustomButton
+              text="pending"
+              icon={status && Check}
+              iconPosition="right"
+              iconSize={16}
+              backgroundColor={theme.colors.TealGreen}
+              style={[styles.statusButton, { width: "100%" }]}
+              onPress={() => setStatus("Pending")}
+            />
           </View>
         </View>
 

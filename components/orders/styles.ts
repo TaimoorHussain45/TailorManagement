@@ -228,6 +228,7 @@ export const ordersScreenStyles = (theme: AppTheme) =>
       alignItems: "center",
     },
   });
+
 export const addOrderStyles = (theme: AppTheme) =>
   StyleSheet.create({
     safeArea: {
@@ -267,6 +268,28 @@ export const addOrderStyles = (theme: AppTheme) =>
     },
     halfField: {
       flex: 1,
+      marginTop: Metrics.spacingTiny,
+    },
+    dateContainer: {
+      width: "60%",
+    },
+    dateFieldLabel: {
+      marginBottom: Metrics.spacingSmall,
+    },
+    dateField: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      borderColor: theme.colors.borderColor,
+      borderWidth: 1,
+      borderRadius: Metrics.radiusMedium,
+      paddingHorizontal: Metrics.spacingSmall,
+      paddingVertical: Metrics.spacingSmall,
+
+      height: 50,
+    },
+    dateLabel: {
+      marginBottom: Metrics.spacingSmall,
     },
     statusSection: {
       gap: Metrics.spacingSmall,
@@ -289,6 +312,7 @@ export const addOrderStyles = (theme: AppTheme) =>
       marginTop: Metrics.spacingSmall,
     },
   });
+
 export const orderDetailCard = (theme: AppTheme) =>
   StyleSheet.create({
     card: {

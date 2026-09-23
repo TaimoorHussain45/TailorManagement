@@ -8,6 +8,7 @@ export type DashboardData = {
   activeOrders: number;
   customersSaved: number;
   recentActivity: {
+    customerId: number;
     customerName: string;
     title: string;
     lastUpdated: string;
@@ -48,7 +49,7 @@ export async function getDashboardData(
       title: string;
       lastUpdated: string;
     }>(`
-      SELECT c.name AS customerName, o.title, o.updated_at AS lastUpdated
+      SELECT  c.id AS customerId, c.name AS customerName, o.title, o.updated_at AS lastUpdated
       FROM "Order" o
       JOIN Customer c ON c.id = o.customer_id
       ORDER BY o.updated_at DESC

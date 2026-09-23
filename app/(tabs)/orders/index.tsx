@@ -27,8 +27,6 @@ export default function Orders() {
 
     try {
       const response = await getAllOrders(db);
-      // console.log("response", response);
-
       if (!response.success) {
         setLoadError(
           typeof response.error === "string"
@@ -65,7 +63,7 @@ export default function Orders() {
   if (loadError) {
     return (
       <View style={styles.emptyContainer}>
-        <Typography variant="h2">Unable to load customers</Typography>
+        <Typography variant="h2">Unable to load order</Typography>
         <Typography variant="caption">{loadError}</Typography>
         <CustomButton text="Try again" onPress={() => loadCustomers()} />
       </View>

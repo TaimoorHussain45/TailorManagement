@@ -10,7 +10,6 @@ import { AppTheme } from "@/constants/theme";
 import { useDashboardData } from "@/hooks/dashboardHook";
 import { getFormattedDate, getGreeting } from "@/utils/formattedDate";
 import { getCardTitle } from "@/utils/getCardTitle";
-
 import { router } from "expo-router";
 import { ChevronRight, ChevronRightIcon } from "lucide-react-native";
 import { ScrollView, View } from "react-native";
@@ -38,10 +37,13 @@ export default function HomeScreen() {
     router.push("/(tabs)/customer");
   };
 
-  const handleCustomerPress = (customerName: string) => {
+  const handleCustomerPress = (customerId: number) => {
+    console.log("working....");
     router.push({
       pathname: "/(tabs)/customer/viewCustomer",
-      params: { customerName },
+      params: {
+        customerId: String(customerId),
+      },
     });
   };
 
@@ -112,13 +114,13 @@ export default function HomeScreen() {
         <View style={styles.customerCard}>
           {data?.recentActivity.map((activity) => (
             <CustomerCard
-              key={activity.customerName}
+              key={activity.customerId}
               name={activity.customerName}
               text={`Last Fitted ${getFormattedDate(
                 new Date(activity.lastUpdated),
               )}`}
               icon={<ChevronRightIcon color={theme.colors.textSecondary} />}
-              onPress={() => handleCustomerPress(activity.customerName)}
+              onPress={() => handleCustomerPress(activity.customerId)}
             />
           ))}
         </View>

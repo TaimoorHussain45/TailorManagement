@@ -6,6 +6,7 @@ export const initSchema = async (db: SQLiteDatabase) => {
       id INTEGER PRIMARY KEY CHECK (id = 1),
       created_at TEXT NOT NULL
     );
+
      CREATE TABLE IF NOT EXISTS Customer (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -32,7 +33,7 @@ export const initSchema = async (db: SQLiteDatabase) => {
   bottom_type TEXT NOT NULL,
   waist_attachment TEXT NOT NULL,
    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (customer_id) REFERENCES Customer(id) ON DELETE CASCADE
+  FOREIGN KEY (customer_id) REFERENCES Customer(id)
     );
     CREATE TABLE IF NOT EXISTS "Order" (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,7 +42,7 @@ export const initSchema = async (db: SQLiteDatabase) => {
     title TEXT NOT NULL,
     description TEXT,
     status TEXT NOT NULL DEFAULT 'Pending' CHECK (
-  status IN ('Pending', 'Cutting', 'Silai', 'Kaj Overlock', 'Pressing', 'Ready')
+  status IN ('Pending', 'In Progress', 'Completed', 'Delayed' )
 ),
     due_date TEXT,
     quantity INTEGER NOT NULL DEFAULT 1 CHECK (quantity >= 1),

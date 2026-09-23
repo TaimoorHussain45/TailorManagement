@@ -6,11 +6,12 @@ import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
 import { getOrderById, updateOrder } from "@/services/orders";
 import type { OrderStatus } from "@/types/types";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { ArrowLeft, Check, Save } from "lucide-react-native";
+import { ArrowLeft, Calendar, Check, Save } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -31,9 +32,10 @@ export default function EditOrder() {
   const [form, setForm] = useState({
     title: "",
     description: "",
-    dueDate: "",
     quantity: "1",
   });
+  const [dueDate, setDueDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [status, setStatus] = useState<OrderStatus>("Pending");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -54,9 +56,14 @@ export default function EditOrder() {
         setForm({
           title: order.title,
           description: order.description ?? "",
-          dueDate: order.due_date ?? "",
           quantity: String(order.quantity),
         });
+        if (order.due_date) {
+          const parsed = new Date(order.due_date);
+          if (!Number.isNaN(parsed.getTime())) {
+            setDueDate(parsed);
+          }
+        }
         setStatus(order.status);
       }
       setLoading(false);
@@ -80,7 +87,7 @@ export default function EditOrder() {
       customer_id: customerId,
       title: form.title.trim(),
       description: form.description,
-      due_date: form.dueDate,
+      due_date: dueDate.toISOString(),
       quantity,
       status,
       progress: status === "Completed" ? 100 : 0,
@@ -139,14 +146,33 @@ export default function EditOrder() {
             }
           />
           <View style={styles.row}>
-            <InputField
-              label="Due date"
-              value={form.dueDate}
-              containerStyle={styles.halfField}
-              onChangeText={(value) =>
-                setForm((current) => ({ ...current, dueDate: value }))
-              }
-            />
+            <View style={styles.dateContainer}>
+              <Typography variant="body2" style={styles.dateLabel}>
+                Due date
+              </Typography>
+              <TouchableOpacity
+                onPress={() => setShowDatePicker(true)}
+                style={styles.dateField}
+              >
+                <Typography variant="body2">
+                  {dueDate.toDateString()}
+                </Typography>
+                <Calendar size={22} color={theme.colors.textSecondary} />
+              </TouchableOpacity>
+              {showDatePicker && (
+                <DateTimePicker
+                  value={dueDate}
+                  mode="date"
+                  display="default"
+                  onChange={(event, selectedDate) => {
+                    setShowDatePicker(false);
+                    if (event.type === "set" && selectedDate) {
+                      setDueDate(selectedDate);
+                    }
+                  }}
+                />
+              )}
+            </View>
             <InputField
               label="Quantity"
               value={form.quantity}

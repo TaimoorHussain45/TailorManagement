@@ -79,7 +79,9 @@ const UpdateRecord = () => {
       setStyleSelections({
         "Collar / Ban Style": record.collar_style ?? "",
         "Cuff / Sleeve End": record.cuff_style ?? "",
+
         "Pocket Configuration": record.pocket_config ?? "",
+        "Ghera / Damen Style": record.ghera_style ?? "",
         "Bottom Garment Type": record.bottom_type ?? "",
         "Waist / Belt Attachment": record.waist_attachment ?? "",
       });

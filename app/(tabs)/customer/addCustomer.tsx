@@ -27,6 +27,7 @@ const AddCustomer = () => {
   const [errors, setErrors] = useState({
     nameError: "",
     phoneNumberError: "",
+    phoneNumberLimitError: "",
     generalError: "",
   });
 
@@ -42,14 +43,26 @@ const AddCustomer = () => {
     const phoneNumberError = !formData.phoneNumber.trim()
       ? "Phone number is required*"
       : "";
+    const phoneNumberLimitError =
+      formData.phoneNumber.length !== 11 ? "Please enter correct number*" : "";
 
-    if (nameError || phoneNumberError) {
-      setErrors({ nameError, phoneNumberError, generalError: "" });
+    if (nameError || phoneNumberError || phoneNumberLimitError) {
+      setErrors({
+        nameError,
+        phoneNumberError,
+        phoneNumberLimitError,
+        generalError: "",
+      });
       return;
     }
 
     setLoading(true);
-    setErrors({ nameError: "", phoneNumberError: "", generalError: "" });
+    setErrors({
+      nameError: "",
+      phoneNumberError: "",
+      phoneNumberLimitError: " ",
+      generalError: "",
+    });
 
     const payload = {
       name: formData.name,
@@ -100,11 +113,12 @@ const AddCustomer = () => {
         />
         <InputField
           label="Phone number"
-          placeholder="+92300000329"
+          placeholder="e.g 03017086236"
           value={formData.phoneNumber}
           keyboardType="numeric"
           onChangeText={(text) => onChange("phoneNumber", text)}
-          error={errors.phoneNumberError}
+          error={errors.phoneNumberError || errors.phoneNumberLimitError}
+          maxLength={11}
         />
         <InputField
           label="Address"

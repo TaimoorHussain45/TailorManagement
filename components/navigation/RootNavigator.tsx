@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import { getItemAsync } from "expo-secure-store";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { useTheme } from "react-native-paper";
 import { AppTheme } from "@/constants/theme";
 import { hasActiveSession } from "@/services/session";
 
-type AuthRoute = "(auth)/login" | "(auth)/register";
+type AuthScreen = "login" | "register";
 
 export default function RootNavigator() {
   const db = useSQLiteContext();
@@ -16,12 +16,11 @@ export default function RootNavigator() {
 
   const [checking, setChecking] = useState(true);
   const [authed, setAuthed] = useState(false);
-  const [authRoute, setAuthRoute] = useState<AuthRoute>("(auth)/register");
+  const [authScreen, setAuthScreen] = useState<AuthScreen>("register");
 
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        // 1. Check if there is an active SQLite session
         const activeSession = await hasActiveSession(db);
 
         if (activeSession) {
@@ -29,13 +28,12 @@ export default function RootNavigator() {
           return;
         }
 
-        // 2. No active session → check biometric registration
         const isRegistered = await getItemAsync("isRegistered");
 
         if (isRegistered === "true") {
-          setAuthRoute("(auth)/login");
+          setAuthScreen("login");
         } else {
-          setAuthRoute("(auth)/register");
+          setAuthScreen("register");
         }
       } catch (error) {
         console.error("Failed to initialize authentication:", error);
@@ -46,6 +44,12 @@ export default function RootNavigator() {
 
     initializeAuth();
   }, [db]);
+
+  useEffect(() => {
+    if (!checking && !authed) {
+      router.replace(`/(auth)/${authScreen}`);
+    }
+  }, [checking, authed, authScreen]);
 
   if (checking) {
     return (
@@ -63,11 +67,7 @@ export default function RootNavigator() {
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      {authed ? (
-        <Stack.Screen name="(tabs)" />
-      ) : (
-        <Stack.Screen name={authRoute} />
-      )}
+      {authed ? <Stack.Screen name="(tabs)" /> : <Stack.Screen name="(auth)" />}
     </Stack>
   );
 }
