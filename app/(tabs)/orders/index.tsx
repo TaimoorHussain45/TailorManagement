@@ -52,6 +52,7 @@ export default function Orders() {
       loadCustomers();
     }, [loadCustomers]),
   );
+  console.log("all orders", orders);
   if (loading) {
     return (
       <View style={styles.emptyContainer}>

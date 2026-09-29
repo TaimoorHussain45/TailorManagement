@@ -1,3 +1,4 @@
+import { ORDER_STAGES } from "@/constants/data";
 import type { LucideIcon } from "lucide-react-native";
 import type { ComponentType, ReactNode } from "react";
 import type {
@@ -38,7 +39,7 @@ export type StyleOptionGroup = {
   options: string[];
 };
 
-export type OrderStatus = "In Progress" | "Pending" | "Completed" | "Delayed";
+export type OrderStatus = (typeof ORDER_STAGES)[number]["status"];
 
 export interface OrderCardData {
   id: number | string;
@@ -141,7 +142,7 @@ export type CustomButtonProps = {
 
 export type CustomerCardProps = {
   name: string;
-  createdAt?: string;
+  createdAt: string;
   text: string;
   phone?: string;
   leftIcon?: ReactNode;
@@ -165,6 +166,7 @@ export type Measurement = {
   pocket_config: string | null;
   bottom_type: string | null;
   waist_attachment: string | null;
+  number_of_pockets: string | null;
   created_at: string;
 };
 

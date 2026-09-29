@@ -1,6 +1,5 @@
 import type {
   FieldType,
-  OrderCardData,
   RadioGroupType,
   StyleOptionGroup,
 } from "@/types/types";
@@ -75,6 +74,15 @@ export const homeCardsData = [
     },
   },
 ];
+export const ORDER_STAGES = [
+  { status: "Pending", progress: 0 },
+  { status: "Cutting Fabric", progress: 20 },
+  { status: "Stitching", progress: 50 },
+  { status: "Buttonholes", progress: 85 },
+  { status: "Pressing", progress: 90 },
+  { status: "Ready", progress: 100 },
+  { status: "Delivered", progress: 100 },
+] as const;
 export const themeOptions: {
   mode: ThemeMode;
   label: string;
@@ -126,40 +134,40 @@ export const dummyUsers = [
 ];
 // Add to your existing constants/data.ts (alongside upperFields, lowerFields, lowerStyleOptions)
 
-export const ordersData: OrderCardData[] = [
-  {
-    id: "AT-1048",
-    customerName: "Sara Khan",
-    status: "In Progress",
-    title: "Suit silk two types",
-    dueDate: "14 Oct",
-    progress: 89,
-  },
-  {
-    id: "AT-1049",
-    customerName: "Ahmed Raza",
-    status: "Pending",
-    title: "Kameez Shalwar cotton",
-    dueDate: "18 Oct",
-    progress: 25,
-  },
-  {
-    id: "AT-1050",
-    customerName: "Bilal Hussain",
-    status: "Completed",
-    title: "Waistcoat wool blend",
-    dueDate: "10 Oct",
-    progress: 100,
-  },
-  {
-    id: "AT-1051",
-    customerName: "Usman Tariq",
-    status: "Delayed",
-    title: "Sherwani embroidered",
-    dueDate: "05 Oct",
-    progress: 60,
-  },
-];
+// export const ordersData: OrderCardData[] = [
+//   {
+//     id: "AT-1048",
+//     customerName: "Sara Khan",
+//     status: "In Progress",
+//     title: "Suit silk two types",
+//     dueDate: "14 Oct",
+//     progress: 89,
+//   },
+//   {
+//     id: "AT-1049",
+//     customerName: "Ahmed Raza",
+//     status: "Pending",
+//     title: "Kameez Shalwar cotton",
+//     dueDate: "18 Oct",
+//     progress: 25,
+//   },
+//   {
+//     id: "AT-1050",
+//     customerName: "Bilal Hussain",
+//     status: "Completed",
+//     title: "Waistcoat wool blend",
+//     dueDate: "10 Oct",
+//     progress: 100,
+//   },
+//   {
+//     id: "AT-1051",
+//     customerName: "Usman Tariq",
+//     status: "Delayed",
+//     title: "Sherwani embroidered",
+//     dueDate: "05 Oct",
+//     progress: 60,
+//   },
+// ];
 // export const singleOrdersData: OrderCardData = {
 //   id: "AT-1048",
 //   customerName: "Sara Khan",
@@ -223,11 +231,21 @@ export const lowerStyleOptions: RadioGroupType[] = [
   {
     key: "bottomGarmentType",
     title: "Bottom Garment Type",
-    options: ["Traditional Shalwar", "Trouser / Pajama", "Churidar"],
+    options: [
+      "Traditional Shalwar",
+      "Trouser / Pajama",
+      "Churidar",
+      "Two side pockets",
+    ],
   },
   {
     key: "waistAttachment",
     title: "Waist / Belt Attachment",
     options: ["Elastic Belt", "Drawstring (Nala)"],
+  },
+  {
+    key: "Pockets",
+    title: "Number of pockets",
+    options: ["one front pocket", "Two sides pockets"],
   },
 ];

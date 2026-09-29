@@ -6,6 +6,7 @@ import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
 import { addOrder, type NewOrder } from "@/services/orders";
 import type { OrderStatus } from "@/types/types";
+import { getProgress } from "@/utils/grtProgress";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
@@ -61,7 +62,7 @@ const AddOrder = () => {
       due_date: dueDate.toISOString(),
       quantity: numericQuantity,
       status,
-      progress: status === "Completed" ? 100 : 0,
+      progress: getProgress(status),
     };
 
     setIsSaving(true);

@@ -50,7 +50,7 @@ export const OrdersCardStyles = (theme: AppTheme) =>
     },
     progressFill: {
       height: "100%",
-      backgroundColor: theme.colors.TealGreen,
+      backgroundColor: theme.colors.clayRose,
       borderRadius: Metrics.radiusCircle,
     },
     recordButton: {},

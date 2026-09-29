@@ -115,6 +115,7 @@ const Customers = () => {
               text={item.address ?? "No address"}
               icon={<ChevronRightIcon color={theme.colors.textSecondary} />}
               leftIcon={<Phone color={theme.colors.textSecondary} size={14} />}
+              createdAt={item.created_at}
               phone={item.phone}
               onPress={() =>
                 router.push({

@@ -133,15 +133,17 @@ export default function ViewOrder() {
           </View>
 
           <View style={styles.headerActions}>
-            <IconButton
-              icon={Pencil}
-              onPress={() =>
-                router.push({
-                  pathname: "/(tabs)/orders/editOrder",
-                  params: { orderId: String(order.id) },
-                })
-              }
-            />
+            {order.status !== "Delivered" && (
+              <IconButton
+                icon={Pencil}
+                onPress={() =>
+                  router.push({
+                    pathname: "/(tabs)/orders/editOrder",
+                    params: { orderId: String(order.id) },
+                  })
+                }
+              />
+            )}
             <IconButton icon={Trash} onPress={remove} />
           </View>
         </View>

@@ -32,6 +32,7 @@ export const initSchema = async (db: SQLiteDatabase) => {
   pocket_config TEXT NOT NULL,
   bottom_type TEXT NOT NULL,
   waist_attachment TEXT NOT NULL,
+  number_of_pockets TEXT NOT NULL,
    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (customer_id) REFERENCES Customer(id)
     );
@@ -42,8 +43,9 @@ export const initSchema = async (db: SQLiteDatabase) => {
     title TEXT NOT NULL,
     description TEXT,
     status TEXT NOT NULL DEFAULT 'Pending' CHECK (
-  status IN ('Pending', 'In Progress', 'Completed', 'Delayed' )
+  status IN ('Pending', 'Cutting Fabric', 'Stitching', 'Buttonholes', 'Pressing', 'Ready ','Delivered')
 ),
+
     due_date TEXT,
     quantity INTEGER NOT NULL DEFAULT 1 CHECK (quantity >= 1),
     progress INTEGER NOT NULL DEFAULT 0

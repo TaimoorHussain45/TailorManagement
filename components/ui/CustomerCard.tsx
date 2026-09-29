@@ -26,7 +26,7 @@ const CustomerCard = ({
         <View style={styles.content}>
           <Typography color={theme.colors.black}>{name}</Typography>
           <Typography color={theme.colors.textPrimary} variant="caption">
-            Last Fitted 8 oct
+            {text}
           </Typography>
         </View>
         {leftIcon && (

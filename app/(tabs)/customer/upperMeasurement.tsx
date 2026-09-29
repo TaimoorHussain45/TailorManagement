@@ -41,6 +41,7 @@ const UpperMeasurement = () => {
     pocket_config: "",
     bottom_type: "",
     waist_attachment: "",
+    number_of_pockets: "",
   });
   const [styleSelections, setStyleSelections] = useState<
     Record<string, string>
@@ -121,6 +122,7 @@ const UpperMeasurement = () => {
       pocket_config: styleSelections["Pocket Configuration"],
       bottom_type: styleSelections["Bottom Garment Type"],
       waist_attachment: styleSelections["Waist / Belt Attachment"],
+      number_of_pockets: styleSelections["Number of pockets"],
     };
     setIsSaving(true);
     setSaveError("");

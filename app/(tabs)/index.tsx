@@ -20,10 +20,11 @@ export default function HomeScreen() {
   const styles = homeStyle(theme);
 
   const { data, loading } = useDashboardData();
+  console.log("Data", data);
 
   const currentDate = getFormattedDate(new Date());
   const greeting = getGreeting(new Date());
-
+  const customer = data?.customersSaved;
   const cards = homeCardsData.map((card) => ({
     ...card,
     title: getCardTitle(card.key, card.title, data, loading),
@@ -70,7 +71,6 @@ export default function HomeScreen() {
         weekPlannedPercent={data?.weekPlannedPercent ?? 0}
       />
 
-      {/* Dashboard Cards */}
       <View style={styles.cardContainer}>
         {cards.map((card) => {
           const Icon = card.icon;
@@ -88,7 +88,6 @@ export default function HomeScreen() {
         })}
       </View>
 
-      {/* Recent Activity Header */}
       <View style={styles.customerButtonContainer}>
         <Typography variant="body2">Recent Activity</Typography>
 
@@ -101,7 +100,7 @@ export default function HomeScreen() {
           icon={ChevronRight}
           iconSize={20}
           iconPosition="right"
-          disabled={!hasRecentActivity}
+          disabled={!customer}
         />
       </View>
 
@@ -117,11 +116,10 @@ export default function HomeScreen() {
               key={activity.customerId}
               name={activity.customerName}
               text={`Last Fitted ${getFormattedDate(
-                new Date(activity.lastUpdated),
+                new Date(activity.lastUpdated)
               )}`}
               icon={<ChevronRightIcon color={theme.colors.textSecondary} />}
-              onPress={() => handleCustomerPress(activity.customerId)}
-            />
+              onPress={() => handleCustomerPress(activity.customerId)} createdAt={""}            />
           ))}
         </View>
       )}

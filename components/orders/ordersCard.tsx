@@ -71,6 +71,11 @@ const OrdersCard = ({ order, icon }: OrdersCardProps) => {
             style={[styles.progressFill, { width: `${order.progress}%` }]}
           />
         </View>
+        <View>
+          <Typography variant="body2" align="right">
+            {order.progress}% complete
+          </Typography>
+        </View>
         <View style={styles.recordActions}>
           <CustomButton
             text="Open Order details"
