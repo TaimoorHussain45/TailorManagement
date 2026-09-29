@@ -43,7 +43,7 @@ export const initSchema = async (db: SQLiteDatabase) => {
     title TEXT NOT NULL,
     description TEXT,
     status TEXT NOT NULL DEFAULT 'Pending' CHECK (
-  status IN ('Pending', 'Cutting Fabric', 'Stitching', 'Buttonholes', 'Pressing', 'Ready ','Delivered')
+  status IN ('Pending', 'Cutting Fabric', 'Stitching', 'Buttonholes', 'Pressing', 'Ready','Delivered')
 ),
 
     due_date TEXT,

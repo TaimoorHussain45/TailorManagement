@@ -23,11 +23,12 @@ const AddCustomer = () => {
     notes: "",
     address: "",
   });
+
   const [loading, setLoading] = useState(false);
+
   const [errors, setErrors] = useState({
     nameError: "",
     phoneNumberError: "",
-    phoneNumberLimitError: "",
     generalError: "",
   });
 
@@ -36,52 +37,82 @@ const AddCustomer = () => {
       ...prev,
       [key]: value,
     }));
+
+    if (key === "name" && errors.nameError) {
+      setErrors((prev) => ({
+        ...prev,
+        nameError: "",
+      }));
+    }
+
+    if (key === "phoneNumber" && errors.phoneNumberError) {
+      setErrors((prev) => ({
+        ...prev,
+        phoneNumberError: "",
+      }));
+    }
+
+    if (errors.generalError) {
+      setErrors((prev) => ({
+        ...prev,
+        generalError: "",
+      }));
+    }
   };
 
   const onAddCustomer = async () => {
     const nameError = !formData.name.trim() ? "Name is required*" : "";
-    const phoneNumberError = !formData.phoneNumber.trim()
-      ? "Phone number is required*"
-      : "";
-    const phoneNumberLimitError =
-      formData.phoneNumber.length !== 11 ? "Please enter correct number*" : "";
 
-    if (nameError || phoneNumberError || phoneNumberLimitError) {
+    let phoneNumberError = "";
+
+    if (!formData.phoneNumber.trim()) {
+      phoneNumberError = "Phone number is required*";
+    } else if (formData.phoneNumber.length !== 11) {
+      phoneNumberError = "Please enter correct number*";
+    }
+
+    if (nameError || phoneNumberError) {
       setErrors({
         nameError,
         phoneNumberError,
-        phoneNumberLimitError,
         generalError: "",
       });
+
       return;
     }
 
     setLoading(true);
+
     setErrors({
       nameError: "",
       phoneNumberError: "",
-      phoneNumberLimitError: " ",
       generalError: "",
     });
 
     const payload = {
-      name: formData.name,
-      phone: formData.phoneNumber,
-      notes: formData.notes,
-      address: formData.address,
+      name: formData.name.trim(),
+      phone: formData.phoneNumber.trim(),
+      notes: formData.notes.trim(),
+      address: formData.address.trim(),
     };
 
     try {
       const res = await addCustomer(db, payload);
 
       if (!res.success) {
-        setErrors((prev) => ({ ...prev, generalError: res.error }));
+        setErrors((prev) => ({
+          ...prev,
+          generalError: res.error,
+        }));
+
         return;
       }
 
       router.replace({
         pathname: "/(tabs)/customer/upperMeasurement",
-        params: { customerId: String(res.data.lastInsertRowId) },
+        params: {
+          customerId: String(res.data.lastInsertRowId),
+        },
       });
     } catch {
       setErrors((prev) => ({
@@ -97,12 +128,14 @@ const AddCustomer = () => {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
         <ArrowLeft size={30} onPress={() => router.back()} />
+
         <Heading
           eyebrow="NEW CUSTOMER"
           title="Customer details"
           titleColor={theme.colors.black}
         />
       </View>
+
       <View style={styles.InputContainer}>
         <InputField
           label="Full name"
@@ -111,23 +144,26 @@ const AddCustomer = () => {
           onChangeText={(text) => onChange("name", text)}
           error={errors.nameError}
         />
+
         <InputField
           label="Phone number"
-          placeholder="e.g 03017086236"
+          placeholder="e.g. 03017086236"
           value={formData.phoneNumber}
           keyboardType="numeric"
-          onChangeText={(text) => onChange("phoneNumber", text)}
-          error={errors.phoneNumberError || errors.phoneNumberLimitError}
           maxLength={11}
+          onChangeText={(text) => onChange("phoneNumber", text)}
+          error={errors.phoneNumberError}
         />
+
         <InputField
           label="Address"
-          placeholder="Street no 4 "
+          placeholder="Street no 4"
           value={formData.address}
           onChangeText={(text) => onChange("address", text)}
         />
+
         <InputField
-          label="special Notes"
+          label="Special Notes"
           placeholder="How did they find your atelier"
           multiline
           numberOfLines={16}
@@ -135,11 +171,19 @@ const AddCustomer = () => {
           style={styles.messageBox}
           onChangeText={(text) => onChange("notes", text)}
         />
+
         {!!errors.generalError && (
-          <Text style={{ color: theme.colors.red }}>{errors.generalError}</Text>
+          <Text
+            style={{
+              color: theme.colors.red,
+            }}
+          >
+            {errors.generalError}
+          </Text>
         )}
+
         <CustomButton
-          text={loading ? "loading..." : "Save and Continue"}
+          text={loading ? "Loading..." : "Save and Continue"}
           icon={ArrowRight}
           iconSize={24}
           iconPosition="right"

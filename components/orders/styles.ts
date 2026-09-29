@@ -250,6 +250,10 @@ export const addOrderStyles = (theme: AppTheme) =>
       paddingHorizontal: 0,
       backgroundColor: theme.colors.white,
     },
+    scrollView: {},
+    saveButton: {
+      marginVertical: Metrics.spacingMedium,
+    },
     form: {
       backgroundColor: theme.colors.cardBackground,
       borderColor: theme.colors.borderColor,
@@ -271,10 +275,13 @@ export const addOrderStyles = (theme: AppTheme) =>
       marginBottom: Metrics.spacingTiny,
     },
     dateContainer: {
-      width: "70%",
+      width: "100%",
     },
     dateFieldLabel: {
       marginBottom: Metrics.spacingSmall,
+    },
+    scrollContent: {
+      paddingBottom: Metrics.spacingXLarge,
     },
     dateField: {
       flexDirection: "row",
@@ -285,7 +292,7 @@ export const addOrderStyles = (theme: AppTheme) =>
       borderRadius: Metrics.radiusMedium,
       paddingHorizontal: Metrics.spacingSmall,
       paddingVertical: Metrics.spacingSmall,
-
+      width: "70%",
       height: 50,
     },
     dateLabel: {
@@ -304,6 +311,7 @@ export const addOrderStyles = (theme: AppTheme) =>
       borderColor: theme.colors.borderColor,
       borderWidth: 1,
       paddingHorizontal: Metrics.spacingSmall,
+      marginVertical: Metrics.spacingTiny,
     },
     statusButtonSelected: {
       borderColor: theme.colors.TealGreen,

@@ -10,7 +10,7 @@ import { getProgress } from "@/utils/grtProgress";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { ArrowLeft, Calendar, Check, Save } from "lucide-react-native";
+import { ArrowLeft, Calendar, Save } from "lucide-react-native";
 import { useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
@@ -158,23 +158,6 @@ const AddOrder = () => {
             keyboardType="number-pad"
             containerStyle={styles.halfField}
           />
-        </View>
-
-        <View style={styles.statusSection}>
-          <Typography variant="h4" color={theme.colors.textSecondary}>
-            STATUS
-          </Typography>
-          <View style={styles.buttons}>
-            <CustomButton
-              text="pending"
-              icon={status && Check}
-              iconPosition="right"
-              iconSize={16}
-              backgroundColor={theme.colors.TealGreen}
-              style={[styles.statusButton, { width: "100%" }]}
-              onPress={() => setStatus("Pending")}
-            />
-          </View>
         </View>
 
         {error ? (

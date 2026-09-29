@@ -142,7 +142,7 @@ export type CustomButtonProps = {
 
 export type CustomerCardProps = {
   name: string;
-  createdAt: string;
+
   text: string;
   phone?: string;
   leftIcon?: ReactNode;
@@ -296,6 +296,7 @@ export type ThemeColors = typeof MD3Colors &
     measurementValue: string;
     mutedText: string;
     inputDivider: string;
+    dotColor: string;
     scrollIndicatorStyle: "black" | "white";
   };
 

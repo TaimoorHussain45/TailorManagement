@@ -7,13 +7,10 @@ import { WelcomeCardStyles } from "./styles";
 
 type WelcomeCardProps = {
   fittingsThisWeek: number;
-  weekPlannedPercent: number;
+  weekPlanned: number;
 };
 
-const WelcomeCard = ({
-  fittingsThisWeek,
-  weekPlannedPercent,
-}: WelcomeCardProps) => {
+const WelcomeCard = ({ fittingsThisWeek, weekPlanned }: WelcomeCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = WelcomeCardStyles(theme);
 
@@ -22,6 +19,7 @@ const WelcomeCard = ({
       <View>
         <View style={styles.topRow}>
           <Typography style={styles.weekLabel}>THIS WEEK</Typography>
+
           <Scissors size={22} color={theme.colors.accentGold} />
         </View>
 
@@ -29,12 +27,15 @@ const WelcomeCard = ({
           A little room to make.
         </Typography>
       </View>
+
       <View>
         <View style={styles.footerConatiner}>
+          {/* Fittings */}
           <View style={styles.countBlock}>
             <Typography variant="h1" color={theme.colors.white}>
               {fittingsThisWeek}
             </Typography>
+
             <Typography
               color={theme.colors.textSecondary}
               style={styles.subLabel}
@@ -44,18 +45,23 @@ const WelcomeCard = ({
             </Typography>
           </View>
 
+          {/* Week Planned */}
           <View style={styles.progressWrapper}>
             <View style={styles.progressRow}>
               <Typography style={styles.progressLabel}>Week planned</Typography>
+
               <Typography style={styles.progressValue}>
-                {weekPlannedPercent}%
+                {weekPlanned}
               </Typography>
             </View>
+
             <View style={styles.progressTrack}>
               <View
                 style={[
                   styles.progressFill,
-                  { width: `${weekPlannedPercent}%` },
+                  {
+                    width: weekPlanned > 0 ? "100%" : "0%",
+                  },
                 ]}
               />
             </View>

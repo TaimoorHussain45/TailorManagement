@@ -1,9 +1,11 @@
 import { addOrderStyles } from "@/components/orders/styles";
 import CustomButton from "@/components/ui/CustomButton";
 import Heading from "@/components/ui/Heading";
+import { IconButton } from "@/components/ui/IconButton";
 import InputField from "@/components/ui/InputField";
 import Typography from "@/components/ui/Typography";
 import { ORDER_STAGES } from "@/constants/data";
+import { Metrics } from "@/constants/metrics";
 import { AppTheme } from "@/constants/theme";
 import { getOrderById, updateOrder } from "@/services/orders";
 import type { OrderStatus } from "@/types/types";
@@ -113,20 +115,19 @@ export default function EditOrder() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.content}>
         <View style={styles.header}>
-          <CustomButton
-            text=""
-            icon={ArrowLeft}
-            backgroundColor={theme.colors.white}
-            iconColor={theme.colors.black}
-            onPress={() => router.back()}
-          />
+          <IconButton icon={ArrowLeft} onPress={() => router.back()} />
+
           <Heading
             eyebrow="EDIT ORDER"
             title={form.title || "Order"}
             titleColor={theme.colors.black}
           />
         </View>
-        <ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+        >
           <View style={styles.form}>
             <InputField
               label="Order title"
@@ -173,6 +174,8 @@ export default function EditOrder() {
                   />
                 )}
               </View>
+            </View>
+            <View>
               <InputField
                 label="Quantity"
                 value={form.quantity}
@@ -184,7 +187,9 @@ export default function EditOrder() {
               />
             </View>
           </View>
-          <Typography variant="h4">STATUS</Typography>
+          <Typography variant="h4" paddingVertical={Metrics.spacingSmall}>
+            STATUS
+          </Typography>
           <View style={styles.buttons}>
             {ORDER_STAGES.map((option, index) => (
               <CustomButton
@@ -219,6 +224,7 @@ export default function EditOrder() {
             backgroundColor={theme.colors.TealGreen}
             loading={saving}
             onPress={editOrder}
+            style={styles.saveButton}
           />
         </ScrollView>
       </View>

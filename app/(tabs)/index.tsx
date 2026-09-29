@@ -20,11 +20,12 @@ export default function HomeScreen() {
   const styles = homeStyle(theme);
 
   const { data, loading } = useDashboardData();
-  console.log("Data", data);
 
   const currentDate = getFormattedDate(new Date());
   const greeting = getGreeting(new Date());
+
   const customer = data?.customersSaved;
+
   const cards = homeCardsData.map((card) => ({
     ...card,
     title: getCardTitle(card.key, card.title, data, loading),
@@ -39,7 +40,6 @@ export default function HomeScreen() {
   };
 
   const handleCustomerPress = (customerId: number) => {
-    console.log("working....");
     router.push({
       pathname: "/(tabs)/customer/viewCustomer",
       params: {
@@ -68,7 +68,7 @@ export default function HomeScreen() {
 
       <WelcomeCard
         fittingsThisWeek={data?.fittingsThisWeek ?? 0}
-        weekPlannedPercent={data?.weekPlannedPercent ?? 0}
+        weekPlanned={data?.weekPlanned ?? 0}
       />
 
       <View style={styles.cardContainer}>
@@ -104,7 +104,6 @@ export default function HomeScreen() {
         />
       </View>
 
-      {/* Recent Activity */}
       {!loading && !hasRecentActivity ? (
         <View style={styles.emptyContainer}>
           <Typography variant="h4">No recent activity yet.</Typography>
@@ -116,10 +115,12 @@ export default function HomeScreen() {
               key={activity.customerId}
               name={activity.customerName}
               text={`Last Fitted ${getFormattedDate(
-                new Date(activity.lastUpdated)
+                new Date(activity.lastUpdated),
               )}`}
               icon={<ChevronRightIcon color={theme.colors.textSecondary} />}
-              onPress={() => handleCustomerPress(activity.customerId)} createdAt={""}            />
+              onPress={() => handleCustomerPress(activity.customerId)}
+              createdAt=""
+            />
           ))}
         </View>
       )}

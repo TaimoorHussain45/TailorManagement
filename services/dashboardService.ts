@@ -4,7 +4,7 @@ import { type SQLiteDatabase } from "expo-sqlite";
 
 export type DashboardData = {
   fittingsThisWeek: number;
-  weekPlannedPercent: number;
+  weekPlanned: number;
   activeOrders: number;
   customersSaved: number;
   recentActivity: {
@@ -30,16 +30,18 @@ export async function getDashboardData(
     );
 
     const [activeRow] = await db.getAllAsync<{ count: number }>(
-      `SELECT COUNT(*) as count FROM "Order" WHERE status != 'Completed'`,
+      `SELECT COUNT(*) as count
+   FROM "Order"
+   WHERE status != 'Ready'
+   AND status != 'Delivered'`,
     );
 
     const [customerRow] = await db.getAllAsync<{ count: number }>(
       `SELECT COUNT(*) as count FROM Customer`,
     );
 
-    // "Week planned %" = share of this week's due orders that are Completed
     const [completedThisWeekRow] = await db.getAllAsync<{ count: number }>(
-      `SELECT COUNT(*) as count FROM "Order" WHERE due_date BETWEEN ? AND ? AND status = 'Completed'`,
+      `SELECT COUNT(*) as count FROM "Order" WHERE due_date BETWEEN ? AND ? AND status = 'Ready'`,
       start,
       end,
     );

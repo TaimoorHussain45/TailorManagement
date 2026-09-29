@@ -25,9 +25,11 @@ const CustomerCard = ({
       <View style={styles.details}>
         <View style={styles.content}>
           <Typography color={theme.colors.black}>{name}</Typography>
-          <Typography color={theme.colors.textPrimary} variant="caption">
-            {text}
-          </Typography>
+          {text && (
+            <Typography color={theme.colors.black} variant="caption">
+              {text}
+            </Typography>
+          )}
         </View>
         {leftIcon && (
           <View style={styles.phoneRow}>
