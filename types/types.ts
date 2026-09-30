@@ -181,6 +181,7 @@ export type HeadingProps = {
 export interface IconButtonProps extends TouchableOpacityProps {
   size?: number;
   iconSize?: number;
+  text?: string;
   iconColor?: string;
   backgroundColor?: string;
   borderColor?: string;

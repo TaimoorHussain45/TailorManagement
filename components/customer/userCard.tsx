@@ -43,12 +43,12 @@ const UserCard = ({
       <View style={styles.infoRowLast}>
         <CalendarDays size={18} color={theme.colors.onSurfaceVariant} />
         {dueDate && (
-          <Typography variant="body1">
-            Delivery Date: {dueDate ?? "No due date"}
+          <Typography variant="body2">
+            Delivery Date: {getFormattedDate(new Date(dueDate))}
           </Typography>
         )}
         {createdAt && (
-          <Typography variant="body1">
+          <Typography variant="body2">
             Customer Since {getFormattedDate(new Date(createdAt))}
           </Typography>
         )}

@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 export default function EditCustomer() {
   const theme = useTheme<AppTheme>();
@@ -65,6 +66,10 @@ export default function EditCustomer() {
     router.replace({
       pathname: "/(tabs)/customer/viewCustomer",
       params: { customerId: String(numericId) },
+    });
+    Toast.show({
+      type: "success",
+      text1: "Customer updated successfully ✅",
     });
   };
 

@@ -108,46 +108,46 @@ export default function ViewOrder() {
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView style={styles.screen} edges={["top"]}>
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <IconButton icon={ArrowLeft} onPress={() => router.back()} />
+
+          <View style={styles.headerTitleWrap}>
+            <Typography variant="caption" style={styles.orderIdLabel}>
+              ORDER #{order.id}
+            </Typography>
+
+            <Typography
+              variant="h4"
+              style={styles.orderTitle}
+              numberOfLines={1}
+            >
+              {order.title}
+            </Typography>
+          </View>
+        </View>
+
+        <View style={styles.headerActions}>
+          {order.status !== "Delivered" && (
+            <IconButton
+              icon={Pencil}
+              onPress={() =>
+                router.push({
+                  pathname: "/(tabs)/orders/editOrder",
+                  params: { orderId: String(order.id) },
+                })
+              }
+            />
+          )}
+          <IconButton icon={Trash} onPress={remove} />
+        </View>
+      </View>
+
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <IconButton icon={ArrowLeft} onPress={() => router.back()} />
-
-            <View style={styles.headerTitleWrap}>
-              <Typography variant="caption" style={styles.orderIdLabel}>
-                ORDER #{order.id}
-              </Typography>
-
-              <Typography
-                variant="h4"
-                style={styles.orderTitle}
-                numberOfLines={1}
-              >
-                {order.title}
-              </Typography>
-            </View>
-          </View>
-
-          <View style={styles.headerActions}>
-            {order.status !== "Delivered" && (
-              <IconButton
-                icon={Pencil}
-                onPress={() =>
-                  router.push({
-                    pathname: "/(tabs)/orders/editOrder",
-                    params: { orderId: String(order.id) },
-                  })
-                }
-              />
-            )}
-            <IconButton icon={Trash} onPress={remove} />
-          </View>
-        </View>
-
         {/* <View style={styles.card}>
           <View style={styles.statusRow}>
             <View style={styles.statusLeft}>

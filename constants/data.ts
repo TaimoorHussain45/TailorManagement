@@ -31,6 +31,16 @@ export const authCardsData = [
     paragraph: "No passwords to remember.",
   },
 ];
+export const orderProgress = [
+  "All",
+  "Pending",
+  "Cutting Fabric",
+  "Stitching",
+  "Buttonholes",
+  "Pressing",
+  "Ready",
+  "Delivered",
+];
 // export const homeCardsData = [
 //   {
 //     icon: ShieldCheck,
@@ -83,6 +93,35 @@ export const ORDER_STAGES = [
   { status: "Ready", progress: 100 },
   { status: "Delivered", progress: 100 },
 ] as const;
+const IN_PROGRESS_STATUSES = [
+  "Cutting Fabric",
+  "Stitching",
+  "Buttonholes",
+  "Pressing",
+];
+export type OrderTab = "All" | "Pending" | "In Progress" | "Ready";
+
+export const ORDER_TABS: OrderTab[] = [
+  "All",
+  "Pending",
+  "In Progress",
+  "Ready",
+];
+export const matchesTab = (orderStatus: string | undefined, tab: OrderTab) => {
+  switch (tab) {
+    case "All":
+      return true;
+    case "Pending":
+      return orderStatus === "Pending";
+    case "In Progress":
+      return !!orderStatus && IN_PROGRESS_STATUSES.includes(orderStatus);
+    case "Ready":
+      return orderStatus === "Ready";
+    default:
+      return false;
+  }
+};
+
 export const themeOptions: {
   mode: ThemeMode;
   label: string;

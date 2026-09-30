@@ -15,6 +15,7 @@ import { useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 const AddOrder = () => {
   const { customerId, customerName, measurementId } = useLocalSearchParams<{
@@ -75,6 +76,10 @@ const AddOrder = () => {
         return;
       }
       router.replace("/(tabs)/orders");
+      Toast.show({
+        type: "success",
+        text1: "Order Added successfully ✅",
+      });
     } catch (error) {
       console.error(error);
     }

@@ -23,6 +23,7 @@ import { useEffect, useState } from "react";
 import { ScrollView, TextInput, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 // All measurement + style fields for this screen, combined once so we
 // don't rebuild these arrays on every render/validation check.
@@ -79,10 +80,10 @@ const UpdateRecord = () => {
       setStyleSelections({
         "Collar / Ban Style": record.collar_style ?? "",
         "Cuff / Sleeve End": record.cuff_style ?? "",
-
         "Pocket Configuration": record.pocket_config ?? "",
         "Ghera / Damen Style": record.ghera_style ?? "",
         "Bottom Garment Type": record.bottom_type ?? "",
+        "Number of pockets": record.number_of_pockets ?? "",
         "Waist / Belt Attachment": record.waist_attachment ?? "",
       });
     };
@@ -145,19 +146,24 @@ const UpdateRecord = () => {
       pocket_config: styleSelections["Pocket Configuration"],
       bottom_type: styleSelections["Bottom Garment Type"],
       waist_attachment: styleSelections["Waist / Belt Attachment"],
+      number_of_pockets: styleSelections["Number of pockets"],
     };
-    // console.log("work 5");
+    console.log("work 5");
     setIsSaving(true);
     setSaveError("");
     try {
-      // console.log("work 6");
+      console.log("work 6");
       const result = await updateMeasurement(db, measurementIdNum, payload);
-      // console.log(result);
+      console.log(result);
       if (!result.success) {
         setSaveError(result.error);
         return;
       }
       router.replace("/(tabs)");
+      Toast.show({
+        type: "success",
+        text1: "Measurement updated successfully ✅",
+      });
     } catch (error) {
       console.error("Failed to update measurement:", error);
       setSaveError("Could not save measurements. Please try again.");

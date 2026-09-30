@@ -11,6 +11,7 @@ import { useState } from "react";
 import { Text, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 const AddCustomer = () => {
   const theme = useTheme<AppTheme>();
@@ -113,6 +114,10 @@ const AddCustomer = () => {
         params: {
           customerId: String(res.data.lastInsertRowId),
         },
+      });
+      Toast.show({
+        type: "success",
+        text1: "customer Added successfully ✅",
       });
     } catch {
       setErrors((prev) => ({

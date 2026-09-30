@@ -15,7 +15,7 @@ export const MeasurementRow = ({
   const style = measurementRowStyles(theme);
   return (
     <View style={style.measurementRow}>
-      <Typography variant="body1">{label}</Typography>
+      <Typography variant="h4">{label}</Typography>
       <View style={style.measurementValueBadge}>
         <Typography variant="body1" style={style.measurementValueText}>
           {value ?? "-"} in

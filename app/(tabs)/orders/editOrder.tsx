@@ -15,6 +15,8 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { ArrowLeft, Calendar, Check, Save } from "lucide-react-native";
 import { useEffect, useState } from "react";
+import Toast from "react-native-toast-message";
+
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -94,8 +96,12 @@ export default function EditOrder() {
         return;
       }
       router.replace({
-        pathname: "/(tabs)/orders/viewOrder",
+        pathname: "/(tabs)/orders",
         params: { orderId: String(numericId) },
+      });
+      Toast.show({
+        type: "success",
+        text1: "Order Updated successfully 👋",
       });
     } catch (error) {
       console.log(error);

@@ -12,6 +12,7 @@ import { Colors } from "@/constants/theme";
 import { ThemeContextProvider, useAppTheme } from "@/context/theme-context";
 import { initSchema } from "@/database/schema";
 import { SQLiteProvider } from "expo-sqlite";
+import Toast from "react-native-toast-message";
 
 function AppShell() {
   const { colorScheme } = useAppTheme();
@@ -40,6 +41,7 @@ function AppShell() {
         }}
       >
         <RootNavigator />
+        <Toast />
       </ThemeProvider>
     </PaperProvider>
   );

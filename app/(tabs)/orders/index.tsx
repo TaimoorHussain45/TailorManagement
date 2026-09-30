@@ -1,62 +1,32 @@
 import OrdersCard from "@/components/orders/ordersCard";
 import { ordersScreenStyles } from "@/components/orders/styles";
-import CustomButton from "@/components/ui/CustomButton";
 import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
 import Typography from "@/components/ui/Typography";
+import { orderProgress } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
-import { getAllOrders } from "@/services/orders";
-import type { OrderRecord } from "@/types/types";
-import { useFocusEffect } from "expo-router";
-import { useSQLiteContext } from "expo-sqlite";
-import { useCallback, useState } from "react";
-import { FlatList, View } from "react-native";
+import { useOrdersHook } from "@/hooks/useOrdersHook";
+import { useState } from "react";
+import { FlatList, ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Orders() {
   const theme = useTheme<AppTheme>();
   const styles = ordersScreenStyles(theme);
-  const db = useSQLiteContext();
-  const [orders, setOrders] = useState<OrderRecord[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState<string | null>(null);
-  const loadCustomers = useCallback(async () => {
-    setLoading(true);
-    setLoadError(null);
 
-    try {
-      const response = await getAllOrders(db);
-      if (!response.success) {
-        setLoadError(
-          typeof response.error === "string"
-            ? response.error
-            : "Unable to load oders. Please try again.",
-        );
-        setOrders([]);
-        return;
-      }
+  const [status, setStatus] = useState("All");
+  const { orders, loading, loadError } = useOrdersHook();
 
-      setOrders(response.data);
-    } catch (error) {
-      console.error("loadCustomers failed:", error);
-      setLoadError("Unable to load oders. Please try again.");
-      setOrders([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [db]);
+  const filteredOrders =
+    status === "All"
+      ? orders
+      : orders.filter((order) => order.status === status);
 
-  useFocusEffect(
-    useCallback(() => {
-      loadCustomers();
-    }, [loadCustomers]),
-  );
-  console.log("all orders", orders);
   if (loading) {
     return (
       <View style={styles.emptyContainer}>
-        <Typography variant="h2">Loading customers...</Typography>
+        <Typography variant="h2">Loading orders...</Typography>
       </View>
     );
   }
@@ -64,49 +34,57 @@ export default function Orders() {
   if (loadError) {
     return (
       <View style={styles.emptyContainer}>
-        <Typography variant="h2">Unable to load order</Typography>
+        <Typography variant="h2">Unable to load orders</Typography>
         <Typography variant="caption">{loadError}</Typography>
-        <CustomButton text="Try again" onPress={() => loadCustomers()} />
       </View>
     );
   }
+
   if (orders.length === 0) {
     return (
       <View style={styles.emptyContainer}>
-        <Typography variant="h2">No order yet</Typography>
-        <Typography variant="caption">{loadError}</Typography>
-        {/* <CustomButton
-          text="Add order"
-          icon={Plus}
-          // onPress={router.push("/(tab")}
-        /> */}
+        <Typography variant="h2">No orders yet</Typography>
       </View>
     );
   }
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.header}>
-        <View>
-          <Heading eyebrow="THE WORK IN MOTION" title="Orders" />
-        </View>
-      </View>
-      <View></View>
 
-      {orders ? (
-        <View style={styles.listContainer}>
-          <FlatList
-            data={orders}
-            keyExtractor={(item) => String(item.id)}
-            contentContainerStyle={styles.listContent}
-            showsVerticalScrollIndicator={false}
-            persistentScrollbar
-            indicatorStyle={theme.colors.scrollIndicatorStyle}
-            renderItem={({ item }) => <OrdersCard order={item} />}
+  return (
+    <SafeAreaView style={styles.safeArea} edges={["top"]}>
+      <View style={styles.header}>
+        <Heading eyebrow="THE WORK IN MOTION" title="Orders" />
+      </View>
+
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.topButton}
+        contentContainerStyle={styles.topButtonContent}
+      >
+        {orderProgress.map((title) => (
+          <IconButton
+            key={title}
+            text={title}
+            style={styles.orderButton}
+            onPress={() => setStatus(title)}
+            backgroundColor={title === status ? "red" : "transparent"}
           />
-        </View>
-      ) : (
-        <IconButton backgroundColor={theme.colors.primary} />
-      )}
+        ))}
+      </ScrollView>
+
+      <View style={styles.listContainer}>
+        <FlatList
+          data={filteredOrders}
+          keyExtractor={(item) => String(item.id)}
+          contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
+          persistentScrollbar
+          indicatorStyle={theme.colors.scrollIndicatorStyle}
+          renderItem={({ item }) => <OrdersCard order={item} />}
+          ListEmptyComponent={
+            <Typography variant="caption">No {status} orders</Typography>
+          }
+        />
+      </View>
     </SafeAreaView>
   );
 }

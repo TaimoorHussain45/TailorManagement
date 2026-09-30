@@ -69,7 +69,8 @@ export const OrdersCardStyles = (theme: AppTheme) =>
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      marginBottom: 24,
+      marginBottom: Metrics.spacingMedium,
+      paddingHorizontal: Metrics.spacingMedium,
     },
     headerLeft: {
       flexDirection: "row",
@@ -215,13 +216,36 @@ export const updateMeasurementStyles = (theme: AppTheme) =>
 
 export const ordersScreenStyles = (theme: AppTheme) =>
   StyleSheet.create({
-    safeArea: { flex: 1, padding: Metrics.spacingMedium },
-    header: { flexDirection: "row", justifyContent: "space-between" },
-    listContainer: { flex: 1 },
+    safeArea: {
+      flex: 1,
+      paddingTop: Metrics.spacingMedium,
+      // no horizontal/bottom padding here
+    },
+    header: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      paddingHorizontal: Metrics.spacingMedium,
+    },
+    topButton: {
+      flexGrow: 0,
+      marginTop: Metrics.spacingMedium,
+    },
+    topButtonContent: {
+      gap: Metrics.spacingSmall,
+      alignItems: "center",
+      paddingHorizontal: Metrics.spacingMedium,
+    },
+    listContainer: {
+      flex: 1,
+      marginTop: Metrics.spacingSmall, // small gap under chips, no bottom margin
+    },
     listContent: {
       gap: Metrics.spacingXLarge,
+      paddingHorizontal: Metrics.spacingMedium, // side spacing lives inside the list
+      paddingTop: Metrics.spacingSmall,
       paddingBottom: Metrics.spacingXLarge,
     },
+    orderButton: {},
     emptyContainer: {
       flex: 1,
       justifyContent: "center",

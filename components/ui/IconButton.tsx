@@ -1,8 +1,10 @@
+import { Metrics } from "@/constants/metrics";
 import type { AppTheme } from "@/constants/theme";
 import type { IconButtonProps } from "@/types/types";
 import { Plus } from "lucide-react-native";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useTheme } from "react-native-paper";
+import Typography from "./Typography";
 
 export const IconButton = ({
   size = 48,
@@ -10,6 +12,7 @@ export const IconButton = ({
   iconColor,
   borderColor,
   backgroundColor,
+  text,
   icon: Icon = Plus,
   style,
   onPress,
@@ -21,15 +24,18 @@ export const IconButton = ({
     backgroundColor ?? theme.colors.cardBackground;
   const borderTheme = borderColor ?? theme.colors.borderColor;
 
+  const sizeStyle = text
+    ? { height: size, paddingHorizontal: Metrics.spacingMedium }
+    : { width: size, height: size };
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
       style={[
         styles.button,
+        sizeStyle,
         {
-          width: size,
-          height: size,
           borderRadius: size / 2,
           backgroundColor: resolvedBackgroundColor,
           borderColor: borderTheme,
@@ -38,7 +44,13 @@ export const IconButton = ({
       ]}
       {...rest}
     >
-      <Icon size={iconSize} color={resolvedIconColor} />
+      {!text ? (
+        <Icon size={iconSize} color={resolvedIconColor} />
+      ) : (
+        <Typography variant="body2" numberOfLines={1}>
+          {text}
+        </Typography>
+      )}
     </TouchableOpacity>
   );
 };

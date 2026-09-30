@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 const UpperMeasurement = () => {
   const theme = useTheme<AppTheme>();
@@ -139,6 +140,10 @@ const UpperMeasurement = () => {
           customerName: customer?.name,
           measurementId: String(response.data.lastInsertRowId),
         },
+      });
+      Toast.show({
+        type: "success",
+        text1: "Measurement Noted successfully ✅",
       });
     } catch (error) {
       console.error("Failed to save measurement:", error);

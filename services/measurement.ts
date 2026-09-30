@@ -97,7 +97,7 @@ export const updateMeasurement = async (
         shirt_length = ?, chest = ?, shoulder = ?, sleeve = ?, collar = ?,
         ghera = ?, shalwar_length = ?, paoncha_width = ?,
         collar_style = ?, cuff_style = ?, pocket_config = ?,
-        bottom_type = ?, waist_attachment = ?
+        bottom_type = ?, waist_attachment = ?, number_of_pockets=?
        WHERE id = ?`,
       data.shirt_length,
       data.chest,
