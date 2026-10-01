@@ -5,43 +5,32 @@ export const CustomerStyles = (theme: AppTheme) =>
   StyleSheet.create({
     safeArea: {
       flex: 1,
+      backgroundColor: theme.colors.background,
     },
     emptyContainer: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
+      padding: Metrics.spacingLarge,
+      gap: Metrics.spacingSmall,
     },
     container: {
       flex: 1,
-      padding: 20,
+      paddingHorizontal: Metrics.spacingMedium,
+      paddingTop: Metrics.spacingMedium,
     },
     inputContainer: {
-      marginVertical: Metrics.spacingMedium,
+      marginTop: Metrics.spacingMedium,
+      marginBottom: Metrics.spacingSmall,
     },
     header: {
       flexDirection: "row",
       justifyContent: "space-between",
-      marginBottom: Metrics.spacingTiny,
       alignItems: "center",
-      alignContent: "center",
-    },
-    title: {
-      fontWeight: "700",
-      marginBottom: 16,
     },
     usersCards: {
-      flexDirection: "column",
-      justifyContent: "space-between",
-    },
-    userButton: {
-      backgroundColor: "transparent",
-      borderStyle: "dashed",
-      borderColor: theme.colors.borderColor,
-      borderWidth: 4,
-      height: 40,
-    },
-    addButton: {
-      // marginVertical: Metrics.spacingMedium,
+      gap: Metrics.spacingSmall,
+      paddingTop: Metrics.spacingSmall,
     },
   });
 export const addCustomerStyles = (theme: AppTheme) =>

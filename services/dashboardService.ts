@@ -4,14 +4,18 @@ import { type SQLiteDatabase } from "expo-sqlite";
 
 export type DashboardData = {
   fittingsThisWeek: number;
-  weekPlanned: number;
+  readyOrdersThisWeek: number;
+  totalOrdersThisWeek: number;
   activeOrders: number;
   customersSaved: number;
   recentActivity: {
+    activityId: number;
+    entityType: "customer" | "measurement" | "order";
+    entityId: number;
     customerId: number;
     customerName: string;
-    title: string;
-    lastUpdated: string;
+    activity: string;
+    occurredAt: string;
   }[];
 };
 
@@ -24,9 +28,9 @@ export async function getDashboardData(
     const { start, end } = getWeekRange();
 
     const [fittingsRow] = await db.getAllAsync<{ count: number }>(
-      `SELECT COUNT(*) as count FROM "Order" WHERE due_date BETWEEN ? AND ?`,
-      start,
-      end,
+      `SELECT COUNT(*) as count
+       FROM "Order"
+       WHERE status = 'Cutting Fabric'`,
     );
 
     const [activeRow] = await db.getAllAsync<{ count: number }>(
@@ -40,35 +44,46 @@ export async function getDashboardData(
       `SELECT COUNT(*) as count FROM Customer`,
     );
 
-    const [completedThisWeekRow] = await db.getAllAsync<{ count: number }>(
-      `SELECT COUNT(*) as count FROM "Order" WHERE due_date BETWEEN ? AND ? AND status = 'Ready'`,
+    const [weeklyOrdersRow] = await db.getAllAsync<{
+      total: number;
+      ready: number;
+    }>(
+      `SELECT COUNT(*) as total,
+              COUNT(CASE WHEN status = 'Ready' THEN 1 END) as ready
+       FROM "Order"
+       WHERE datetime(updated_at) BETWEEN datetime(?) AND datetime(?)`,
       start,
       end,
     );
 
     const recentActivity = await db.getAllAsync<{
+      activityId: number;
+      entityType: "customer" | "measurement" | "order";
+      entityId: number;
+      customerId: number;
       customerName: string;
-      title: string;
-      lastUpdated: string;
-    }>(`
-      SELECT  c.id AS customerId, c.name AS customerName, o.title, o.updated_at AS lastUpdated
-      FROM "Order" o
-      JOIN Customer c ON c.id = o.customer_id
-      ORDER BY o.updated_at DESC
-      LIMIT 5
-    `);
-
+      activity: string;
+      occurredAt: string;
+    }>(
+      `SELECT
+         id AS activityId,
+         entity_type AS entityType,
+         entity_id AS entityId,
+         customer_id AS customerId,
+         customer_name AS customerName,
+         activity,
+         occurred_at AS occurredAt
+       FROM ActivityLog
+       ORDER BY datetime(occurred_at) DESC, id DESC
+       LIMIT 4`,
+    );
     const fittingsThisWeek = fittingsRow.count;
-    const weekPlannedPercent =
-      fittingsThisWeek === 0
-        ? 0
-        : Math.round((completedThisWeekRow.count / fittingsThisWeek) * 100);
-
     return {
       success: true,
       data: {
         fittingsThisWeek,
-        weekPlannedPercent,
+        readyOrdersThisWeek: weeklyOrdersRow.ready,
+        totalOrdersThisWeek: weeklyOrdersRow.total,
         activeOrders: activeRow.count,
         customersSaved: customerRow.count,
         recentActivity,

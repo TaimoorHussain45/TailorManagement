@@ -7,12 +7,22 @@ import { WelcomeCardStyles } from "./styles";
 
 type WelcomeCardProps = {
   fittingsThisWeek: number;
-  weekPlanned: number;
+  readyOrdersThisWeek: number;
+  totalOrdersThisWeek: number;
 };
 
-const WelcomeCard = ({ fittingsThisWeek, weekPlanned }: WelcomeCardProps) => {
+const WelcomeCard = ({
+  fittingsThisWeek,
+  readyOrdersThisWeek,
+  totalOrdersThisWeek,
+}: WelcomeCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = WelcomeCardStyles(theme);
+  const progress =
+    totalOrdersThisWeek > 0
+      ? Math.min(readyOrdersThisWeek / totalOrdersThisWeek, 1)
+      : 0;
+  const progressWidth: `${number}%` = `${progress * 100}%`;
 
   return (
     <View style={styles.container}>
@@ -51,7 +61,7 @@ const WelcomeCard = ({ fittingsThisWeek, weekPlanned }: WelcomeCardProps) => {
               <Typography style={styles.progressLabel}>Week planned</Typography>
 
               <Typography style={styles.progressValue}>
-                {weekPlanned}
+                {readyOrdersThisWeek}/{totalOrdersThisWeek}
               </Typography>
             </View>
 
@@ -60,7 +70,7 @@ const WelcomeCard = ({ fittingsThisWeek, weekPlanned }: WelcomeCardProps) => {
                 style={[
                   styles.progressFill,
                   {
-                    width: weekPlanned > 0 ? "100%" : "0%",
+                    width: progressWidth,
                   },
                 ]}
               />

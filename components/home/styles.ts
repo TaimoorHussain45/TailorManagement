@@ -7,7 +7,8 @@ export const homeStyle = (theme: AppTheme) =>
   StyleSheet.create({
     scrollView: {
       flex: 1,
-      margin: 15,
+      marginHorizontal: 15,
+      marginTop: 15,
     },
     container: {},
     customerCard: {

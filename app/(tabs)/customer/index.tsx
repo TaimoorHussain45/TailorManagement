@@ -10,7 +10,7 @@ import { getAllCustomers } from "@/services/customer";
 import type { Customer } from "@/types/types";
 import { router, useFocusEffect } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { ChevronRightIcon, Phone, Plus } from "lucide-react-native";
+import { ChevronRightIcon, Phone } from "lucide-react-native";
 import { useCallback, useState } from "react";
 import { FlatList, View } from "react-native";
 import { useTheme } from "react-native-paper";
@@ -23,6 +23,8 @@ const Customers = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [visibleCustomerCount, setVisibleCustomerCount] = useState(7);
 
   const loadCustomers = useCallback(async () => {
     setLoading(true);
@@ -87,10 +89,16 @@ const Customers = () => {
       </View>
     );
   }
-  console.log("customer data", customers);
+
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const filteredCustomers = customers.filter(
+    (customer) =>
+      customer.name.toLowerCase().includes(normalizedQuery) ||
+      customer.phone.toLowerCase().includes(normalizedQuery),
+  );
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={["top"]}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Heading
@@ -103,13 +111,29 @@ const Customers = () => {
           />
         </View>
         <View style={styles.inputContainer}>
-          <SearchBar placeholder="Search by Name or Phone" />
+          <SearchBar
+            placeholder="Search by Name or Phone"
+            value={searchQuery}
+            onChangeText={(text) => {
+              setSearchQuery(text);
+              setVisibleCustomerCount(7);
+            }}
+          />
         </View>
 
         <FlatList
-          data={customers}
+          data={filteredCustomers.slice(0, visibleCustomerCount)}
           keyExtractor={(item) => String(item.id)}
           contentContainerStyle={styles.usersCards}
+          onEndReached={() =>
+            setVisibleCustomerCount((count) =>
+              Math.min(count + 5, filteredCustomers.length),
+            )
+          }
+          onEndReachedThreshold={0.5}
+          ListEmptyComponent={
+            <Typography variant="caption">No matching customers</Typography>
+          }
           renderItem={({ item }) => (
             <CustomerCard
               name={item.name}
@@ -126,19 +150,6 @@ const Customers = () => {
             />
           )}
         />
-
-        <View style={styles.addButton}>
-          <CustomButton
-            style={styles.userButton}
-            text="Add a new customer"
-            onPress={() => router.push("/(tabs)/customer/addCustomer")}
-            iconPosition="left"
-            icon={Plus}
-            iconColor={theme.colors.textSecondary}
-            textColor={theme.colors.textSecondary}
-            iconSize={20}
-          />
-        </View>
       </View>
     </SafeAreaView>
   );

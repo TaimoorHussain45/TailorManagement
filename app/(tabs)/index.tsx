@@ -48,6 +48,19 @@ export default function HomeScreen() {
     });
   };
 
+  const handleActivityPress = (
+    activity: NonNullable<typeof data>["recentActivity"][number],
+  ) => {
+    if (activity.entityType === "order") {
+      router.push({
+        pathname: "/(tabs)/orders/viewOrder",
+        params: { orderId: String(activity.entityId) },
+      });
+      return;
+    }
+    handleCustomerPress(activity.customerId);
+  };
+
   return (
     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <NavLogo />
@@ -68,7 +81,8 @@ export default function HomeScreen() {
 
       <WelcomeCard
         fittingsThisWeek={data?.fittingsThisWeek ?? 0}
-        weekPlanned={data?.weekPlanned ?? 0}
+        readyOrdersThisWeek={data?.readyOrdersThisWeek ?? 0}
+        totalOrdersThisWeek={data?.totalOrdersThisWeek ?? 0}
       />
 
       <View style={styles.cardContainer}>
@@ -112,14 +126,13 @@ export default function HomeScreen() {
         <View style={styles.customerCard}>
           {data?.recentActivity.map((activity) => (
             <CustomerCard
-              key={activity.customerId}
+              key={activity.activityId}
               name={activity.customerName}
-              text={`Last Fitted ${getFormattedDate(
-                new Date(activity.lastUpdated),
+              text={`${activity.activity} · ${getFormattedDate(
+                new Date(activity.occurredAt),
               )}`}
               icon={<ChevronRightIcon color={theme.colors.textSecondary} />}
-              onPress={() => handleCustomerPress(activity.customerId)}
-              createdAt=""
+              onPress={() => handleActivityPress(activity)}
             />
           ))}
         </View>

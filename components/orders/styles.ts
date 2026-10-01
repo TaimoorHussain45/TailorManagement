@@ -235,6 +235,10 @@ export const ordersScreenStyles = (theme: AppTheme) =>
       alignItems: "center",
       paddingHorizontal: Metrics.spacingMedium,
     },
+    searchContainer: {
+      marginHorizontal: Metrics.spacingMedium,
+      marginTop: Metrics.spacingSmall,
+    },
     listContainer: {
       flex: 1,
       marginTop: Metrics.spacingSmall, // small gap under chips, no bottom margin
