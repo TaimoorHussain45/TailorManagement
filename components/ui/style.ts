@@ -7,7 +7,7 @@ export const customerCardStyles = (theme: AppTheme) =>
       flexDirection: "row",
       alignItems: "center",
       gap: Metrics.spacingMedium,
-      padding: Metrics.spacingMedium,
+      padding: Metrics.spacingSmall,
       backgroundColor: theme.colors.cardBackground,
       borderColor: theme.colors.borderColor,
       borderWidth: 1,

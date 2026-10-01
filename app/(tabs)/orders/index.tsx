@@ -1,5 +1,6 @@
 import OrdersCard from "@/components/orders/ordersCard";
 import { ordersScreenStyles } from "@/components/orders/styles";
+import CustomButton from "@/components/ui/CustomButton";
 import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
 import SearchBar from "@/components/ui/SearchBar";
@@ -106,12 +107,19 @@ export default function Orders() {
           showsVerticalScrollIndicator={false}
           persistentScrollbar
           indicatorStyle={theme.colors.scrollIndicatorStyle}
-          onEndReached={() =>
-            setVisibleOrderCount((count) =>
-              Math.min(count + 5, filteredOrders.length),
-            )
+          ListFooterComponent={
+            visibleOrderCount < filteredOrders.length ? (
+              <CustomButton
+                text="See more"
+                onPress={() =>
+                  setVisibleOrderCount((count) =>
+                    Math.min(count + 5, filteredOrders.length),
+                  )
+                }
+                style={{ marginTop: 8 }}
+              />
+            ) : null
           }
-          onEndReachedThreshold={0.5}
           renderItem={({ item }) => <OrdersCard order={item} />}
           ListEmptyComponent={
             <Typography variant="caption">

@@ -13,7 +13,8 @@ export const homeStyle = (theme: AppTheme) =>
     container: {},
     customerCard: {
       flexDirection: "column",
-      gap: Metrics.spacingTiny,
+      gap: Metrics.spacingMedium,
+      marginBottom: Metrics.spacingMedium,
     },
     title: {
       fontFamily: Fonts.bold,

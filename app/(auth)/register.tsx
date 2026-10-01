@@ -15,6 +15,7 @@ import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 const Register = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -33,8 +34,11 @@ const Register = () => {
       });
       if (result.success) {
         await setItemAsync("isRegistered", "true");
+        Toast.show({
+          type: "success",
+          text1: "Registration successful",
+        });
         router.replace("/login");
-        // console.log("working");
       }
     } catch (error) {
       console.error(error);

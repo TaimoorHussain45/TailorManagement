@@ -27,6 +27,7 @@ import { useCallback, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 export default function ViewCustomer() {
   const theme = useTheme<AppTheme>();
@@ -263,15 +264,28 @@ export default function ViewCustomer() {
                 iconSize={17}
                 textColor={theme.colors.black}
                 style={styles.measurementBtn}
-                onPress={() =>
+                onPress={() => {
+                  if (latestMeasurement) {
+                    router.replace({
+                      pathname: "/(tabs)/orders/addOrder",
+                      params: {
+                        customerId: String(customer.id),
+                        customerName: customer.name,
+                        measurementId: String(latestMeasurement.id),
+                      },
+                    });
+                    return;
+                  }
+
                   router.replace({
-                    pathname: "/(tabs)/orders/addOrder",
-                    params: {
-                      customerId: String(customer.id),
-                      measurementId: String(latestMeasurement.id),
-                    },
-                  })
-                }
+                    pathname: "/(tabs)/customer/upperMeasurement",
+                    params: { customerId: String(customer.id) },
+                  });
+                  Toast.show({
+                    type: "warning",
+                    text1: "📏 Please take the measurement first.",
+                  });
+                }}
               />
             </>
           ) : (

@@ -29,8 +29,9 @@ export const CustomerStyles = (theme: AppTheme) =>
       alignItems: "center",
     },
     usersCards: {
-      gap: Metrics.spacingSmall,
+      gap: Metrics.spacingMedium,
       paddingTop: Metrics.spacingSmall,
+      paddingBottom: Metrics.spacingMedium,
     },
   });
 export const addCustomerStyles = (theme: AppTheme) =>

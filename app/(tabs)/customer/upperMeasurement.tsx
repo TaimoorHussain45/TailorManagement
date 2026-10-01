@@ -141,10 +141,6 @@ const UpperMeasurement = () => {
           measurementId: String(response.data.lastInsertRowId),
         },
       });
-      Toast.show({
-        type: "success",
-        text1: "Measurement Noted successfully ✅",
-      });
     } catch (error) {
       console.error("Failed to save measurement:", error);
       setSaveError("Could not save measurements. Please try again.");

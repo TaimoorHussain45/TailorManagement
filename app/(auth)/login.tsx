@@ -16,6 +16,7 @@ import { useState } from "react";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 const Login = () => {
   const theme = useTheme<AppTheme>();
@@ -47,6 +48,10 @@ const Login = () => {
         return;
       }
       await createSession(db);
+      Toast.show({
+        type: "success",
+        text1: "Login successful",
+      });
       router.replace("/(tabs)");
     } catch (error) {
       console.error("Biometric authentication error:", error);

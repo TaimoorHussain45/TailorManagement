@@ -24,11 +24,12 @@ const Customers = () => {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [visibleCustomerCount, setVisibleCustomerCount] = useState(7);
+  const [visibleCustomerCount, setVisibleCustomerCount] = useState(5);
 
   const loadCustomers = useCallback(async () => {
     setLoading(true);
     setLoadError(null);
+    setVisibleCustomerCount(5);
 
     try {
       const response = await getAllCustomers(db);
@@ -116,7 +117,7 @@ const Customers = () => {
             value={searchQuery}
             onChangeText={(text) => {
               setSearchQuery(text);
-              setVisibleCustomerCount(7);
+              setVisibleCustomerCount(5);
             }}
           />
         </View>
@@ -125,12 +126,19 @@ const Customers = () => {
           data={filteredCustomers.slice(0, visibleCustomerCount)}
           keyExtractor={(item) => String(item.id)}
           contentContainerStyle={styles.usersCards}
-          onEndReached={() =>
-            setVisibleCustomerCount((count) =>
-              Math.min(count + 5, filteredCustomers.length),
-            )
+          ListFooterComponent={
+            visibleCustomerCount < filteredCustomers.length ? (
+              <CustomButton
+                text="See more"
+                onPress={() =>
+                  setVisibleCustomerCount((count) =>
+                    Math.min(count + 5, filteredCustomers.length),
+                  )
+                }
+                style={{ marginTop: 8 }}
+              />
+            ) : null
           }
-          onEndReachedThreshold={0.5}
           ListEmptyComponent={
             <Typography variant="caption">No matching customers</Typography>
           }
