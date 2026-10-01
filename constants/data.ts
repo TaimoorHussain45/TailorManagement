@@ -4,8 +4,34 @@ import type {
   StyleOptionGroup,
 } from "@/types/types";
 import { router } from "expo-router";
-import { Lock, Moon, ShieldCheck, Smartphone, Sun } from "lucide-react-native";
+import {
+  ClipboardList,
+  Lock,
+  Moon,
+  Ruler,
+  ShieldCheck,
+  Smartphone,
+  Sun,
+  Users,
+} from "lucide-react-native";
 type ThemeMode = "light" | "dark" | "system";
+export const features = [
+  {
+    icon: Users,
+    title: "Keep customer details close",
+    description: "Save customer profiles and contact information in one place.",
+  },
+  {
+    icon: Ruler,
+    title: "Remember every measurement",
+    description: "Keep fitting records ready for the next visit.",
+  },
+  {
+    icon: ClipboardList,
+    title: "Stay on top of orders",
+    description: "Track each order from the first fitting to completion.",
+  },
+];
 export const upperFields: FieldType[] = [
   { key: "shirtLength", label: "Shirt Length", unit: "in" },
   { key: "chest", label: "Chest", unit: "in" },

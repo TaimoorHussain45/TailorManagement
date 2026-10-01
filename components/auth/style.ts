@@ -190,3 +190,60 @@ export const loginStyle = (theme: AppTheme) =>
       backgroundColor: theme.colors.transparent,
     },
   });
+
+export const onboardingStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    content: {
+      flexGrow: 1,
+      justifyContent: "space-between",
+      gap: 24,
+      paddingHorizontal: 24,
+      paddingVertical: 16,
+    },
+    intro: {
+      alignItems: "center",
+      gap: 12,
+    },
+    iconContainer: {
+      width: 88,
+      height: 88,
+      borderRadius: 44,
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: 8,
+      backgroundColor: theme.colors.SageGreen,
+    },
+    title: {
+      maxWidth: 340,
+      lineHeight: 38,
+      color: theme.colors.textPrimary,
+    },
+    description: {
+      maxWidth: 340,
+      lineHeight: 22,
+    },
+    features: {
+      gap: 12,
+    },
+    feature: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 14,
+      padding: 16,
+      borderWidth: 1,
+      borderRadius: 16,
+      backgroundColor: theme.colors.cardBackground,
+      borderColor: theme.colors.borderColor,
+    },
+    featureCopy: {
+      flex: 1,
+      gap: 3,
+    },
+    footer: {
+      gap: 12,
+    },
+  });
