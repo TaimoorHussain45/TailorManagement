@@ -110,6 +110,10 @@ export default function EditOrder() {
     }
   };
 
+  const currentStatusIndex = ORDER_STAGES.findIndex(
+    (stage) => stage.status === status,
+  );
+
   if (loading)
     return (
       <View style={styles.safeArea}>
@@ -214,6 +218,7 @@ export default function EditOrder() {
                     : theme.colors.textPrimary
                 }
                 style={styles.statusButton}
+                disabled={index < currentStatusIndex}
                 onPress={() => setStatus(option.status)}
               />
             ))}

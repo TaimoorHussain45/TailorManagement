@@ -49,7 +49,7 @@ export async function getDashboardData(
       ready: number;
     }>(
       `SELECT COUNT(*) as total,
-              COUNT(CASE WHEN status = 'Ready' THEN 1 END) as ready
+              COUNT(CASE WHEN status IN ('Ready', 'Delivered') THEN 1 END) as ready
        FROM "Order"
        WHERE datetime(updated_at) BETWEEN datetime(?) AND datetime(?)`,
       start,

@@ -12,7 +12,7 @@ import { router, useFocusEffect } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { ChevronRightIcon, Phone } from "lucide-react-native";
 import { useCallback, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -24,12 +24,12 @@ const Customers = () => {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [visibleCustomerCount, setVisibleCustomerCount] = useState(5);
+  const [visibleCustomerCount, setVisibleCustomerCount] = useState(10);
 
   const loadCustomers = useCallback(async () => {
     setLoading(true);
     setLoadError(null);
-    setVisibleCustomerCount(5);
+    setVisibleCustomerCount(10);
 
     try {
       const response = await getAllCustomers(db);
@@ -117,7 +117,7 @@ const Customers = () => {
             value={searchQuery}
             onChangeText={(text) => {
               setSearchQuery(text);
-              setVisibleCustomerCount(5);
+              setVisibleCustomerCount(10);
             }}
           />
         </View>
@@ -127,16 +127,36 @@ const Customers = () => {
           keyExtractor={(item) => String(item.id)}
           contentContainerStyle={styles.usersCards}
           ListFooterComponent={
-            visibleCustomerCount < filteredCustomers.length ? (
-              <CustomButton
-                text="See more"
-                onPress={() =>
-                  setVisibleCustomerCount((count) =>
-                    Math.min(count + 5, filteredCustomers.length),
-                  )
-                }
-                style={{ marginTop: 8 }}
-              />
+            visibleCustomerCount < filteredCustomers.length ||
+            visibleCustomerCount > 10 ? (
+              <View style={{ alignItems: "center", gap: 4, paddingTop: 8 }}>
+                {visibleCustomerCount < filteredCustomers.length ? (
+                  <TouchableOpacity
+                    onPress={() =>
+                      setVisibleCustomerCount((count) =>
+                        Math.min(count + 10, filteredCustomers.length),
+                      )
+                    }
+                    accessibilityRole="button"
+                    style={{ paddingVertical: 6 }}
+                  >
+                    <Typography variant="body2" color={theme.colors.primary}>
+                      See more
+                    </Typography>
+                  </TouchableOpacity>
+                ) : null}
+                {visibleCustomerCount > 10 ? (
+                  <TouchableOpacity
+                    onPress={() => setVisibleCustomerCount(10)}
+                    accessibilityRole="button"
+                    style={{ paddingVertical: 6 }}
+                  >
+                    <Typography variant="body2" color={theme.colors.primary}>
+                      See less
+                    </Typography>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
             ) : null
           }
           ListEmptyComponent={

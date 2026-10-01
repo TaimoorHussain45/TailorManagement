@@ -2,7 +2,7 @@
 
 ## Builds
 
-- [Android emulator build](https://expo.dev/accounts/taimoorhusssain/projects/tm-apparel/builds/3ad1d68b-cb40-40db-8a8b-ab40361c3b00)
+- [Android emulator build](https://expo.dev/accounts/taimoorhusssain/projects/tm-apparel/builds/73198bf8-1edd-4807-aa56-446bf96b76b1)
 
 ## Project Demo
 

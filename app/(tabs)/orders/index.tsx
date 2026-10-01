@@ -1,6 +1,5 @@
 import OrdersCard from "@/components/orders/ordersCard";
 import { ordersScreenStyles } from "@/components/orders/styles";
-import CustomButton from "@/components/ui/CustomButton";
 import Heading from "@/components/ui/Heading";
 import { IconButton } from "@/components/ui/IconButton";
 import SearchBar from "@/components/ui/SearchBar";
@@ -9,7 +8,7 @@ import { orderProgress } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
 import { useOrdersHook } from "@/hooks/useOrdersHook";
 import { useState } from "react";
-import { FlatList, ScrollView, View } from "react-native";
+import { FlatList, ScrollView, TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -19,7 +18,7 @@ export default function Orders() {
 
   const [status, setStatus] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [visibleOrderCount, setVisibleOrderCount] = useState(5);
+  const [visibleOrderCount, setVisibleOrderCount] = useState(10);
   const { orders, loading, loadError } = useOrdersHook();
 
   const statusFilteredOrders =
@@ -81,7 +80,7 @@ export default function Orders() {
             style={styles.orderButton}
             onPress={() => {
               setStatus(title);
-              setVisibleOrderCount(5);
+              setVisibleOrderCount(10);
             }}
             backgroundColor={title === status ? "red" : "transparent"}
           />
@@ -94,7 +93,7 @@ export default function Orders() {
           value={searchQuery}
           onChangeText={(text) => {
             setSearchQuery(text);
-            setVisibleOrderCount(5);
+            setVisibleOrderCount(10);
           }}
         />
       </View>
@@ -108,24 +107,42 @@ export default function Orders() {
           persistentScrollbar
           indicatorStyle={theme.colors.scrollIndicatorStyle}
           ListFooterComponent={
-            visibleOrderCount < filteredOrders.length ? (
-              <CustomButton
-                text="See more"
-                onPress={() =>
-                  setVisibleOrderCount((count) =>
-                    Math.min(count + 5, filteredOrders.length),
-                  )
-                }
-                style={{ marginTop: 8 }}
-              />
+            visibleOrderCount < filteredOrders.length ||
+            visibleOrderCount > 10 ? (
+              <View style={{ alignItems: "center", gap: 4, paddingTop: 8 }}>
+                {visibleOrderCount < filteredOrders.length ? (
+                  <TouchableOpacity
+                    onPress={() =>
+                      setVisibleOrderCount((count) =>
+                        Math.min(count + 10, filteredOrders.length),
+                      )
+                    }
+                    accessibilityRole="button"
+                    style={{ paddingVertical: 6 }}
+                  >
+                    <Typography variant="body2" color={theme.colors.primary}>
+                      See more
+                    </Typography>
+                  </TouchableOpacity>
+                ) : null}
+                {visibleOrderCount > 10 ? (
+                  <TouchableOpacity
+                    onPress={() => setVisibleOrderCount(10)}
+                    accessibilityRole="button"
+                    style={{ paddingVertical: 6 }}
+                  >
+                    <Typography variant="body2" color={theme.colors.primary}>
+                      See less
+                    </Typography>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
             ) : null
           }
           renderItem={({ item }) => <OrdersCard order={item} />}
           ListEmptyComponent={
             <Typography variant="caption">
-              {normalizedQuery
-                ? "No matching orders"
-                : `No ${status} orders`}
+              {normalizedQuery ? "No matching orders" : `No ${status} orders`}
             </Typography>
           }
         />
