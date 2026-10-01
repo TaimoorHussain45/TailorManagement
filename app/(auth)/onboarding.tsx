@@ -2,6 +2,7 @@ import NavLogo from "@/components/auth/NavLogo";
 import { onboardingStyles } from "@/components/auth/style";
 import CustomButton from "@/components/ui/CustomButton";
 import Typography from "@/components/ui/Typography";
+import { features } from "@/constants/data";
 import { AppTheme } from "@/constants/theme";
 import { router } from "expo-router";
 import { setItemAsync } from "expo-secure-store";
