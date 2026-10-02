@@ -17,12 +17,12 @@ const WelcomeCard = ({
   totalOrdersThisWeek,
 }: WelcomeCardProps) => {
   const theme = useTheme<AppTheme>();
-  const styles = WelcomeCardStyles(theme);
   const progress =
     totalOrdersThisWeek > 0
       ? Math.min(readyOrdersThisWeek / totalOrdersThisWeek, 1)
       : 0;
   const progressWidth: `${number}%` = `${progress * 100}%`;
+  const styles = WelcomeCardStyles(theme, progressWidth);
 
   return (
     <View style={styles.container}>
@@ -67,12 +67,7 @@ const WelcomeCard = ({
 
             <View style={styles.progressTrack}>
               <View
-                style={[
-                  styles.progressFill,
-                  {
-                    width: progressWidth,
-                  },
-                ]}
+                style={styles.progressFill}
               />
             </View>
           </View>

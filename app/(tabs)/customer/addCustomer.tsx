@@ -178,13 +178,7 @@ const AddCustomer = () => {
         />
 
         {!!errors.generalError && (
-          <Text
-            style={{
-              color: theme.colors.red,
-            }}
-          >
-            {errors.generalError}
-          </Text>
+          <Text style={styles.errorText}>{errors.generalError}</Text>
         )}
 
         <CustomButton

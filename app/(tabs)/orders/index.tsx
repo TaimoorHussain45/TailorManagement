@@ -109,7 +109,7 @@ export default function Orders() {
           ListFooterComponent={
             visibleOrderCount < filteredOrders.length ||
             visibleOrderCount > 10 ? (
-              <View style={{ alignItems: "center", gap: 4, paddingTop: 8 }}>
+              <View style={styles.listFooter}>
                 {visibleOrderCount < filteredOrders.length ? (
                   <TouchableOpacity
                     onPress={() =>
@@ -118,7 +118,7 @@ export default function Orders() {
                       )
                     }
                     accessibilityRole="button"
-                    style={{ paddingVertical: 6 }}
+                    style={styles.listFooterAction}
                   >
                     <Typography variant="body2" color={theme.colors.primary}>
                       See more
@@ -129,7 +129,7 @@ export default function Orders() {
                   <TouchableOpacity
                     onPress={() => setVisibleOrderCount(10)}
                     accessibilityRole="button"
-                    style={{ paddingVertical: 6 }}
+                    style={styles.listFooterAction}
                   >
                     <Typography variant="body2" color={theme.colors.primary}>
                       See less

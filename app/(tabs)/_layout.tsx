@@ -1,6 +1,10 @@
 import { AppTheme } from "@/constants/theme";
+import type {
+  EventArg,
+  NavigationProp,
+  ParamListBase,
+} from "@react-navigation/native";
 import { router, Tabs } from "expo-router";
-import type { EventArg, NavigationProp, ParamListBase } from "@react-navigation/native";
 import { ClipboardList, Home, Settings, Users } from "lucide-react-native";
 
 import { useTheme } from "react-native-paper";
@@ -11,7 +15,9 @@ function resetTabStackOnPress(
   event: EventArg<"tabPress", true, undefined>,
   href: "/(tabs)/customer" | "/(tabs)/orders",
 ) {
-  const tabRoute = navigation.getState().routes.find((route) => route.name === tabName);
+  const tabRoute = navigation
+    .getState()
+    .routes.find((route) => route.name === tabName);
   const nestedState = tabRoute?.state;
 
   if (!nestedState) {
@@ -57,7 +63,12 @@ export default function TabLayout() {
         }}
         listeners={({ navigation }) => ({
           tabPress: (event) =>
-            resetTabStackOnPress(navigation, "customer", event, "/(tabs)/customer"),
+            resetTabStackOnPress(
+              navigation,
+              "customer",
+              event,
+              "/(tabs)/customer",
+            ),
         })}
       />
       <Tabs.Screen

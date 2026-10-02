@@ -33,6 +33,14 @@ export const CustomerStyles = (theme: AppTheme) =>
       paddingTop: Metrics.spacingSmall,
       paddingBottom: Metrics.spacingMedium,
     },
+    listFooter: {
+      alignItems: "center",
+      gap: 4,
+      paddingTop: 8,
+    },
+    listFooterAction: {
+      paddingVertical: 6,
+    },
   });
 export const addCustomerStyles = (theme: AppTheme) =>
   StyleSheet.create({
@@ -61,6 +69,9 @@ export const addCustomerStyles = (theme: AppTheme) =>
     },
     customBtn: {
       marginVertical: Metrics.spacingMedium,
+    },
+    errorText: {
+      color: theme.colors.red,
     },
   });
 export const upperMeasurementStyles = (theme: AppTheme) =>
@@ -301,6 +312,7 @@ export const updateRecordStyles = (theme: AppTheme) =>
 export const measurementCardStyles = (theme: AppTheme) =>
   StyleSheet.create({
     card: {
+      backgroundColor: theme.colors.cardBackground,
       borderColor: theme.colors.borderColor,
       borderRadius: 18,
       borderWidth: 1,
@@ -313,6 +325,7 @@ export const measurementCardStyles = (theme: AppTheme) =>
     },
     icon: {
       alignItems: "center",
+      backgroundColor: theme.colors.SageGreen,
       borderRadius: 16,
       height: 34,
       justifyContent: "center",
@@ -323,6 +336,7 @@ export const measurementCardStyles = (theme: AppTheme) =>
       gap: 2,
     },
     divider: {
+      backgroundColor: theme.colors.divider,
       height: 1,
       marginVertical: 12,
     },

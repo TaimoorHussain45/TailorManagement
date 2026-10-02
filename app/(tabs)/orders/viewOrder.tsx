@@ -148,32 +148,6 @@ export default function ViewOrder() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* <View style={styles.card}>
-          <View style={styles.statusRow}>
-            <View style={styles.statusLeft}>
-              {isCompleted ? (
-                <CheckCircle2 size={22} color={theme.colors.primary} />
-              ) : (
-                <Clock3 size={22} color={theme.colors.primary} />
-              )}
-
-              <Typography variant="h4" style={styles.statusValue}>
-                {order.status}
-              </Typography>
-            </View>
-
-            <View style={styles.statusBadge}>
-              <Typography variant="caption" style={styles.statusBadgeText}>
-                {progress}%
-              </Typography>
-            </View>
-          </View>
-
-          <View style={styles.progressBarTrack}>
-            <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
-          </View>
-        </View> */}
-
         <UserCard
           customerName={order.customerName}
           phoneNumber={order.phoneNumber}

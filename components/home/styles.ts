@@ -85,7 +85,7 @@ export const orderCardStyles = (theme: AppTheme) =>
     },
   });
 
-export const WelcomeCardStyles = (theme: AppTheme) =>
+export const WelcomeCardStyles = (theme: AppTheme, progressWidth: `${number}%`) =>
   StyleSheet.create({
     container: {
       height: 190,
@@ -147,6 +147,7 @@ export const WelcomeCardStyles = (theme: AppTheme) =>
       height: "100%",
       borderRadius: 3,
       backgroundColor: theme.colors.red,
+      width: progressWidth,
     },
     footerConatiner: {
       flexDirection: "row",

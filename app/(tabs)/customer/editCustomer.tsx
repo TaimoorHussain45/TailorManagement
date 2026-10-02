@@ -129,7 +129,7 @@ export default function EditCustomer() {
           }
         />
         {error ? (
-          <Text style={{ color: theme.colors.red }}>{error}</Text>
+          <Text style={styles.errorText}>{error}</Text>
         ) : null}
         <CustomButton
           text="Save changes"

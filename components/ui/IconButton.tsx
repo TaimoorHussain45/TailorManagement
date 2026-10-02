@@ -24,24 +24,18 @@ export const IconButton = ({
     backgroundColor ?? theme.colors.cardBackground;
   const borderTheme = borderColor ?? theme.colors.borderColor;
 
-  const sizeStyle = text
-    ? { height: size, paddingHorizontal: Metrics.spacingMedium }
-    : { width: size, height: size };
+  const styles = iconButtonStyles(
+    size,
+    Boolean(text),
+    resolvedBackgroundColor,
+    borderTheme,
+  );
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
-      style={[
-        styles.button,
-        sizeStyle,
-        {
-          borderRadius: size / 2,
-          backgroundColor: resolvedBackgroundColor,
-          borderColor: borderTheme,
-        },
-        style,
-      ]}
+      style={[styles.button, styles.size, styles.appearance, style]}
       {...rest}
     >
       {!text ? (
@@ -55,11 +49,25 @@ export const IconButton = ({
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    shadowRadius: 4,
-  },
-});
+const iconButtonStyles = (
+  size: number,
+  hasText: boolean,
+  backgroundColor: string,
+  borderColor: string,
+) =>
+  StyleSheet.create({
+    button: {
+      alignItems: "center",
+      justifyContent: "center",
+      borderWidth: 1,
+      shadowRadius: 4,
+    },
+    size: hasText
+      ? { height: size, paddingHorizontal: Metrics.spacingMedium }
+      : { width: size, height: size },
+    appearance: {
+      borderRadius: size / 2,
+      backgroundColor,
+      borderColor,
+    },
+  });

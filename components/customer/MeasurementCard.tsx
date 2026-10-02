@@ -10,13 +10,9 @@ const MeasurementCard = ({ data, onPress }: MeasurementCardProps) => {
   const theme = useTheme<AppTheme>();
   const styles = measurementCardStyles(theme);
   return (
-    <View
-      style={[styles.card, { backgroundColor: theme.colors.cardBackground }]}
-    >
+    <View style={styles.card}>
       <View style={styles.headingRow}>
-        <View
-          style={[styles.icon, { backgroundColor: theme.colors.SageGreen }]}
-        >
+        <View style={styles.icon}>
           <Ruler size={18} color={theme.colors.accentGold} />
         </View>
         <View style={styles.headingContent}>
@@ -28,9 +24,7 @@ const MeasurementCard = ({ data, onPress }: MeasurementCardProps) => {
           </Typography>
         </View>
       </View>
-      <View
-        style={[styles.divider, { backgroundColor: theme.colors.divider }]}
-      />
+      <View style={styles.divider} />
       <View style={styles.measurements}>
         {data.measurements.map((measurement) => (
           <View key={measurement.label} style={styles.measurement}>

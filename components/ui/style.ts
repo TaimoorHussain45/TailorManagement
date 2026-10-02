@@ -72,7 +72,13 @@ export const inputFieldStyle = (theme: AppTheme) =>
       color: theme.colors.red,
     },
   });
-export const measurementInputStyles = (theme: AppTheme) =>
+export const measurementInputStyles = (
+  theme: AppTheme,
+  borderRadius: number,
+  borderColor: string,
+  valueColor: string,
+  dividerColor: string,
+) =>
   StyleSheet.create({
     container: {
       gap: 3,
@@ -91,6 +97,8 @@ export const measurementInputStyles = (theme: AppTheme) =>
       flexDirection: "row",
       alignItems: "center",
       borderWidth: 1.5,
+      borderRadius,
+      borderColor,
       paddingHorizontal: 16,
       paddingVertical: 14,
       backgroundColor: theme.colors.cardBackground,
@@ -100,12 +108,13 @@ export const measurementInputStyles = (theme: AppTheme) =>
       fontSize: Metrics.fontSizeXLarge,
       fontFamily: Fonts.bold,
       padding: 0,
-      color: theme.colors.textPrimary,
+      color: valueColor,
     },
     divider: {
       width: 1,
       height: 20,
       marginHorizontal: 12,
+      backgroundColor: dividerColor,
     },
     errorText: {},
     unitText: {

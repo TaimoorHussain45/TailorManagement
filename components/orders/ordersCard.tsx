@@ -10,7 +10,7 @@ import Typography from "../ui/Typography";
 import { OrdersCardStyles } from "./styles";
 const OrdersCard = ({ order, icon }: OrdersCardProps) => {
   const theme = useTheme<AppTheme>();
-  const styles = OrdersCardStyles(theme);
+  const styles = OrdersCardStyles(theme, order.progress);
   const openOrder = () =>
     router.replace({
       pathname: "/(tabs)/orders/viewOrder",
@@ -67,9 +67,7 @@ const OrdersCard = ({ order, icon }: OrdersCardProps) => {
           <View></View>
         </View>
         <View style={styles.progressTrack}>
-          <View
-            style={[styles.progressFill, { width: `${order.progress}%` }]}
-          />
+          <View style={styles.progressFill} />
         </View>
         <View>
           <Typography variant="body2" align="right">

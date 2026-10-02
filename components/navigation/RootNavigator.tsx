@@ -13,6 +13,7 @@ type AuthScreen = "login" | "onboarding" | "register";
 export default function RootNavigator() {
   const db = useSQLiteContext();
   const theme = useTheme<AppTheme>();
+  const styles = rootNavigatorStyles(theme);
   const segments = useSegments();
 
   const [checking, setChecking] = useState(true);
@@ -65,14 +66,7 @@ export default function RootNavigator() {
 
   if (checking) {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: theme.colors.background,
-        }}
-      >
+      <View style={styles.initialLoadingContainer}>
         <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
@@ -89,10 +83,7 @@ export default function RootNavigator() {
       </Stack>
       {!initialRouteReady ? (
         <View
-          style={[
-            styles.loadingOverlay,
-            { backgroundColor: theme.colors.background },
-          ]}
+          style={styles.loadingOverlay}
         >
           <ActivityIndicator size="large" color={theme.colors.primary} />
         </View>
@@ -112,13 +103,21 @@ function isAtInitialRoute(
   return segments[0] === "(auth)" && segments[1] === authScreen;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  loadingOverlay: {
-    ...StyleSheet.absoluteFill,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const rootNavigatorStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    initialLoadingContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: theme.colors.background,
+    },
+    loadingOverlay: {
+      ...StyleSheet.absoluteFill,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: theme.colors.background,
+    },
+  });

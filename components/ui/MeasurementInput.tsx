@@ -23,12 +23,17 @@ export const MeasurementInput = ({
   ...rest
 }: MeasurementInputProps) => {
   const theme = useTheme<AppTheme>();
-  const styles = measurementInputStyles(theme);
-
   const resolvedLabelTextColor = labelTextColor ?? theme.colors.textPrimary;
   const resolvedValueColor = valueColor ?? theme.colors.measurementValue;
   const resolvedUnitColor = unitColor ?? theme.colors.mutedText;
   const resolvedDividerColor = dividerColor ?? theme.colors.inputDivider;
+  const styles = measurementInputStyles(
+    theme,
+    borderRadius,
+    error ? theme.colors.error : theme.colors.borderColor,
+    resolvedValueColor,
+    resolvedDividerColor,
+  );
 
   return (
     <View style={[styles.container, style]}>
@@ -38,26 +43,16 @@ export const MeasurementInput = ({
         </Typography>
       </View>
 
-      <View
-        style={[
-          styles.card,
-          {
-            borderRadius,
-            borderColor: error ? theme.colors.error : theme.colors.borderColor,
-          },
-        ]}
-      >
+      <View style={styles.card}>
         <TextInput
           value={value}
           onChangeText={onChangeText}
           keyboardType="numeric"
-          style={[styles.valueText, { color: resolvedValueColor }]}
+          style={styles.valueText}
           {...rest}
         />
 
-        <View
-          style={[styles.divider, { backgroundColor: resolvedDividerColor }]}
-        />
+        <View style={styles.divider} />
 
         <Typography color={resolvedUnitColor} variant="h4">
           {unit}

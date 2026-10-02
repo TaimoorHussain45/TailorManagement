@@ -6,12 +6,10 @@ import { IconButton } from "@/components/ui/IconButton";
 import SearchBar from "@/components/ui/SearchBar";
 import Typography from "@/components/ui/Typography";
 import { AppTheme } from "@/constants/theme";
-import { getAllCustomers } from "@/services/customer";
-import type { Customer } from "@/types/types";
-import { router, useFocusEffect } from "expo-router";
-import { useSQLiteContext } from "expo-sqlite";
+import { useCustomersHook } from "@/hooks/useCustomersHook";
+import { router } from "expo-router";
 import { ChevronRightIcon, Phone } from "lucide-react-native";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,46 +17,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Customers = () => {
   const theme = useTheme<AppTheme>();
   const styles = CustomerStyles(theme);
-  const db = useSQLiteContext();
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState<string | null>(null);
+  const {
+    customers,
+    loading,
+    loadError,
+    loadCustomers,
+    visibleCustomerCount,
+    setVisibleCustomerCount,
+  } = useCustomersHook();
   const [searchQuery, setSearchQuery] = useState("");
-  const [visibleCustomerCount, setVisibleCustomerCount] = useState(10);
-
-  const loadCustomers = useCallback(async () => {
-    setLoading(true);
-    setLoadError(null);
-    setVisibleCustomerCount(10);
-
-    try {
-      const response = await getAllCustomers(db);
-
-      if (!response.success) {
-        setLoadError(
-          typeof response.error === "string"
-            ? response.error
-            : "Unable to load customers. Please try again.",
-        );
-        setCustomers([]);
-        return;
-      }
-
-      setCustomers(response.data);
-    } catch (error) {
-      console.error("loadCustomers failed:", error);
-      setLoadError("Unable to load customers. Please try again.");
-      setCustomers([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [db]);
-
-  useFocusEffect(
-    useCallback(() => {
-      loadCustomers();
-    }, [loadCustomers]),
-  );
 
   if (loading) {
     return (
@@ -126,10 +93,11 @@ const Customers = () => {
           data={filteredCustomers.slice(0, visibleCustomerCount)}
           keyExtractor={(item) => String(item.id)}
           contentContainerStyle={styles.usersCards}
+          showsVerticalScrollIndicator={false}
           ListFooterComponent={
             visibleCustomerCount < filteredCustomers.length ||
             visibleCustomerCount > 10 ? (
-              <View style={{ alignItems: "center", gap: 4, paddingTop: 8 }}>
+              <View style={styles.listFooter}>
                 {visibleCustomerCount < filteredCustomers.length ? (
                   <TouchableOpacity
                     onPress={() =>
@@ -138,7 +106,7 @@ const Customers = () => {
                       )
                     }
                     accessibilityRole="button"
-                    style={{ paddingVertical: 6 }}
+                    style={styles.listFooterAction}
                   >
                     <Typography variant="body2" color={theme.colors.primary}>
                       See more
@@ -149,7 +117,7 @@ const Customers = () => {
                   <TouchableOpacity
                     onPress={() => setVisibleCustomerCount(10)}
                     accessibilityRole="button"
-                    style={{ paddingVertical: 6 }}
+                    style={styles.listFooterAction}
                   >
                     <Typography variant="body2" color={theme.colors.primary}>
                       See less

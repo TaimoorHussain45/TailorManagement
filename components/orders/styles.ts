@@ -1,7 +1,7 @@
 import { Metrics } from "@/constants/metrics";
 import { AppTheme, Fonts } from "@/constants/theme";
 import { StyleSheet } from "react-native";
-export const OrdersCardStyles = (theme: AppTheme) =>
+export const OrdersCardStyles = (theme: AppTheme, progress?: number) =>
   StyleSheet.create({
     container: {
       borderColor: theme.colors.borderColor,
@@ -52,6 +52,7 @@ export const OrdersCardStyles = (theme: AppTheme) =>
       height: "100%",
       backgroundColor: theme.colors.clayRose,
       borderRadius: Metrics.radiusCircle,
+      width: progress === undefined ? "100%" : `${progress}%`,
     },
     recordButton: {},
     recordActions: {
@@ -248,6 +249,14 @@ export const ordersScreenStyles = (theme: AppTheme) =>
       paddingHorizontal: Metrics.spacingMedium, // side spacing lives inside the list
       paddingTop: Metrics.spacingSmall,
       paddingBottom: Metrics.spacingXLarge,
+    },
+    listFooter: {
+      alignItems: "center",
+      gap: 4,
+      paddingTop: 8,
+    },
+    listFooterAction: {
+      paddingVertical: 6,
     },
     orderButton: {},
     emptyContainer: {
