@@ -1,16 +1,5 @@
-import type { OrderRecord, OrderStatus } from "@/types/types";
+import type { NewOrder, OrderRecord } from "@/types/types";
 import { type SQLiteDatabase } from "expo-sqlite";
-
-export type NewOrder = {
-  customer_id: number;
-  measurement_id?: number | null;
-  title: string;
-  description?: string;
-  due_date?: string;
-  quantity: number;
-  status: OrderStatus;
-  progress: number;
-};
 
 export type UpdateOrder = Omit<NewOrder, "customer_id" | "measurement_id">;
 

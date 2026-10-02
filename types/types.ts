@@ -169,7 +169,32 @@ export type Measurement = {
   number_of_pockets: string | null;
   created_at: string;
 };
-
+export type DashboardData = {
+  fittingsThisWeek: number;
+  readyOrdersThisWeek: number;
+  totalOrdersThisWeek: number;
+  activeOrders: number;
+  customersSaved: number;
+  recentActivity: {
+    activityId: number;
+    entityType: "customer" | "measurement" | "order";
+    entityId: number;
+    customerId: number;
+    customerName: string;
+    activity: string;
+    occurredAt: string;
+  }[];
+};
+export type NewOrder = {
+  customer_id: number;
+  measurement_id?: number | null;
+  title: string;
+  description?: string;
+  due_date?: string;
+  quantity: number;
+  status: OrderStatus;
+  progress: number;
+};
 export type HeadingProps = {
   eyebrow: string;
   title: string;

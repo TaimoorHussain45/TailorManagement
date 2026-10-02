@@ -1,23 +1,7 @@
 // services/dashboardService.ts
+import { DashboardData } from "@/types/types";
 import { getWeekRange } from "@/utils/getWeekRange";
 import { type SQLiteDatabase } from "expo-sqlite";
-
-export type DashboardData = {
-  fittingsThisWeek: number;
-  readyOrdersThisWeek: number;
-  totalOrdersThisWeek: number;
-  activeOrders: number;
-  customersSaved: number;
-  recentActivity: {
-    activityId: number;
-    entityType: "customer" | "measurement" | "order";
-    entityId: number;
-    customerId: number;
-    customerName: string;
-    activity: string;
-    occurredAt: string;
-  }[];
-};
 
 export async function getDashboardData(
   db: SQLiteDatabase,
