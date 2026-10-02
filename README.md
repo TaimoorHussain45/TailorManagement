@@ -2,8 +2,8 @@
 
 ## Builds
 
-- [Android emulator build](https://expo.dev/accounts/taimoorhusssain/projects/tm-apparel/builds/73198bf8-1edd-4807-aa56-446bf96b76b1)
+- [Android emulator build](https://expo.dev/accounts/taimoorhusssain/projects/tm-apparel/builds/e185fc23-2a12-4a1c-9c7a-9caf3f1c5672)
 
 ## Project Demo
 
-- [Demo video](https://drive.google.com/file/d/1MpEJ6Hif0w6o3D6_GNnZ6Krl_wgy-cGn/view?usp=sharing)
+- [Demo video](https://drive.google.com/file/d/1MN43J5HoSHFlTsOwFvav9FwOH_YASIIf/view?usp=sharing)
